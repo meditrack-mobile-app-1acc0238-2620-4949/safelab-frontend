@@ -1,0 +1,1231 @@
+{
+  "auth": {
+    "logout": "Sign out"
+  },
+  "app": {
+    "name": "SafeLab",
+    "tagline": "Real-time laboratory monitoring",
+    "role": "Administrator",
+    "searchPlaceholder": "Search modules or views...",
+    "search": "Search"
+  },
+  "roles": {
+    "safeLabAdministrator": "SafeLab Administrator",
+    "bioclinicalCoordinator": "Bioclinical Operations Coordinator",
+    "hospitalPharmacyCoordinator": "Hospital Pharmacy Coordinator",
+    "labTechnician": "Laboratory Technician",
+    "pharmacyTechnician": "Pharmacy Technician",
+    "complianceOfficer": "Compliance Officer",
+    "maintenanceOperator": "Maintenance Operator",
+    "billingManager": "Billing Manager",
+    "laboratoryStaff": "Laboratory Staff",
+    "pharmaceuticalCompany": "Pharmaceutical Company"
+  },
+  "actions": {
+    "toggleSidebar": "Toggle sidebar",
+    "language": "Language",
+    "profile": "Open profile",
+    "logout": "Log out",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "viewDetails": "View details",
+    "newRecord": "New record",
+    "notifications": "Open notifications",
+    "toggleTheme": "Toggle dark mode"
+  },
+  "status": {
+    "inDevelopment": "In development",
+    "comingSoon": "This module is ready for implementation in its corresponding feature branch.",
+    "templateNote": "The base route, DDD folders and localization keys are already configured."
+  },
+  "navigation": {
+    "menu": "Menu",
+    "allModules": "Core modules",
+    "main": "Main navigation",
+    "rolePreview": "Role preview"
+  },
+  "contextLabels": {
+    "iam": "Identity & Access",
+    "profiles": "User Profiles",
+    "billing": "Billing & Plans",
+    "dashboard": "Dashboard",
+    "assets": "Assets & Inventory",
+    "sensors": "Sensor Monitoring",
+    "compliance": "Compliance",
+    "alerts": "Alerts",
+    "remote": "Remote Control",
+    "reports": "Reports & Analytics",
+    "incidents": "Incidents",
+    "audit": "Audit Trail",
+    "administration": "Administration"
+  },
+  "menu": {
+    "alerts": {
+      "ActiveAlerts": "Active Alerts",
+      "AlertDetail": "Alert Detail",
+      "AlertHistory": "Alert History",
+      "CriticalAlerts": "Critical Alerts",
+      "NotificationSettings": "Notification Settings",
+      "NotificationHistory": "Notification History",
+      "RecipientManagement": "Recipient Management",
+      "EscalationPolicy": "Escalation Policy"
+    },
+    "assets": {
+      "AssetList": "Asset List",
+      "AssetDetail": "Asset Detail",
+      "EquipmentStatus": "Equipment Status",
+      "InventoryList": "Inventory List",
+      "CriticalSupplies": "Critical Supplies",
+      "StockMovementHistory": "Stock Movement History",
+      "StorageUnit": "Storage Unit",
+      "MaintenanceOverview": "Maintenance Overview"
+    },
+    "audit": {
+      "AuditLog": "Audit Log",
+      "ActivityHistory": "Activity History",
+      "TraceabilityTimeline": "Traceability Timeline",
+      "EquipmentHistory": "Equipment History",
+      "ComplianceTraceability": "Compliance Traceability",
+      "AuditEvidence": "Audit Evidence",
+      "OperationalTraceability": "Operational Traceability",
+      "ChangeHistory": "Change History",
+      "RemoteCommandHistory": "Remote Command History"
+    },
+    "dashboard": {
+      "LaboratoryDashboard": "Laboratory Dashboard",
+      "ComplianceOverview": "Compliance Overview",
+      "PlatformOverview": "Platform Overview",
+      "KPISummary": "KPI Summary",
+      "AlertOverview": "Alert Overview",
+      "AssetOverview": "Asset Overview",
+      "SensorOverview": "Sensor Overview",
+      "IncidentOverview": "Incident Overview",
+      "DashboardFilters": "Dashboard Filters",
+      "DashboardWidgets": "Dashboard Widgets"
+    },
+    "compliance": {
+      "ComplianceStatus": "Compliance Status",
+      "StorageCompliance": "Storage Compliance",
+      "ComplianceRules": "Compliance Rules",
+      "EnvironmentalValidationResults": "Environmental Validation Results",
+      "ViolationHistory": "Violation History",
+      "ViolationDetail": "Violation Detail",
+      "ComplianceEvidence": "Compliance Evidence",
+      "status": {
+        "eyebrow": "Environmental Compliance",
+        "title": "Environmental Compliance",
+        "subtitle": "Monitoring of regulations and standards.",
+        "kpis": {
+          "compliance": "General compliance",
+          "violations": "Active violations",
+          "audits": "Pending audits",
+          "monitoredSensors": "Monitored sensors"
+        },
+        "rulesTitle": "Active compliance rules",
+        "rulesSubtitle": "Monitored conditions in real time.",
+        "violationsLabel": "Violations",
+        "ruleType": "Type: {type}",
+        "ruleLabels": {
+          "temperatureRange": "Temperature range",
+          "humidityMax": "Humidity max",
+          "energyRange": "Energy range",
+          "vibrationRange": "Vibration range",
+          "doorStatus": "Door status",
+          "generic": "Rule"
+        },
+        "types": {
+          "Temperature": "Temperature",
+          "Humidity": "Humidity",
+          "Energy": "Energy",
+          "Vibration": "Vibration",
+          "DoorStatus": "Door status"
+        },
+        "badges": {
+          "compliant": "Complies",
+          "violation": "Violation"
+        },
+        "states": {
+          "loading": "Loading compliance data...",
+          "error": "Failed to load compliance data.",
+          "empty": "No compliance rules detected."
+        },
+        "violationsTitle": "Recent compliance violations",
+        "violationsSubtitle": "Sensors currently outside configured environmental ranges.",
+        "evidenceTitle": "Compliance evidence summary",
+        "evidenceSubtitle": "Current readiness of rules and evidence for audits.",
+        "noViolationsTitle": "No active violations",
+        "noViolationsDescription": "All monitored rules are currently within accepted ranges.",
+        "currentValue": "Current value",
+        "allowedRange": "Allowed range",
+        "lastReading": "Last reading",
+        "sensorsLabel": "Sensors",
+        "evidence": {
+          "totalRules": "Total rules",
+          "compliantRules": "Compliant rules",
+          "violatedRules": "Violated rules",
+          "pendingEvidence": "Pending evidence"
+        }
+      }
+    },
+    "iam": {
+      "Login": "Login",
+      "Register": "Register",
+      "UserManagement": "User Management",
+      "RoleManagement": "Role Management",
+      "PermissionManagement": "Permission Management",
+      "SessionStatus": "Session Status"
+    },
+    "incidents": {
+      "IncidentList": "Incident List",
+      "IncidentDetail": "Incident Detail",
+      "IncidentTracking": "Incident Tracking",
+      "Assignment": "Assignment",
+      "CorrectiveActions": "Corrective Actions",
+      "ResolutionReview": "Resolution Review",
+      "IncidentEvidence": "Incident Evidence",
+      "CriticalIncidents": "Critical Incidents"
+    },
+    "remote": {
+      "RemoteControlPanel": "Remote Control Panel",
+      "CommandHistory": "Command History",
+      "CommandStatus": "Command Status",
+      "ActuatorStatus": "Actuator Status",
+      "DeviceControlPolicy": "Device Control Policy",
+      "ExecutionResult": "Execution Result",
+      "SafetyValidation": "Safety Validation"
+    },
+    "reports": {
+      "ReportsList": "Reports List",
+      "ReportDetail": "Report Detail",
+      "ReportGenerator": "Report Generator",
+      "AnalyticsDashboard": "Analytics Dashboard",
+      "TrendAnalysis": "Trend Analysis",
+      "ExportHistory": "Export History",
+      "ComplianceReports": "Compliance Reports",
+      "OperationalReports": "Operational Reports"
+    },
+    "sensors": {
+      "SensorList": "Sensor List",
+      "SensorDetail": "Sensor Detail",
+      "LiveReadings": "Live Readings",
+      "SensorStatus": "Sensor Status",
+      "ThresholdSettings": "Threshold Settings",
+      "TelemetryHistory": "Telemetry History",
+      "CalibrationHistory": "Calibration History",
+      "MonitoringDashboard": "Monitoring Dashboard",
+      "monitoring": {
+        "eyebrow": "Monitoring",
+        "title": "Real-time Monitoring",
+        "subtitle": "Continuous tracking of every sensor in your facilities.",
+        "searchPlaceholder": "Search device...",
+        "searchAriaLabel": "Search sensors",
+        "filters": {
+          "type": "Type",
+          "status": "Status",
+          "all": "All"
+        },
+        "states": {
+          "loading": "Loading sensors...",
+          "error": "Failed to load sensors.",
+          "empty": "No sensors detected."
+        },
+        "metrics": {
+          "currentValue": "Current value",
+          "currentTemperature": "Current temperature",
+          "currentHumidity": "Current humidity",
+          "currentDoorStatus": "Current door status",
+          "currentVibration": "Current vibration",
+          "currentEnergy": "Current energy"
+        },
+        "details": {
+          "readingStatus": "Reading status",
+          "targetRange": "Target range",
+          "lastReading": "Last reading",
+          "notAvailable": "N/A"
+        },
+        "time": {
+          "justNow": "just now",
+          "secondsAgo": "{count}s ago",
+          "minutesAgo": "{count}m ago"
+        },
+        "types": {
+          "Temperature": "Temperature",
+          "Humidity": "Humidity",
+          "DoorStatus": "Door status",
+          "Vibration": "Vibration",
+          "Energy": "Energy"
+        },
+        "readingStatus": {
+          "Normal": "Normal",
+          "OutOfRange": "Out of range",
+          "Invalid": "Invalid"
+        },
+        "aria": {
+          "status": "Status {status}"
+        },
+        "summary": {
+          "totalSensors": "Total sensors",
+          "totalSensorsDescription": "Devices registered",
+          "normalReadings": "Normal readings",
+          "normalReadingsDescription": "Within target range",
+          "outOfRange": "Out of range",
+          "outOfRangeDescription": "Requires review",
+          "invalidReadings": "Invalid readings",
+          "invalidReadingsDescription": "Disconnected or invalid"
+        },
+        "sensorStatus": {
+          "Active": "Active",
+          "Inactive": "Inactive",
+          "Disconnected": "Disconnected",
+          "Maintenance": "Maintenance"
+        }
+      }
+    },
+    "billing": {
+      "Plans": "Plans",
+      "SubscriptionStatus": "Subscription Status",
+      "BillingDashboard": "Billing Dashboard",
+      "InvoiceHistory": "Invoice History",
+      "PaymentHistory": "Payment History",
+      "PlanManagement": "Plan Management",
+      "CustomerSubscriptions": "Customer Subscriptions"
+    },
+    "profiles": {
+      "MyProfile": "My Profile",
+      "CompanyProfile": "Company Profile",
+      "ProfileManagement": "Profile Management",
+      "Preferences": "Preferences",
+      "NotificationSettings": "Notification Settings",
+      "ContactInformation": "Contact Information"
+    },
+    "administration": "Administration"
+  },
+  "home": {
+    "title": "Control Panel",
+    "subtitle": "Operational overview for SafeLab laboratory monitoring, compliance, alerts and traceability.",
+    "description": "Main capabilities prepared for the SafeLab frontend application. Each module has its route, DDD folder structure and placeholder view for branch-based development.",
+    "frontendLabel": "SafeLab Frontend",
+    "metricsLabel": "Operational metrics",
+    "metricActiveSensors": "Active sensors",
+    "metricCompliance": "Compliance score",
+    "metricOpenAlerts": "Open alerts",
+    "metricRoutesReady": "Visible modules",
+    "trendStable": "Stable telemetry",
+    "trendPositive": "Healthy environment",
+    "trendAttention": "Requires attention",
+    "trendModules": "Ready for roles",
+    "operationalSummary": "Operational summary",
+    "monitoringCoverage": "Monitoring coverage",
+    "compliantStorage": "Compliant storage",
+    "pendingReview": "Pending review",
+    "priorityAlerts": "Priority alerts",
+    "recentNotifications": "Recent notifications",
+    "alertColdRoom": "Cold room temperature deviation",
+    "alertColdRoomCopy": "Temperature exceeded the configured threshold.",
+    "alertCalibration": "Sensor calibration pending",
+    "alertCalibrationCopy": "Two sensors require calibration review.",
+    "alertReport": "Compliance report ready",
+    "alertReportCopy": "Monthly evidence export is available.",
+    "moduleSummary": "Module summary",
+    "highlightSensors": "Live monitoring",
+    "highlightSensorsCopy": "Review sensor status, readings and threshold behavior.",
+    "highlightCompliance": "Compliance control",
+    "highlightComplianceCopy": "Validate environmental conditions and violation evidence.",
+    "highlightIncidents": "Incident response",
+    "highlightIncidentsCopy": "Track incidents, assignments and corrective actions.",
+    "highlightReports": "Reports and analytics",
+    "highlightReportsCopy": "Analyze trends, KPIs and operational reports."
+  },
+  "dashboardOverview": {
+    "hero": {
+      "monitoring": "Monitoring",
+      "compliance": "Compliance",
+      "platform": "Platform overview",
+      "kpis": "Operational indicators",
+      "operations": "Operations",
+      "inventory": "Assets and inventory",
+      "configuration": "Dashboard configuration",
+      "healthScore": "Health score",
+      "lastUpdated": "Updated recently"
+    },
+    "views": {
+      "laboratoryDashboard": {
+        "title": "Laboratory Dashboard",
+        "description": "Review the current state of monitored storage areas, sensors, alerts and operational compliance."
+      },
+      "complianceOverview": {
+        "title": "Compliance Overview",
+        "description": "Validate environmental compliance, storage evidence and pending rule violations."
+      },
+      "platformOverview": {
+        "title": "Platform Overview",
+        "description": "Monitor the most relevant platform indicators for administrators and supervisors."
+      },
+      "kpiSummary": {
+        "title": "KPI Summary",
+        "description": "Analyze operational KPIs used to support quick decisions and sprint review evidence."
+      },
+      "alertOverview": {
+        "title": "Alert Overview",
+        "description": "Review active alert indicators, critical notifications and escalation priorities."
+      },
+      "assetOverview": {
+        "title": "Asset Overview",
+        "description": "Review inventory coverage, compliant storage and asset-related operational status."
+      },
+      "sensorOverview": {
+        "title": "Sensor Overview",
+        "description": "Review active sensors, live monitoring coverage and telemetry trends."
+      },
+      "incidentOverview": {
+        "title": "Incident Overview",
+        "description": "Track incident indicators, unresolved cases and operational risks."
+      },
+      "dashboardFilters": {
+        "title": "Dashboard Filters",
+        "description": "Review the role, laboratory, time period and refresh criteria applied to dashboard data."
+      },
+      "dashboardWidgets": {
+        "title": "Dashboard Widgets",
+        "description": "Review the widgets available for the role-based dashboard experience."
+      }
+    },
+    "kpis": {
+      "activeSensors": "Active sensors",
+      "complianceScore": "Compliance score",
+      "openAlerts": "Open alerts",
+      "criticalAlerts": "Critical alerts",
+      "storageUnits": "Storage units",
+      "criticalIncidents": "Critical incidents",
+      "reportsReady": "Reports ready"
+    },
+    "sections": {
+      "compliance": "Compliance control",
+      "notifications": "Recent activity",
+      "widgets": "Role-based widgets",
+      "trends": "Monitoring trends",
+      "filters": "Applied filters",
+      "kpis": "Dashboard KPIs",
+      "laboratories": "Laboratory status",
+      "risks": "Operational risks"
+    },
+    "status": {
+      "compliant": "Compliant",
+      "normal": "Normal",
+      "warning": "Warning",
+      "critical": "Critical",
+      "stable": "Stable"
+    },
+    "messages": {
+      "fallback": "Mock server data is not available. The dashboard is showing local sample data so the view can still be reviewed."
+    },
+    "compliance": {
+      "title": "Storage compliance",
+      "compliantStorage": "Compliant storage units",
+      "violatedRules": "Violated rules",
+      "evidenceReady": "Evidence ready"
+    },
+    "notifications": {
+      "title": "Priority notifications",
+      "freezerTitle": "Temperature deviation in Freezer A-01",
+      "freezerMessage": "The cold chain threshold was exceeded and requires review.",
+      "humidityTitle": "Humidity warning in Storage B",
+      "humidityMessage": "Humidity is approaching the configured compliance limit.",
+      "reportTitle": "Compliance report ready",
+      "reportMessage": "Monthly environmental evidence can be exported.",
+      "sensorTitle": "Sensor connection restored",
+      "sensorMessage": "Sensor T-204 resumed telemetry after a short interruption."
+    },
+    "widgets": {
+      "title": "Dashboard widgets",
+      "alerts": "Alerts summary",
+      "alertsCopy": "Critical and active alerts that require attention.",
+      "assets": "Asset coverage",
+      "assetsCopy": "Registered assets and storage coverage status.",
+      "sensors": "Sensor coverage",
+      "sensorsCopy": "Online sensors currently reporting telemetry.",
+      "incidents": "Incident overview",
+      "incidentsCopy": "Open and critical incidents requiring follow-up.",
+      "laboratory": "Laboratory overview",
+      "laboratoryCopy": "Health score, monitoring scope and recent activity for the selected laboratory.",
+      "compliance": "Compliance overview",
+      "complianceCopy": "Environmental rule status, evidence readiness and pending violations.",
+      "platform": "Platform overview",
+      "platformCopy": "General platform visibility for administrators and supervisors.",
+      "kpis": "KPI summary",
+      "kpisCopy": "Main operational indicators used for fast decision-making."
+    },
+    "trends": {
+      "title": "Environmental trends",
+      "temperature": "Average temperature",
+      "humidity": "Average humidity",
+      "alerts": "Open alerts",
+      "compliance": "Compliance score"
+    },
+    "filters": {
+      "title": "Current dashboard scope",
+      "configure": "Configure",
+      "role": "Role",
+      "laboratory": "Laboratory",
+      "period": "Period",
+      "refreshRate": "Refresh rate"
+    },
+    "trendsText": {
+      "online": "All reporting today",
+      "monitored": "Cold chain monitored",
+      "improved": "Improved this week",
+      "requiresAttention": "Needs review",
+      "urgent": "Immediate follow-up",
+      "exportable": "Ready to export"
+    },
+    "values": {
+      "roleAdmin": "SafeLab Administrator",
+      "centralLaboratory": "Central Laboratory",
+      "last24Hours": "Last 24 hours",
+      "refreshRate": "Every 5 minutes",
+      "nextAudit": "May 20, 2026"
+    },
+    "laboratories": {
+      "title": "Monitored laboratories",
+      "sensors": "sensors",
+      "alerts": "alerts"
+    },
+    "risks": {
+      "title": "Risk snapshot",
+      "temperatureDeviation": "Temperature deviations",
+      "disconnectedSensors": "Disconnected sensors",
+      "pendingEvidence": "Pending evidence",
+      "openIncidents": "Open incidents"
+    }
+  },
+  "alertsNotifications": {
+    "module": {
+      "eyebrow": "Monitoring & Operations",
+      "title": "Alerts",
+      "description": "Review active alerts, acknowledge operational events and track sensor-related issues."
+    },
+    "summary": {
+      "criticalAlerts": "Critical alerts",
+      "criticalDescription": "Require immediate action",
+      "unacknowledged": "Unacknowledged",
+      "unacknowledgedDescription": "Pending review",
+      "totalAlerts": "Total alerts",
+      "totalDescription": "Registered events",
+      "warningAlerts": "Warning alerts",
+      "warningDescription": "Need follow-up"
+    },
+    "table": {
+      "type": "Type",
+      "device": "Device",
+      "location": "Location",
+      "severity": "Severity",
+      "status": "Status",
+      "createdAt": "Created at",
+      "actions": "Actions",
+      "message": "Message",
+      "channel": "Channel",
+      "sentAt": "Sent at",
+      "deliveredAt": "Delivered at",
+      "retries": "Retries",
+      "minimumSeverity": "Minimum severity",
+      "recipients": "Recipients",
+      "active": "Active"
+    },
+    "notificationPanel": {
+      "title": "Recent notifications",
+      "unread": "unread",
+      "viewAll": "View all notifications",
+      "markAsRead": "Mark as read"
+    },
+    "filters": {
+      "search": "Search",
+      "searchPlaceholder": "Search by device, location or type",
+      "severity": "Severity",
+      "status": "Status",
+      "allSeverities": "All severities",
+      "allStatuses": "All statuses",
+      "clearFilters": "Clear filters"
+    },
+    "severity": {
+      "info": "Info",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "status": {
+      "active": "Active",
+      "acknowledged": "Acknowledged",
+      "resolved": "Resolved",
+      "escalated": "Escalated",
+      "pending": "Pending",
+      "sent": "Sent",
+      "delivered": "Delivered",
+      "failed": "Failed",
+      "notDelivered": "Not delivered"
+    },
+    "actions": {
+      "notificationHistory": "Notification History",
+      "notificationSettings": "Notification Settings",
+      "viewDetails": "View Details",
+      "acknowledge": "Acknowledge",
+      "resolve": "Resolve",
+      "escalate": "Escalate",
+      "retry": "Retry",
+      "saveRule": "Save rule",
+      "back": "Back"
+    },
+    "detail": {
+      "eyebrow": "Alert Detail",
+      "title": "Temperature threshold exceeded",
+      "description": "Cold Chamber A-01 exceeded the configured temperature threshold.",
+      "code": "Code",
+      "type": "Type",
+      "device": "Device",
+      "location": "Location",
+      "createdAt": "Created at",
+      "assignedTo": "Assigned to",
+      "unassigned": "Not assigned"
+    },
+    "notifications": {
+      "eyebrow": "Alerts & Notifications",
+      "title": "Notification History",
+      "description": "Track delivery status by channel, recipient and retry attempts."
+    },
+    "deliveryRules": {
+      "eyebrow": "Configuration",
+      "title": "Delivery Rules",
+      "description": "Configure who receives alerts depending on severity and delivery channel.",
+      "newRule": "New rule",
+      "configuredRules": "Configured rules",
+      "minimumSeverity": "Minimum severity",
+      "channel": "Channel",
+      "selectSeverity": "Select severity",
+      "selectChannel": "Select channel",
+      "recipients": "Recipients",
+      "activeRule": "Active rule",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "channels": {
+      "email": "email",
+      "sms": "sms",
+      "push": "push",
+      "whatsapp": "WhatsApp"
+    },
+    "types": {
+      "temperatureDeviation": "Temperature Deviation",
+      "humidityDeviation": "Humidity Deviation",
+      "connectivityIssue": "Connectivity Issue"
+    },
+    "devices": {
+      "coldChamberA01": "Cold Chamber A-01"
+    },
+    "locations": {
+      "laboratoryRoom101": "Laboratory Room 101"
+    },
+    "messages": {
+      "criticalTemperatureAlert": "Critical temperature alert in Cold Chamber A-01.",
+      "immediateActionRequired": "Immediate action required for Cold Chamber A-01."
+    },
+    "people": {
+      "mariaLopez": "Dr. Maria Lopez",
+      "carlosRamirez": "Carlos Ramirez",
+      "safeLabAdministrator": "SafeLab Administrator",
+      "labTechnician": "Lab Technician"
+    },
+    "errors": {
+      "loadAlerts": "Could not load alerts.",
+      "loadAlertDetail": "Could not load alert detail.",
+      "loadNotifications": "Could not load notifications.",
+      "loadRecipients": "Could not load recipients.",
+      "loadDeliveryRules": "Could not load delivery rules.",
+      "loadEscalationPolicies": "Could not load escalation policies."
+    },
+    "loading": {
+      "alerts": "Loading alerts...",
+      "alertDetail": "Loading alert detail...",
+      "notifications": "Loading notifications...",
+      "deliveryRules": "Loading delivery rules..."
+    },
+    "empty": {
+      "alerts": "No alerts found.",
+      "notifications": "No notifications found.",
+      "deliveryRules": "No delivery rules configured."
+    }
+  },
+  "remoteControl": {
+    "module": {
+      "eyebrow": "Remote Control & Actuation",
+      "title": "Remote Control Panel",
+      "description": "Review authorized actuators, validate safety status and execute simulated remote commands."
+    },
+    "summary": {
+      "totalDevices": "Total devices",
+      "totalDescription": "Registered actuators",
+      "availableDevices": "Available",
+      "availableDescription": "Ready for commands",
+      "blockedDevices": "Blocked",
+      "blockedDescription": "Locked or offline",
+      "executedToday": "Executed today",
+      "executedDescription": "Remote commands"
+    },
+    "filters": {
+      "deviceType": "Device type",
+      "allTypes": "All types"
+    },
+    "types": {
+      "Cooling": "Cooling",
+      "DoorLock": "Door lock",
+      "Alarm": "Alarm",
+      "Telemetry": "Telemetry",
+      "Ventilation": "Ventilation",
+      "Relay": "Relay",
+      "Power": "Power cycle",
+      "Lock": "Lock"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "maintenance": "Maintenance"
+    },
+    "safetyStates": {
+      "ready": "Ready",
+      "locked": "Locked",
+      "review": "Needs review",
+      "enabled": "Enabled",
+      "blocked": "Blocked"
+    },
+    "commands": {
+      "runSelfCheck": "Run self-check",
+      "setSafeMode": "Set safe mode",
+      "lockDevice": "Lock device",
+      "unlockDevice": "Unlock device",
+      "restartTelemetry": "Restart telemetry",
+      "acknowledgeBuzzer": "Acknowledge buzzer",
+      "start": "Start",
+      "stop": "Stop",
+      "reset": "Reset",
+      "Standby": "Standby"
+    },
+    "commandStatus": {
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed"
+    },
+    "table": {
+      "type": "Type",
+      "location": "Location",
+      "linkedSensor": "Linked sensor",
+      "safetyState": "Safety state",
+      "lastCommand": "Last command"
+    },
+    "history": {
+      "title": "Command history",
+      "subtitle": "Latest remote command execution records.",
+      "command": "Command",
+      "device": "Device",
+      "status": "Status",
+      "requestedBy": "Requested by",
+      "createdAt": "Created at"
+    },
+    "policy": {
+      "title": "Safety policies",
+      "subtitle": "Control rules applied before executing a command.",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "refresh": "Refresh"
+    },
+    "states": {
+      "loading": "Loading remote control data..."
+    },
+    "empty": {
+      "noCommand": "No command yet",
+      "noHistory": "No commands registered yet."
+    },
+    "messages": {
+      "confirmCommand": "Do you want to execute {command} on {device}?"
+    }
+  },
+  "reportsAnalytics": {
+    "module": {
+      "eyebrow": "Reports & Analytics",
+      "title": "Analytics Overview",
+      "description": "Review operational metrics, report readiness and monitoring trends to support decisions."
+    },
+    "navigation": {
+      "reports": "Reports",
+      "reportsDescription": "Generate and manage operational reports.",
+      "historicalData": "Historical Data",
+      "historicalDataDescription": "Review sensor and environmental history.",
+      "exportData": "Export Data",
+      "exportDataDescription": "Export analytics and compliance evidence."
+    },
+    "summary": {
+      "totalReports": "Reports",
+      "totalReportsDescription": "Registered reports",
+      "activeAlerts": "Active alerts",
+      "activeAlertsDescription": "Pending operational review",
+      "averageTemperature": "Avg. temperature",
+      "averageTemperatureDescription": "Across temperature sensors",
+      "averageHumidity": "Avg. humidity",
+      "averageHumidityDescription": "Across humidity sensors"
+    },
+    "trends": {
+      "title": "Monitoring trends",
+      "subtitle": "Current indicators calculated from SafeLab operational data."
+    },
+    "risk": {
+      "title": "Operational risk",
+      "subtitle": "Risk snapshot based on alerts, sensor deviations and compliance score.",
+      "criticalAlerts": "Critical alerts",
+      "outOfRangeSensors": "Out-of-range sensors",
+      "disconnectedSensors": "Disconnected sensors",
+      "complianceScore": "Compliance score",
+      "levels": {
+        "low": "Low risk",
+        "medium": "Medium risk",
+        "high": "High risk"
+      }
+    },
+    "recentReports": {
+      "title": "Recent reports",
+      "subtitle": "Latest generated or pending reports.",
+      "empty": "No reports available.",
+      "allEquipment": "All equipment"
+    },
+    "recentAlerts": {
+      "title": "Recent alerts",
+      "subtitle": "Latest operational events used in analytics.",
+      "empty": "No alerts available."
+    },
+    "states": {
+      "loading": "Loading analytics...",
+      "error": "Could not load analytics."
+    }
+  },
+  "audit": {
+    "heroEyebrow": "Audit & Traceability",
+    "integrityScore": "Integrity score",
+    "updatedRecently": "Updated recently",
+    "navigationLabel": "Audit and traceability views",
+    "metricsLabel": "Audit metrics",
+    "loading": "Loading audit data...",
+    "emptyLogs": "No audit logs match the selected filters.",
+    "auditLogEyebrow": "Audit control",
+    "auditLogTitle": "Recent audit records",
+    "timelineEyebrow": "Traceability timeline",
+    "timelineTitle": "Latest tracked events",
+    "healthEyebrow": "Coverage",
+    "healthTitle": "Traceability health",
+    "evidenceEyebrow": "Evidence repository",
+    "evidenceTitle": "Audit evidence",
+    "trackedEyebrow": "Tracked scope",
+    "trackedTitle": "Entity traceability",
+    "changeEyebrow": "System changes",
+    "changeTitle": "Change history",
+    "commandEyebrow": "Remote actions",
+    "commandTitle": "Command history",
+    "pages": {
+      "AuditLog": {
+        "title": "Audit Log",
+        "description": "Review user activity, system changes and operational events recorded across SafeLab."
+      },
+      "ActivityHistory": {
+        "title": "Activity History",
+        "description": "Track relevant activity performed by users, modules and automated platform rules."
+      },
+      "TraceabilityTimeline": {
+        "title": "Traceability Timeline",
+        "description": "Follow the chronological path of assets, sensors, incidents, evidence and remote actions."
+      },
+      "EquipmentHistory": {
+        "title": "Equipment History",
+        "description": "Review historical records related to equipment status, maintenance and storage changes."
+      },
+      "ComplianceTraceability": {
+        "title": "Compliance Traceability",
+        "description": "Validate that compliance evaluations, violations and evidence remain auditable."
+      },
+      "AuditEvidence": {
+        "title": "Audit Evidence",
+        "description": "Manage evidence files and records linked to audit events, incidents and compliance reviews."
+      },
+      "OperationalTraceability": {
+        "title": "Operational Traceability",
+        "description": "Analyze operational records generated by sensors, assets, alerts and incident workflows."
+      },
+      "ChangeHistory": {
+        "title": "Change History",
+        "description": "Review configuration and permission changes that affect platform behavior."
+      },
+      "RemoteCommandHistory": {
+        "title": "Remote Command History",
+        "description": "Trace remote commands executed over connected actuators and monitored equipment."
+      }
+    },
+    "metrics": {
+      "totalLogs": "Total audit logs",
+      "reviewedLogs": "Reviewed logs",
+      "pendingLogs": "Pending review",
+      "criticalEvents": "Critical events",
+      "integrityScore": "Integrity score",
+      "retention": "{days} days retained",
+      "evidenceReady": "Evidence linked",
+      "needsReview": "Requires validation",
+      "highPriority": "High priority",
+      "immutableTrace": "Protected records"
+    },
+    "filters": {
+      "search": "Search",
+      "searchPlaceholder": "Search by actor, module, action or evidence...",
+      "severity": "Severity",
+      "status": "Status",
+      "allStatuses": "All statuses",
+      "allSeverities": "All severities"
+    },
+    "table": {
+      "id": "ID",
+      "actor": "Actor",
+      "action": "Action",
+      "module": "Module",
+      "severity": "Severity",
+      "status": "Status",
+      "createdAt": "Created at",
+      "evidence": "Evidence"
+    },
+    "severity": {
+      "info": "Info",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "status": {
+      "reviewed": "Reviewed",
+      "pending": "Pending",
+      "ready": "Ready"
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk"
+    },
+    "commandResult": {
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "failed": "Failed"
+    },
+    "health": {
+      "auditCoverage": "Audit coverage",
+      "evidenceCoverage": "Evidence coverage",
+      "changeIntegrity": "Change integrity",
+      "remoteCommandTraceability": "Remote command traceability"
+    },
+    "tracked": {
+      "assets": "Assets tracked",
+      "sensors": "Sensors tracked",
+      "incidents": "Incidents traced",
+      "commands": "Remote commands"
+    },
+    "errors": {
+      "load": "Could not load audit and traceability data."
+    }
+  },
+  "assetInventory": {
+    "module": {
+      "eyebrow": "Asset & Inventory Monitoring",
+      "title": "Asset List",
+      "description": "Review monitored laboratory assets, storage units, responsible staff and current compliance status."
+    },
+    "summary": {
+      "totalAssets": "Total assets",
+      "totalAssetsDescription": "Registered in inventory",
+      "compliant": "Compliant",
+      "compliantDescription": "Ready for operation",
+      "warning": "Warning",
+      "warningDescription": "Requires review",
+      "critical": "Critical",
+      "criticalDescription": "Immediate action"
+    },
+    "table": {
+      "title": "Monitored assets",
+      "subtitle": "Current asset coverage for laboratory storage and cold chain control.",
+      "id": "ID",
+      "assetName": "Asset Name",
+      "category": "Category",
+      "storageUnit": "Storage Unit",
+      "location": "Location",
+      "lastInspection": "Last Inspection",
+      "responsible": "Responsible",
+      "status": "Status",
+      "actions": "Actions",
+      "uncategorized": "Uncategorized",
+      "empty": "No assets registered yet."
+    },
+    "form": {
+      "title": "Asset Details",
+      "assetName": "Asset name",
+      "category": "Category",
+      "categoryPlaceholder": "Medical Supply, Equipment, Reagent...",
+      "storageUnit": "Storage Unit",
+      "location": "Location",
+      "locationPlaceholder": "Central Lab A",
+      "lastInspection": "Last Inspection",
+      "lastInspectionPlaceholder": "2026-06-18",
+      "responsible": "Responsible",
+      "responsiblePlaceholder": "Dr. Maria Lopez",
+      "status": "Status"
+    },
+    "actions": {
+      "newAsset": "New Asset",
+      "refresh": "Refresh",
+      "cancel": "Cancel",
+      "save": "Save",
+      "edit": "Edit asset",
+      "delete": "Delete asset"
+    },
+    "validation": {
+      "assetNameRequired": "Asset name is required.",
+      "storageUnitRequired": "Storage unit is required."
+    },
+    "status": {
+      "compliant": "Compliant",
+      "warning": "Warning",
+      "critical": "Critical",
+      "unknown": "Unknown"
+    },
+    "messages": {
+      "deleteConfirmation": "Are you sure you want to delete this asset?"
+    }
+  },
+  "incidentManagement": {
+    "module": {
+      "eyebrow": "Operations",
+      "title": "Incident Management",
+      "description": "Track, investigate, resolve and document operational incidents related to cold chain monitoring."
+    },
+    "summary": {
+      "total": "Total incidents",
+      "totalDescription": "Registered cases",
+      "open": "Open",
+      "openDescription": "Waiting for action",
+      "investigating": "Investigating",
+      "investigatingDescription": "Under review",
+      "critical": "Critical",
+      "criticalDescription": "High priority"
+    },
+    "filters": {
+      "search": "Search",
+      "searchPlaceholder": "Search by title, sensor, area or code",
+      "status": "Status",
+      "severity": "Severity",
+      "all": "All"
+    },
+    "status": {
+      "open": "Open",
+      "investigating": "Investigating",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
+    "severity": {
+      "critical": "Critical",
+      "warning": "Warning",
+      "info": "Info"
+    },
+    "fields": {
+      "assignedTo": "Assigned to",
+      "affectedArea": "Affected area",
+      "relatedAlert": "Related alert",
+      "relatedSensor": "Related sensor",
+      "relatedAsset": "Related asset",
+      "evidence": "Evidence",
+      "dueDate": "Due date",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at"
+    },
+    "sections": {
+      "correctiveAction": "Corrective action",
+      "timeline": "Incident timeline"
+    },
+    "actions": {
+      "viewDetails": "View details",
+      "back": "Back",
+      "markInvestigating": "Start investigation",
+      "markResolved": "Mark as resolved",
+      "closeIncident": "Close incident",
+      "viewReport": "View report"
+    },
+    "states": {
+      "loading": "Loading incidents...",
+      "loadingDetail": "Loading incident...",
+      "error": "Could not load incidents.",
+      "errorDetail": "Could not load incident detail.",
+      "empty": "No incidents found with the selected filters."
+    },
+    "empty": {
+      "unassigned": "Unassigned",
+      "notSpecified": "Not specified",
+      "noCorrectiveAction": "No corrective action has been documented yet.",
+      "noTimeline": "No timeline events registered."
+    }
+  },
+  "subscriptionBilling": {
+    "module": {
+      "eyebrow": "Subscription Billing",
+      "title": "My Subscription",
+      "description": "Review your current plan, billing information and usage limits."
+    },
+    "overview": {
+      "currentPlan": "Current plan",
+      "status": "Status",
+      "renewalDate": "Renewal date",
+      "monthlyCost": "Monthly cost",
+      "deviceUsage": "Device usage",
+      "devices": "devices"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "cancelled": "Cancelled"
+    },
+    "billingCycle": {
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "navigation": {
+      "invoices": "View Invoices",
+      "invoicesDescription": "Review generated invoices.",
+      "paymentHistory": "Payment History",
+      "paymentHistoryDescription": "Track completed payments.",
+      "usageLimits": "Usage & Limits",
+      "usageLimitsDescription": "Review subscription limits.",
+      "upgradePlan": "Upgrade Plan",
+      "upgradePlanDescription": "Compare available plans."
+    },
+    "activity": {
+      "title": "Recent Billing Activity",
+      "latestInvoice": "Latest invoice",
+      "latestInvoiceDescription": "Most recent generated invoice for your subscription.",
+      "billingCycle": "Billing cycle",
+      "billingCycleDescription": "Your subscription renews automatically every billing cycle."
+    },
+    "invoices": {
+      "title": "Invoices",
+      "description": "Review invoice status, billing periods and downloadable documents.",
+      "invoice": "Invoice",
+      "period": "Period",
+      "amount": "Amount",
+      "status": "Status",
+      "dueDate": "Due date",
+      "actions": "Actions"
+    },
+    "invoiceStatus": {
+      "paid": "Paid",
+      "pending": "Pending",
+      "failed": "Failed"
+    },
+    "payments": {
+      "title": "Payment History",
+      "description": "Review successful payments and billing methods.",
+      "amount": "Amount",
+      "paidAt": "Paid at",
+      "status": "Status"
+    },
+    "paymentStatus": {
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed"
+    },
+    "usage": {
+      "title": "Usage & Limits",
+      "description": "Monitor usage against the limits included in your current plan.",
+      "devices": "Devices",
+      "sensors": "Sensors",
+      "reports": "Reports",
+      "alerts": "Alerts"
+    },
+    "upgrade": {
+      "title": "Upgrade Plan",
+      "description": "Compare available SafeLab plans and select a better fit for your operation.",
+      "currentPlan": "Current plan",
+      "selectPlan": "Select plan",
+      "perMonth": "per month",
+      "confirmPlan": "Do you want to switch to {plan}?"
+    },
+    "actions": {
+      "download": "Download"
+    },
+    "states": {
+      "loading": "Loading billing data...",
+      "error": "Could not load billing data."
+    }
+  },
+  "userProfiles": {
+    "module": {
+      "eyebrow": "User Profiles",
+      "title": "My Profile",
+      "description": "Review and update your personal information, preferences and access details."
+    },
+    "summary": {
+      "currentUser": "Current user"
+    },
+    "sections": {
+      "personalDataEyebrow": "Profile data",
+      "personalData": "Personal information",
+      "accessEyebrow": "Access context",
+      "accessInformation": "Access information",
+      "preferencesEyebrow": "Personal settings",
+      "preferences": "Preferences",
+      "securityEyebrow": "Security",
+      "security": "Security settings"
+    },
+    "fields": {
+      "userId": "User ID",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "position": "Position",
+      "organization": "Organization",
+      "laboratory": "Laboratory",
+      "role": "Role",
+      "language": "Language",
+      "timezone": "Timezone",
+      "notificationPreference": "Notification preference",
+      "lastAccess": "Last access",
+      "lastPasswordChange": "Last password change"
+    },
+    "roles": {
+      "safeLabAdministrator": "SafeLab Administrator",
+      "bioclinicalCoordinator": "Bioclinical Operations Coordinator",
+      "hospitalPharmacyCoordinator": "Hospital Pharmacy Coordinator",
+      "labTechnician": "Laboratory Technician",
+      "pharmacyTechnician": "Pharmacy Technician",
+      "complianceOfficer": "Compliance Officer",
+      "maintenanceOperator": "Maintenance Operator",
+      "billingManager": "Billing Manager"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "notificationPreference": {
+      "criticalOnly": "Critical alerts only",
+      "criticalAndDaily": "Critical alerts and daily summary",
+      "allOperational": "All operational updates"
+    },
+    "security": {
+      "description": "Password changes are simulated in this frontend version and will be connected to IAM later."
+    },
+    "actions": {
+      "saveChanges": "Save changes",
+      "savePreferences": "Save preferences",
+      "saving": "Saving...",
+      "updateSecurity": "Update security info"
+    },
+    "states": {
+      "loading": "Loading profile...",
+      "error": "Could not load user profile.",
+      "saved": "Profile updated successfully."
+    }
+  }
+}

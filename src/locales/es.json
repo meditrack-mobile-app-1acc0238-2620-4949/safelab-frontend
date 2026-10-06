@@ -1,0 +1,1232 @@
+{
+  "auth": {
+    "logout": "Cerrar sesión"
+  },
+  "app": {
+    "name": "SafeLab",
+    "tagline": "Monitoreo de laboratorio en tiempo real",
+    "role": "Administrador",
+    "searchPlaceholder": "Buscar módulos o vistas...",
+    "search": "Buscar"
+  },
+  "roles": {
+    "safeLabAdministrator": "Administrador de SafeLab",
+    "bioclinicalCoordinator": "Coordinador de operaciones bioclínicas",
+    "hospitalPharmacyCoordinator": "Coordinador de farmacia hospitalaria",
+    "labTechnician": "Técnico de laboratorio",
+    "pharmacyTechnician": "Técnico de farmacia",
+    "complianceOfficer": "Responsable de cumplimiento",
+    "maintenanceOperator": "Operador de mantenimiento",
+    "billingManager": "Responsable de facturación",
+    "laboratoryStaff": "Personal de laboratorio",
+    "pharmaceuticalCompany": "Empresa farmacéutica"
+  },
+  "actions": {
+    "toggleSidebar": "Mostrar u ocultar menú",
+    "language": "Idioma",
+    "profile": "Abrir perfil",
+    "logout": "Cerrar sesión",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "viewDetails": "Ver detalles",
+    "newRecord": "Nuevo registro",
+    "notifications": "Abrir notificaciones",
+    "toggleTheme": "Cambiar modo oscuro"
+  },
+  "status": {
+    "inDevelopment": "En desarrollo",
+    "comingSoon": "Este módulo está listo para implementarse en su rama feature correspondiente.",
+    "templateNote": "La ruta base, carpetas DDD y claves de traducción ya están configuradas."
+  },
+  "navigation": {
+    "menu": "Menú",
+    "allModules": "Módulos principales",
+    "main": "Navegación principal",
+    "rolePreview": "Vista de rol"
+  },
+  "contextLabels": {
+    "iam": "Identidad y acceso",
+    "profiles": "Perfiles de usuario",
+    "billing": "Facturación y planes",
+    "dashboard": "Panel",
+    "assets": "Activos e inventario",
+    "sensors": "Sensores",
+    "compliance": "Cumplimiento",
+    "alerts": "Alertas",
+    "remote": "Control remoto",
+    "reports": "Reportes y analítica",
+    "incidents": "Incidentes",
+    "audit": "Auditoría",
+    "administration": "Administración"
+  },
+  "menu": {
+    "alerts": {
+      "ActiveAlerts": "Alertas activas",
+      "AlertDetail": "Detalle de alerta",
+      "AlertHistory": "Historial de alertas",
+      "CriticalAlerts": "Alertas críticas",
+      "NotificationSettings": "Configuración de notificaciones",
+      "NotificationHistory": "Historial de notificaciones",
+      "RecipientManagement": "Gestión de destinatarios",
+      "EscalationPolicy": "Política de escalamiento"
+    },
+    "assets": {
+      "AssetList": "Lista de activos",
+      "AssetDetail": "Detalle de activo",
+      "EquipmentStatus": "Estado de equipos",
+      "InventoryList": "Lista de inventario",
+      "CriticalSupplies": "Insumos críticos",
+      "StockMovementHistory": "Historial de movimientos",
+      "StorageUnit": "Unidad de almacenamiento",
+      "MaintenanceOverview": "Resumen de mantenimiento"
+    },
+    "audit": {
+      "AuditLog": "Registro de auditoría",
+      "ActivityHistory": "Historial de actividad",
+      "TraceabilityTimeline": "Línea de tiempo de trazabilidad",
+      "EquipmentHistory": "Historial de equipos",
+      "ComplianceTraceability": "Trazabilidad de cumplimiento",
+      "AuditEvidence": "Evidencia de auditoría",
+      "OperationalTraceability": "Trazabilidad operativa",
+      "ChangeHistory": "Historial de cambios",
+      "RemoteCommandHistory": "Historial de comandos remotos"
+    },
+    "dashboard": {
+      "LaboratoryDashboard": "Panel de laboratorio",
+      "ComplianceOverview": "Resumen de cumplimiento",
+      "PlatformOverview": "Resumen de plataforma",
+      "KPISummary": "Resumen de KPIs",
+      "AlertOverview": "Resumen de alertas",
+      "AssetOverview": "Resumen de activos",
+      "SensorOverview": "Resumen de sensores",
+      "IncidentOverview": "Resumen de incidentes",
+      "DashboardFilters": "Filtros del panel",
+      "DashboardWidgets": "Widgets del panel"
+    },
+    "compliance": {
+      "ComplianceStatus": "Estado de cumplimiento",
+      "StorageCompliance": "Cumplimiento de almacenamiento",
+      "ComplianceRules": "Reglas de cumplimiento",
+      "EnvironmentalValidationResults": "Resultados de validación ambiental",
+      "ViolationHistory": "Historial de infracciones",
+      "ViolationDetail": "Detalle de infracción",
+      "ComplianceEvidence": "Evidencia de cumplimiento",
+      "status": {
+        "eyebrow": "Cumplimiento ambiental",
+        "title": "Cumplimiento ambiental",
+        "subtitle": "Monitoreo de regulaciones y normativas.",
+        "kpis": {
+          "compliance": "Cumplimiento general",
+          "violations": "Infracciones activas",
+          "audits": "Auditorías pendientes",
+          "monitoredSensors": "Sensores monitoreados"
+        },
+        "rulesTitle": "Reglas de cumplimiento activas",
+        "rulesSubtitle": "Condiciones monitoreadas en tiempo real.",
+        "violationsLabel": "Infracciones",
+        "ruleType": "Tipo: {type}",
+        "ruleLabels": {
+          "temperatureRange": "Rango de temperatura",
+          "humidityMax": "Humedad máx.",
+          "energyRange": "Rango de energía",
+          "vibrationRange": "Rango de vibración",
+          "doorStatus": "Estado de puerta",
+          "generic": "Regla"
+        },
+        "types": {
+          "Temperature": "Temperatura",
+          "Humidity": "Humedad",
+          "Energy": "Energía",
+          "Vibration": "Vibración",
+          "DoorStatus": "Estado de puerta"
+        },
+        "badges": {
+          "compliant": "Cumple",
+          "violation": "Infracción"
+        },
+        "states": {
+          "loading": "Cargando datos de cumplimiento...",
+          "error": "No se pudieron cargar los datos de cumplimiento.",
+          "empty": "No se detectaron reglas de cumplimiento."
+        },
+        "violationsTitle": "Infracciones recientes de cumplimiento",
+        "violationsSubtitle": "Sensores actualmente fuera de los rangos ambientales configurados.",
+        "evidenceTitle": "Resumen de evidencias de cumplimiento",
+        "evidenceSubtitle": "Estado actual de preparación de reglas y evidencias para auditorías.",
+        "noViolationsTitle": "No hay infracciones activas",
+        "noViolationsDescription": "Todas las reglas monitoreadas se encuentran dentro de los rangos aceptados.",
+        "currentValue": "Valor actual",
+        "allowedRange": "Rango permitido",
+        "lastReading": "Última lectura",
+        "sensorsLabel": "Sensores",
+        "evidence": {
+          "totalRules": "Reglas totales",
+          "compliantRules": "Reglas conformes",
+          "violatedRules": "Reglas infringidas",
+          "pendingEvidence": "Evidencias pendientes"
+        }
+      }
+    },
+    "iam": {
+      "Login": "Iniciar sesión",
+      "Register": "Registrarse",
+      "UserManagement": "Gestión de usuarios",
+      "RoleManagement": "Gestión de roles",
+      "PermissionManagement": "Gestión de permisos",
+      "SessionStatus": "Estado de sesión"
+    },
+    "incidents": {
+      "IncidentList": "Lista de incidentes",
+      "IncidentDetail": "Detalle de incidente",
+      "IncidentTracking": "Seguimiento de incidente",
+      "Assignment": "Asignación",
+      "CorrectiveActions": "Acciones correctivas",
+      "ResolutionReview": "Revisión de resolución",
+      "IncidentEvidence": "Evidencia de incidente",
+      "CriticalIncidents": "Incidentes críticos"
+    },
+    "remote": {
+      "RemoteControlPanel": "Panel de control remoto",
+      "CommandHistory": "Historial de comandos",
+      "CommandStatus": "Estado de comandos",
+      "ActuatorStatus": "Estado de actuadores",
+      "DeviceControlPolicy": "Política de control de dispositivos",
+      "ExecutionResult": "Resultado de ejecución",
+      "SafetyValidation": "Validación de seguridad"
+    },
+    "reports": {
+      "ReportsList": "Lista de reportes",
+      "ReportDetail": "Detalle de reporte",
+      "ReportGenerator": "Generador de reportes",
+      "AnalyticsDashboard": "Panel de analítica",
+      "TrendAnalysis": "Análisis de tendencias",
+      "ExportHistory": "Historial de exportaciones",
+      "ComplianceReports": "Reportes de cumplimiento",
+      "OperationalReports": "Reportes operativos"
+    },
+    "sensors": {
+      "SensorList": "Lista de sensores",
+      "SensorDetail": "Detalle de sensor",
+      "LiveReadings": "Lecturas en vivo",
+      "SensorStatus": "Estado de sensores",
+      "ThresholdSettings": "Configuración de umbrales",
+      "TelemetryHistory": "Historial de telemetría",
+      "CalibrationHistory": "Historial de calibración",
+      "MonitoringDashboard": "Panel de monitoreo",
+      "monitoring": {
+        "eyebrow": "Monitoreo",
+        "title": "Monitoreo en tiempo real",
+        "subtitle": "Seguimiento continuo de cada sensor en tus instalaciones.",
+        "searchPlaceholder": "Buscar dispositivo...",
+        "searchAriaLabel": "Buscar sensores",
+        "filters": {
+          "type": "Tipo",
+          "status": "Estado",
+          "all": "Todos"
+        },
+        "states": {
+          "loading": "Cargando sensores...",
+          "error": "No se pudieron cargar los sensores.",
+          "empty": "No se detectaron sensores."
+        },
+        "metrics": {
+          "currentValue": "Valor actual",
+          "currentTemperature": "Temperatura actual",
+          "currentHumidity": "Humedad actual",
+          "currentDoorStatus": "Estado de puerta actual",
+          "currentVibration": "Vibración actual",
+          "currentEnergy": "Energía actual"
+        },
+        "details": {
+          "readingStatus": "Estado de lectura",
+          "targetRange": "Rango objetivo",
+          "lastReading": "Última lectura",
+          "notAvailable": "N/D"
+        },
+        "time": {
+          "justNow": "justo ahora",
+          "secondsAgo": "hace {count}s",
+          "minutesAgo": "hace {count}m"
+        },
+        "types": {
+          "Temperature": "Temperatura",
+          "Humidity": "Humedad",
+          "DoorStatus": "Estado de puerta",
+          "Vibration": "Vibración",
+          "Energy": "Energía"
+        },
+        "readingStatus": {
+          "Normal": "Normal",
+          "OutOfRange": "Fuera de rango",
+          "Invalid": "Inválido"
+        },
+        "aria": {
+          "status": "Estado {status}"
+        },
+        "summary": {
+          "totalSensors": "Total sensors",
+          "totalSensorsDescription": "Devices registered",
+          "normalReadings": "Normal readings",
+          "normalReadingsDescription": "Within target range",
+          "outOfRange": "Out of range",
+          "outOfRangeDescription": "Requires review",
+          "invalidReadings": "Invalid readings",
+          "invalidReadingsDescription": "Disconnected or invalid"
+        },
+        "sensorStatus": {
+          "Active": "Active",
+          "Inactive": "Inactive",
+          "Disconnected": "Disconnected",
+          "Maintenance": "Maintenance"
+        }
+      }
+    },
+    "billing": {
+      "Plans": "Planes",
+      "SubscriptionStatus": "Estado de suscripción",
+      "BillingDashboard": "Panel de facturación",
+      "InvoiceHistory": "Historial de facturas",
+      "PaymentHistory": "Historial de pagos",
+      "PlanManagement": "Gestión de planes",
+      "CustomerSubscriptions": "Suscripciones de clientes"
+    },
+    "profiles": {
+      "MyProfile": "Mi perfil",
+      "CompanyProfile": "Perfil de empresa",
+      "ProfileManagement": "Gestión de perfiles",
+      "Preferences": "Preferencias",
+      "NotificationSettings": "Configuración de notificaciones",
+      "ContactInformation": "Información de contacto"
+    },
+    "administration": "Administración"
+  },
+  "home": {
+    "title": "Panel de control",
+    "subtitle": "Resumen operativo para monitoreo de laboratorios, cumplimiento, alertas y trazabilidad en SafeLab.",
+    "description": "Capacidades principales preparadas para la aplicación frontend de SafeLab. Cada módulo cuenta con ruta, estructura DDD y vista temporal para trabajar por ramas.",
+    "frontendLabel": "SafeLab Frontend",
+    "metricsLabel": "Métricas operativas",
+    "metricActiveSensors": "Sensores activos",
+    "metricCompliance": "Cumplimiento",
+    "metricOpenAlerts": "Alertas abiertas",
+    "metricRoutesReady": "Módulos visibles",
+    "trendStable": "Telemetría estable",
+    "trendPositive": "Ambiente saludable",
+    "trendAttention": "Requiere atención",
+    "trendModules": "Listo para roles",
+    "operationalSummary": "Resumen operativo",
+    "monitoringCoverage": "Cobertura de monitoreo",
+    "compliantStorage": "Almacenamiento conforme",
+    "pendingReview": "Pendiente de revisión",
+    "priorityAlerts": "Alertas prioritarias",
+    "recentNotifications": "Notificaciones recientes",
+    "alertColdRoom": "Desviación de temperatura en cámara fría",
+    "alertColdRoomCopy": "La temperatura superó el umbral configurado.",
+    "alertCalibration": "Calibración de sensor pendiente",
+    "alertCalibrationCopy": "Dos sensores requieren revisión de calibración.",
+    "alertReport": "Reporte de cumplimiento listo",
+    "alertReportCopy": "La exportación mensual de evidencias está disponible.",
+    "moduleSummary": "Resumen de módulos",
+    "highlightSensors": "Monitoreo en vivo",
+    "highlightSensorsCopy": "Revisa estado de sensores, lecturas y umbrales.",
+    "highlightCompliance": "Control de cumplimiento",
+    "highlightComplianceCopy": "Valida condiciones ambientales y evidencias de infracciones.",
+    "highlightIncidents": "Respuesta a incidentes",
+    "highlightIncidentsCopy": "Gestiona incidentes, asignaciones y acciones correctivas.",
+    "highlightReports": "Reportes y analítica",
+    "highlightReportsCopy": "Analiza tendencias, KPIs y reportes operativos."
+  },
+  "dashboardOverview": {
+    "hero": {
+      "monitoring": "Monitoreo",
+      "compliance": "Cumplimiento",
+      "platform": "Resumen de plataforma",
+      "kpis": "Indicadores operativos",
+      "operations": "Operaciones",
+      "inventory": "Activos e inventario",
+      "configuration": "Configuración del panel",
+      "healthScore": "Puntaje de salud",
+      "lastUpdated": "Actualizado recientemente"
+    },
+    "views": {
+      "laboratoryDashboard": {
+        "title": "Panel de laboratorio",
+        "description": "Revisa el estado actual de las áreas monitoreadas, sensores, alertas y cumplimiento operativo."
+      },
+      "complianceOverview": {
+        "title": "Resumen de cumplimiento",
+        "description": "Valida el cumplimiento ambiental, las evidencias de almacenamiento y las infracciones pendientes."
+      },
+      "platformOverview": {
+        "title": "Resumen de plataforma",
+        "description": "Monitorea los indicadores más relevantes de la plataforma para administradores y supervisores."
+      },
+      "kpiSummary": {
+        "title": "Resumen de KPIs",
+        "description": "Analiza indicadores operativos usados para apoyar decisiones rápidas y evidencias del sprint review."
+      },
+      "alertOverview": {
+        "title": "Resumen de alertas",
+        "description": "Revisa indicadores de alertas activas, notificaciones críticas y prioridades de escalamiento."
+      },
+      "assetOverview": {
+        "title": "Resumen de activos",
+        "description": "Revisa cobertura de inventario, almacenamiento conforme y estado operativo asociado a activos."
+      },
+      "sensorOverview": {
+        "title": "Resumen de sensores",
+        "description": "Revisa sensores activos, cobertura de monitoreo en vivo y tendencias de telemetría."
+      },
+      "incidentOverview": {
+        "title": "Resumen de incidentes",
+        "description": "Da seguimiento a indicadores de incidentes, casos sin resolver y riesgos operativos."
+      },
+      "dashboardFilters": {
+        "title": "Filtros del panel",
+        "description": "Revisa el rol, laboratorio, periodo y criterio de actualización aplicado a los datos del panel."
+      },
+      "dashboardWidgets": {
+        "title": "Widgets del panel",
+        "description": "Revisa los widgets disponibles para la experiencia de panel basada en roles."
+      }
+    },
+    "kpis": {
+      "activeSensors": "Sensores activos",
+      "complianceScore": "Puntaje de cumplimiento",
+      "openAlerts": "Alertas abiertas",
+      "criticalAlerts": "Alertas críticas",
+      "storageUnits": "Unidades de almacenamiento",
+      "criticalIncidents": "Incidentes críticos",
+      "reportsReady": "Reportes listos"
+    },
+    "sections": {
+      "compliance": "Control de cumplimiento",
+      "notifications": "Actividad reciente",
+      "widgets": "Widgets por rol",
+      "trends": "Tendencias de monitoreo",
+      "filters": "Filtros aplicados",
+      "kpis": "KPIs del panel",
+      "laboratories": "Estado de laboratorios",
+      "risks": "Riesgos operativos"
+    },
+    "status": {
+      "compliant": "Conforme",
+      "normal": "Normal",
+      "warning": "Advertencia",
+      "critical": "Crítico",
+      "stable": "Estable"
+    },
+    "messages": {
+      "fallback": "Los datos del servidor mock no están disponibles. El panel muestra datos locales de ejemplo para poder revisar la vista."
+    },
+    "compliance": {
+      "title": "Cumplimiento de almacenamiento",
+      "compliantStorage": "Unidades de almacenamiento conformes",
+      "violatedRules": "Reglas infringidas",
+      "evidenceReady": "Evidencias listas"
+    },
+    "notifications": {
+      "title": "Notificaciones prioritarias",
+      "freezerTitle": "Desviación de temperatura en Freezer A-01",
+      "freezerMessage": "Se superó el umbral de cadena de frío y requiere revisión.",
+      "humidityTitle": "Advertencia de humedad en Almacén B",
+      "humidityMessage": "La humedad se acerca al límite de cumplimiento configurado.",
+      "reportTitle": "Reporte de cumplimiento listo",
+      "reportMessage": "La evidencia ambiental mensual puede exportarse.",
+      "sensorTitle": "Conexión de sensor restablecida",
+      "sensorMessage": "El sensor T-204 retomó la telemetría después de una breve interrupción."
+    },
+    "widgets": {
+      "title": "Widgets del panel",
+      "alerts": "Resumen de alertas",
+      "alertsCopy": "Alertas críticas y activas que requieren atención.",
+      "assets": "Cobertura de activos",
+      "assetsCopy": "Activos registrados y estado de cobertura de almacenamiento.",
+      "sensors": "Cobertura de sensores",
+      "sensorsCopy": "Sensores en línea que reportan telemetría actualmente.",
+      "incidents": "Resumen de incidentes",
+      "incidentsCopy": "Incidentes abiertos y críticos que requieren seguimiento.",
+      "laboratory": "Resumen del laboratorio",
+      "laboratoryCopy": "Puntaje de salud, alcance de monitoreo y actividad reciente del laboratorio seleccionado.",
+      "compliance": "Resumen de cumplimiento",
+      "complianceCopy": "Estado de reglas ambientales, evidencias listas y violaciones pendientes.",
+      "platform": "Resumen de plataforma",
+      "platformCopy": "Visibilidad general de la plataforma para administradores y supervisores.",
+      "kpis": "Resumen de KPIs",
+      "kpisCopy": "Indicadores operativos principales usados para tomar decisiones rápidas."
+    },
+    "trends": {
+      "title": "Tendencias ambientales",
+      "temperature": "Temperatura promedio",
+      "humidity": "Humedad promedio",
+      "alerts": "Alertas abiertas",
+      "compliance": "Puntaje de cumplimiento"
+    },
+    "filters": {
+      "title": "Alcance actual del panel",
+      "configure": "Configurar",
+      "role": "Rol",
+      "laboratory": "Laboratorio",
+      "period": "Periodo",
+      "refreshRate": "Frecuencia de actualización"
+    },
+    "trendsText": {
+      "online": "Todos reportan hoy",
+      "monitored": "Cadena de frío monitoreada",
+      "improved": "Mejoró esta semana",
+      "requiresAttention": "Requiere revisión",
+      "urgent": "Seguimiento inmediato",
+      "exportable": "Listo para exportar"
+    },
+    "values": {
+      "roleAdmin": "Administrador de SafeLab",
+      "centralLaboratory": "Laboratorio central",
+      "last24Hours": "Últimas 24 horas",
+      "refreshRate": "Cada 5 minutos",
+      "nextAudit": "20 de mayo de 2026"
+    },
+    "laboratories": {
+      "title": "Laboratorios monitoreados",
+      "sensors": "sensores",
+      "alerts": "alertas"
+    },
+    "risks": {
+      "title": "Resumen de riesgos",
+      "temperatureDeviation": "Desviaciones de temperatura",
+      "disconnectedSensors": "Sensores desconectados",
+      "pendingEvidence": "Evidencias pendientes",
+      "openIncidents": "Incidentes abiertos"
+    }
+  },
+  "alertsNotifications": {
+    "module": {
+      "eyebrow": "Monitoreo y operaciones",
+      "title": "Alertas",
+      "description": "Revisa alertas activas, reconoce eventos operativos y controla problemas relacionados con sensores."
+    },
+    "summary": {
+      "criticalAlerts": "Alertas críticas",
+      "criticalDescription": "Requieren acción inmediata",
+      "unacknowledged": "Sin reconocer",
+      "unacknowledgedDescription": "Pendientes de revisión",
+      "totalAlerts": "Alertas totales",
+      "totalDescription": "Eventos registrados",
+      "warningAlerts": "Alertas de advertencia",
+      "warningDescription": "Necesitan seguimiento"
+    },
+    "table": {
+      "type": "Tipo",
+      "device": "Dispositivo",
+      "location": "Ubicación",
+      "severity": "Severidad",
+      "status": "Estado",
+      "createdAt": "Creado el",
+      "actions": "Acciones",
+      "message": "Mensaje",
+      "channel": "Canal",
+      "sentAt": "Enviado el",
+      "deliveredAt": "Entregado el",
+      "retries": "Reintentos",
+      "minimumSeverity": "Severidad mínima",
+      "recipients": "Destinatarios",
+      "active": "Activo"
+    },
+    "notificationPanel": {
+      "title": "Notificaciones recientes",
+      "unread": "sin leer",
+      "viewAll": "Ver todas las notificaciones",
+      "markAsRead": "Marcar como leída"
+    },
+    "filters": {
+      "search": "Buscar",
+      "searchPlaceholder": "Buscar por dispositivo, ubicación o tipo",
+      "severity": "Severidad",
+      "status": "Estado",
+      "allSeverities": "Todas las severidades",
+      "allStatuses": "Todos los estados",
+      "clearFilters": "Limpiar filtros"
+    },
+    "severity": {
+      "info": "Información",
+      "warning": "Advertencia",
+      "critical": "Crítico"
+    },
+    "status": {
+      "active": "Activa",
+      "acknowledged": "Reconocida",
+      "resolved": "Resuelta",
+      "escalated": "Escalada",
+      "pending": "Pendiente",
+      "sent": "Enviada",
+      "delivered": "Entregada",
+      "failed": "Fallida",
+      "notDelivered": "No entregada"
+    },
+    "actions": {
+      "notificationHistory": "Historial de notificaciones",
+      "notificationSettings": "Configuración de notificaciones",
+      "viewDetails": "Ver detalles",
+      "acknowledge": "Reconocer",
+      "resolve": "Resolver",
+      "escalate": "Escalar",
+      "retry": "Reintentar",
+      "saveRule": "Guardar regla",
+      "back": "Volver"
+    },
+    "detail": {
+      "eyebrow": "Detalle de alerta",
+      "title": "Umbral de temperatura excedido",
+      "description": "La Cámara fría A-01 excedió el umbral de temperatura configurado.",
+      "code": "Código",
+      "type": "Tipo",
+      "device": "Dispositivo",
+      "location": "Ubicación",
+      "createdAt": "Creado el",
+      "assignedTo": "Asignado a",
+      "unassigned": "No asignado"
+    },
+    "notifications": {
+      "eyebrow": "Alertas y notificaciones",
+      "title": "Historial de notificaciones",
+      "description": "Rastrea el estado de entrega por canal, destinatario e intentos de reenvío."
+    },
+    "deliveryRules": {
+      "eyebrow": "Configuración",
+      "title": "Reglas de entrega",
+      "description": "Configura quién recibe alertas según la severidad y el canal de entrega.",
+      "newRule": "Nueva regla",
+      "configuredRules": "Reglas configuradas",
+      "minimumSeverity": "Severidad mínima",
+      "channel": "Canal",
+      "selectSeverity": "Seleccionar severidad",
+      "selectChannel": "Seleccionar canal",
+      "recipients": "Destinatarios",
+      "activeRule": "Regla activa",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "channels": {
+      "email": "correo",
+      "sms": "sms",
+      "push": "push",
+      "whatsapp": "WhatsApp"
+    },
+    "types": {
+      "temperatureDeviation": "Desviación de temperatura",
+      "humidityDeviation": "Desviación de humedad",
+      "connectivityIssue": "Problema de conectividad"
+    },
+    "devices": {
+      "coldChamberA01": "Cámara fría A-01"
+    },
+    "locations": {
+      "laboratoryRoom101": "Laboratorio 101"
+    },
+    "messages": {
+      "criticalTemperatureAlert": "Alerta crítica de temperatura en Cámara fría A-01.",
+      "immediateActionRequired": "Acción inmediata requerida para Cámara fría A-01."
+    },
+    "people": {
+      "mariaLopez": "Dra. Maria Lopez",
+      "carlosRamirez": "Carlos Ramirez",
+      "safeLabAdministrator": "Administrador de SafeLab",
+      "labTechnician": "Técnico de laboratorio"
+    },
+    "errors": {
+      "loadAlerts": "No se pudieron cargar las alertas.",
+      "loadAlertDetail": "No se pudo cargar el detalle de la alerta.",
+      "loadNotifications": "No se pudieron cargar las notificaciones.",
+      "loadRecipients": "No se pudieron cargar los destinatarios.",
+      "loadDeliveryRules": "No se pudieron cargar las reglas de entrega.",
+      "loadEscalationPolicies": "No se pudieron cargar las políticas de escalamiento."
+    },
+    "loading": {
+      "alerts": "Cargando alertas...",
+      "alertDetail": "Cargando detalle de alerta...",
+      "notifications": "Cargando notificaciones...",
+      "deliveryRules": "Cargando reglas de entrega..."
+    },
+    "empty": {
+      "alerts": "No se encontraron alertas.",
+      "notifications": "No se encontraron notificaciones.",
+      "deliveryRules": "No hay reglas de entrega configuradas."
+    }
+  },
+  "remoteControl": {
+    "module": {
+      "eyebrow": "Control remoto y actuación",
+      "title": "Panel de control remoto",
+      "description": "Revisa actuadores autorizados, valida el estado de seguridad y ejecuta comandos remotos simulados."
+    },
+    "summary": {
+      "totalDevices": "Dispositivos totales",
+      "totalDescription": "Actuadores registrados",
+      "availableDevices": "Disponibles",
+      "availableDescription": "Listos para comandos",
+      "blockedDevices": "Bloqueados",
+      "blockedDescription": "Bloqueados o desconectados",
+      "executedToday": "Ejecutados hoy",
+      "executedDescription": "Comandos remotos"
+    },
+    "filters": {
+      "deviceType": "Tipo de dispositivo",
+      "allTypes": "Todos los tipos"
+    },
+    "types": {
+      "Cooling": "Enfriamiento",
+      "DoorLock": "Cerradura",
+      "Alarm": "Alarma",
+      "Telemetry": "Telemetría",
+      "Ventilation": "Ventilación",
+      "Relay": "Relé",
+      "Power": "Ciclo de energía",
+      "Lock": "Bloqueo"
+    },
+    "status": {
+      "online": "En línea",
+      "offline": "Desconectado",
+      "maintenance": "Mantenimiento"
+    },
+    "safetyStates": {
+      "ready": "Listo",
+      "locked": "Bloqueado",
+      "review": "Requiere revisión",
+      "enabled": "Habilitado",
+      "blocked": "Bloqueado"
+    },
+    "commands": {
+      "runSelfCheck": "Ejecutar revisión",
+      "setSafeMode": "Activar modo seguro",
+      "lockDevice": "Bloquear dispositivo",
+      "unlockDevice": "Desbloquear dispositivo",
+      "restartTelemetry": "Reiniciar telemetría",
+      "acknowledgeBuzzer": "Reconocer alarma",
+      "start": "Iniciar",
+      "stop": "Detener",
+      "reset": "Reiniciar",
+      "Standby": "En espera"
+    },
+    "commandStatus": {
+      "completed": "Completado",
+      "pending": "Pendiente",
+      "failed": "Fallido"
+    },
+    "table": {
+      "type": "Tipo",
+      "location": "Ubicación",
+      "linkedSensor": "Sensor vinculado",
+      "safetyState": "Estado de seguridad",
+      "lastCommand": "Último comando"
+    },
+    "history": {
+      "title": "Historial de comandos",
+      "subtitle": "Últimos registros de ejecución de comandos remotos.",
+      "command": "Comando",
+      "device": "Dispositivo",
+      "status": "Estado",
+      "requestedBy": "Solicitado por",
+      "createdAt": "Creado el"
+    },
+    "policy": {
+      "title": "Políticas de seguridad",
+      "subtitle": "Reglas de control aplicadas antes de ejecutar un comando.",
+      "active": "Activa",
+      "inactive": "Inactiva"
+    },
+    "actions": {
+      "refresh": "Actualizar"
+    },
+    "states": {
+      "loading": "Cargando datos de control remoto..."
+    },
+    "empty": {
+      "noCommand": "Sin comandos",
+      "noHistory": "Aún no hay comandos registrados."
+    },
+    "messages": {
+      "confirmCommand": "¿Deseas ejecutar {command} en {device}?"
+    }
+  },
+  "reportsAnalytics": {
+    "module": {
+      "eyebrow": "Reportes y analítica",
+      "title": "Resumen analítico",
+      "description": "Revisa métricas operativas, preparación de reportes y tendencias de monitoreo para apoyar decisiones."
+    },
+    "navigation": {
+      "reports": "Reportes",
+      "reportsDescription": "Genera y administra reportes operativos.",
+      "historicalData": "Datos históricos",
+      "historicalDataDescription": "Revisa el historial ambiental y de sensores.",
+      "exportData": "Exportar datos",
+      "exportDataDescription": "Exporta analítica y evidencias de cumplimiento."
+    },
+    "summary": {
+      "totalReports": "Reportes",
+      "totalReportsDescription": "Reportes registrados",
+      "activeAlerts": "Alertas activas",
+      "activeAlertsDescription": "Pendientes de revisión operativa",
+      "averageTemperature": "Temp. promedio",
+      "averageTemperatureDescription": "En sensores de temperatura",
+      "averageHumidity": "Humedad promedio",
+      "averageHumidityDescription": "En sensores de humedad"
+    },
+    "trends": {
+      "title": "Tendencias de monitoreo",
+      "subtitle": "Indicadores actuales calculados con datos operativos de SafeLab."
+    },
+    "risk": {
+      "title": "Riesgo operativo",
+      "subtitle": "Resumen de riesgo basado en alertas, desviaciones de sensores y cumplimiento.",
+      "criticalAlerts": "Alertas críticas",
+      "outOfRangeSensors": "Sensores fuera de rango",
+      "disconnectedSensors": "Sensores desconectados",
+      "complianceScore": "Cumplimiento",
+      "levels": {
+        "low": "Riesgo bajo",
+        "medium": "Riesgo medio",
+        "high": "Riesgo alto"
+      }
+    },
+    "recentReports": {
+      "title": "Reportes recientes",
+      "subtitle": "Últimos reportes generados o pendientes.",
+      "empty": "No hay reportes disponibles.",
+      "allEquipment": "Todos los equipos"
+    },
+    "recentAlerts": {
+      "title": "Alertas recientes",
+      "subtitle": "Últimos eventos operativos usados en la analítica.",
+      "empty": "No hay alertas disponibles."
+    },
+    "states": {
+      "loading": "Cargando analítica...",
+      "error": "No se pudo cargar la analítica."
+    }
+  },
+  "audit": {
+    "heroEyebrow": "Auditoría y trazabilidad",
+    "integrityScore": "Puntaje de integridad",
+    "updatedRecently": "Actualizado recientemente",
+    "navigationLabel": "Vistas de auditoría y trazabilidad",
+    "metricsLabel": "Métricas de auditoría",
+    "loading": "Cargando datos de auditoría...",
+    "emptyLogs": "Ningún registro de auditoría coincide con los filtros seleccionados.",
+    "auditLogEyebrow": "Control de auditoría",
+    "auditLogTitle": "Registros recientes de auditoría",
+    "timelineEyebrow": "Línea de tiempo de trazabilidad",
+    "timelineTitle": "Últimos eventos rastreados",
+    "healthEyebrow": "Cobertura",
+    "healthTitle": "Salud de trazabilidad",
+    "evidenceEyebrow": "Repositorio de evidencia",
+    "evidenceTitle": "Evidencia de auditoría",
+    "trackedEyebrow": "Alcance rastreado",
+    "trackedTitle": "Trazabilidad de entidades",
+    "changeEyebrow": "Cambios del sistema",
+    "changeTitle": "Historial de cambios",
+    "commandEyebrow": "Acciones remotas",
+    "commandTitle": "Historial de comandos",
+    "pages": {
+      "AuditLog": {
+        "title": "Registro de auditoría",
+        "description": "Revisa la actividad de usuarios, cambios del sistema y eventos operativos registrados en SafeLab."
+      },
+      "ActivityHistory": {
+        "title": "Historial de actividad",
+        "description": "Rastrea la actividad relevante realizada por usuarios, módulos y reglas automáticas de la plataforma."
+      },
+      "TraceabilityTimeline": {
+        "title": "Línea de tiempo de trazabilidad",
+        "description": "Sigue la secuencia cronológica de activos, sensores, incidentes, evidencia y acciones remotas."
+      },
+      "EquipmentHistory": {
+        "title": "Historial de equipos",
+        "description": "Revisa registros históricos relacionados con estado de equipos, mantenimiento y cambios de almacenamiento."
+      },
+      "ComplianceTraceability": {
+        "title": "Trazabilidad de cumplimiento",
+        "description": "Valida que evaluaciones, infracciones y evidencias de cumplimiento permanezcan auditables."
+      },
+      "AuditEvidence": {
+        "title": "Evidencia de auditoría",
+        "description": "Gestiona archivos y registros de evidencia vinculados a eventos de auditoría, incidentes y revisiones de cumplimiento."
+      },
+      "OperationalTraceability": {
+        "title": "Trazabilidad operativa",
+        "description": "Analiza registros operativos generados por sensores, activos, alertas y flujos de incidentes."
+      },
+      "ChangeHistory": {
+        "title": "Historial de cambios",
+        "description": "Revisa cambios de configuración y permisos que afectan el comportamiento de la plataforma."
+      },
+      "RemoteCommandHistory": {
+        "title": "Historial de comandos remotos",
+        "description": "Rastrea comandos remotos ejecutados sobre actuadores conectados y equipos monitoreados."
+      }
+    },
+    "metrics": {
+      "totalLogs": "Registros totales",
+      "reviewedLogs": "Registros revisados",
+      "pendingLogs": "Pendientes de revisión",
+      "criticalEvents": "Eventos críticos",
+      "integrityScore": "Puntaje de integridad",
+      "retention": "{days} días retenidos",
+      "evidenceReady": "Evidencia vinculada",
+      "needsReview": "Requiere validación",
+      "highPriority": "Alta prioridad",
+      "immutableTrace": "Registros protegidos"
+    },
+    "filters": {
+      "search": "Buscar",
+      "searchPlaceholder": "Buscar por actor, módulo, acción o evidencia...",
+      "severity": "Severidad",
+      "status": "Estado",
+      "allStatuses": "Todos los estados",
+      "allSeverities": "Todas las severidades"
+    },
+    "table": {
+      "id": "ID",
+      "actor": "Actor",
+      "action": "Acción",
+      "module": "Módulo",
+      "severity": "Severidad",
+      "status": "Estado",
+      "createdAt": "Fecha de registro",
+      "evidence": "Evidencia"
+    },
+    "severity": {
+      "info": "Info",
+      "warning": "Advertencia",
+      "critical": "Crítico"
+    },
+    "status": {
+      "reviewed": "Revisado",
+      "pending": "Pendiente",
+      "ready": "Listo"
+    },
+    "risk": {
+      "low": "Riesgo bajo",
+      "medium": "Riesgo medio",
+      "high": "Riesgo alto"
+    },
+    "commandResult": {
+      "confirmed": "Confirmado",
+      "cancelled": "Cancelado",
+      "failed": "Fallido"
+    },
+    "health": {
+      "auditCoverage": "Cobertura de auditoría",
+      "evidenceCoverage": "Cobertura de evidencia",
+      "changeIntegrity": "Integridad de cambios",
+      "remoteCommandTraceability": "Trazabilidad de comandos remotos"
+    },
+    "tracked": {
+      "assets": "Activos rastreados",
+      "sensors": "Sensores rastreados",
+      "incidents": "Incidentes trazados",
+      "commands": "Comandos remotos"
+    },
+    "errors": {
+      "load": "No se pudieron cargar los datos de auditoría y trazabilidad."
+    },
+    "highlightReportsCopy": "Analiza tendencias, KPI y reportes operativos."
+  },
+  "assetInventory": {
+    "module": {
+      "eyebrow": "Monitoreo de activos e inventario",
+      "title": "Lista de activos",
+      "description": "Revisa los activos monitoreados del laboratorio, unidades de almacenamiento, responsables y estado actual de cumplimiento."
+    },
+    "summary": {
+      "totalAssets": "Activos totales",
+      "totalAssetsDescription": "Registrados en inventario",
+      "compliant": "Cumplen",
+      "compliantDescription": "Listos para operar",
+      "warning": "Advertencia",
+      "warningDescription": "Requieren revisión",
+      "critical": "Críticos",
+      "criticalDescription": "Acción inmediata"
+    },
+    "table": {
+      "title": "Activos monitoreados",
+      "subtitle": "Cobertura actual de activos para almacenamiento de laboratorio y control de cadena de frío.",
+      "id": "ID",
+      "assetName": "Nombre del activo",
+      "category": "Categoría",
+      "storageUnit": "Unidad de almacenamiento",
+      "location": "Ubicación",
+      "lastInspection": "Última inspección",
+      "responsible": "Responsable",
+      "status": "Estado",
+      "actions": "Acciones",
+      "uncategorized": "Sin categoría",
+      "empty": "Aún no hay activos registrados."
+    },
+    "form": {
+      "title": "Detalles del activo",
+      "assetName": "Nombre del activo",
+      "category": "Categoría",
+      "categoryPlaceholder": "Insumo médico, Equipo, Reactivo...",
+      "storageUnit": "Unidad de almacenamiento",
+      "location": "Ubicación",
+      "locationPlaceholder": "Laboratorio Central A",
+      "lastInspection": "Última inspección",
+      "lastInspectionPlaceholder": "2026-06-18",
+      "responsible": "Responsable",
+      "responsiblePlaceholder": "Dra. Maria Lopez",
+      "status": "Estado"
+    },
+    "actions": {
+      "newAsset": "Nuevo activo",
+      "refresh": "Actualizar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "edit": "Editar activo",
+      "delete": "Eliminar activo"
+    },
+    "validation": {
+      "assetNameRequired": "El nombre del activo es obligatorio.",
+      "storageUnitRequired": "La unidad de almacenamiento es obligatoria."
+    },
+    "status": {
+      "compliant": "Conforme",
+      "warning": "Advertencia",
+      "critical": "Crítico",
+      "unknown": "Desconocido"
+    },
+    "messages": {
+      "deleteConfirmation": "¿Estás seguro de que deseas eliminar este activo?"
+    }
+  },
+  "incidentManagement": {
+    "module": {
+      "eyebrow": "Operaciones",
+      "title": "Gestión de incidentes",
+      "description": "Rastrea, investiga, resuelve y documenta incidentes operativos relacionados con el monitoreo de cadena de frío."
+    },
+    "summary": {
+      "total": "Incidentes totales",
+      "totalDescription": "Casos registrados",
+      "open": "Abiertos",
+      "openDescription": "Esperando acción",
+      "investigating": "En investigación",
+      "investigatingDescription": "En revisión",
+      "critical": "Críticos",
+      "criticalDescription": "Alta prioridad"
+    },
+    "filters": {
+      "search": "Buscar",
+      "searchPlaceholder": "Buscar por título, sensor, área o código",
+      "status": "Estado",
+      "severity": "Severidad",
+      "all": "Todos"
+    },
+    "status": {
+      "open": "Abierto",
+      "investigating": "Investigando",
+      "resolved": "Resuelto",
+      "closed": "Cerrado"
+    },
+    "severity": {
+      "critical": "Crítico",
+      "warning": "Advertencia",
+      "info": "Info"
+    },
+    "fields": {
+      "assignedTo": "Asignado a",
+      "affectedArea": "Área afectada",
+      "relatedAlert": "Alerta relacionada",
+      "relatedSensor": "Sensor relacionado",
+      "relatedAsset": "Activo relacionado",
+      "evidence": "Evidencias",
+      "dueDate": "Fecha límite",
+      "createdAt": "Creado el",
+      "updatedAt": "Actualizado el"
+    },
+    "sections": {
+      "correctiveAction": "Acción correctiva",
+      "timeline": "Línea de tiempo del incidente"
+    },
+    "actions": {
+      "viewDetails": "Ver detalles",
+      "back": "Volver",
+      "markInvestigating": "Iniciar investigación",
+      "markResolved": "Marcar como resuelto",
+      "closeIncident": "Cerrar incidente",
+      "viewReport": "Ver reporte"
+    },
+    "states": {
+      "loading": "Cargando incidentes...",
+      "loadingDetail": "Cargando incidente...",
+      "error": "No se pudieron cargar los incidentes.",
+      "errorDetail": "No se pudo cargar el detalle del incidente.",
+      "empty": "No se encontraron incidentes con los filtros seleccionados."
+    },
+    "empty": {
+      "unassigned": "Sin asignar",
+      "notSpecified": "No especificado",
+      "noCorrectiveAction": "Aún no se ha documentado una acción correctiva.",
+      "noTimeline": "No hay eventos registrados en la línea de tiempo."
+    }
+  },
+  "subscriptionBilling": {
+    "module": {
+      "eyebrow": "Facturación de suscripción",
+      "title": "Mi suscripción",
+      "description": "Revisa tu plan actual, información de facturación y límites de uso."
+    },
+    "overview": {
+      "currentPlan": "Plan actual",
+      "status": "Estado",
+      "renewalDate": "Fecha de renovación",
+      "monthlyCost": "Costo mensual",
+      "deviceUsage": "Uso de dispositivos",
+      "devices": "dispositivos"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "cancelled": "Cancelado"
+    },
+    "billingCycle": {
+      "monthly": "Mensual",
+      "yearly": "Anual"
+    },
+    "navigation": {
+      "invoices": "Ver facturas",
+      "invoicesDescription": "Revisa facturas generadas.",
+      "paymentHistory": "Historial de pagos",
+      "paymentHistoryDescription": "Consulta pagos completados.",
+      "usageLimits": "Uso y límites",
+      "usageLimitsDescription": "Revisa los límites de suscripción.",
+      "upgradePlan": "Mejorar plan",
+      "upgradePlanDescription": "Compara los planes disponibles."
+    },
+    "activity": {
+      "title": "Actividad reciente de facturación",
+      "latestInvoice": "Última factura",
+      "latestInvoiceDescription": "Factura más reciente generada para tu suscripción.",
+      "billingCycle": "Ciclo de facturación",
+      "billingCycleDescription": "Tu suscripción se renueva automáticamente en cada ciclo."
+    },
+    "invoices": {
+      "title": "Facturas",
+      "description": "Revisa el estado de facturas, periodos de cobro y documentos descargables.",
+      "invoice": "Factura",
+      "period": "Periodo",
+      "amount": "Monto",
+      "status": "Estado",
+      "dueDate": "Fecha límite",
+      "actions": "Acciones"
+    },
+    "invoiceStatus": {
+      "paid": "Pagada",
+      "pending": "Pendiente",
+      "failed": "Fallida"
+    },
+    "payments": {
+      "title": "Historial de pagos",
+      "description": "Revisa pagos exitosos y métodos de facturación.",
+      "amount": "Monto",
+      "paidAt": "Pagado el",
+      "status": "Estado"
+    },
+    "paymentStatus": {
+      "completed": "Completado",
+      "pending": "Pendiente",
+      "failed": "Fallido"
+    },
+    "usage": {
+      "title": "Uso y límites",
+      "description": "Monitorea el uso frente a los límites incluidos en tu plan actual.",
+      "devices": "Dispositivos",
+      "sensors": "Sensores",
+      "reports": "Reportes",
+      "alerts": "Alertas"
+    },
+    "upgrade": {
+      "title": "Mejorar plan",
+      "description": "Compara los planes disponibles de SafeLab y selecciona el más adecuado.",
+      "currentPlan": "Plan actual",
+      "selectPlan": "Seleccionar plan",
+      "perMonth": "por mes",
+      "confirmPlan": "¿Deseas cambiar al plan {plan}?"
+    },
+    "actions": {
+      "download": "Descargar"
+    },
+    "states": {
+      "loading": "Cargando datos de facturación...",
+      "error": "No se pudieron cargar los datos de facturación."
+    }
+  },
+  "userProfiles": {
+    "module": {
+      "eyebrow": "Perfiles de usuario",
+      "title": "Mi perfil",
+      "description": "Revisa y actualiza tu información personal, preferencias y datos de acceso."
+    },
+    "summary": {
+      "currentUser": "Usuario actual"
+    },
+    "sections": {
+      "personalDataEyebrow": "Datos del perfil",
+      "personalData": "Información personal",
+      "accessEyebrow": "Contexto de acceso",
+      "accessInformation": "Información de acceso",
+      "preferencesEyebrow": "Configuración personal",
+      "preferences": "Preferencias",
+      "securityEyebrow": "Seguridad",
+      "security": "Configuración de seguridad"
+    },
+    "fields": {
+      "userId": "ID de usuario",
+      "firstName": "Nombres",
+      "lastName": "Apellidos",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "position": "Cargo",
+      "organization": "Organización",
+      "laboratory": "Laboratorio",
+      "role": "Rol",
+      "language": "Idioma",
+      "timezone": "Zona horaria",
+      "notificationPreference": "Preferencia de notificación",
+      "lastAccess": "Último acceso",
+      "lastPasswordChange": "Último cambio de contraseña"
+    },
+    "roles": {
+      "safeLabAdministrator": "Administrador de SafeLab",
+      "bioclinicalCoordinator": "Coordinador de operaciones bioclínicas",
+      "hospitalPharmacyCoordinator": "Coordinador de farmacia hospitalaria",
+      "labTechnician": "Técnico de laboratorio",
+      "pharmacyTechnician": "Técnico de farmacia",
+      "complianceOfficer": "Responsable de cumplimiento",
+      "maintenanceOperator": "Operador de mantenimiento",
+      "billingManager": "Responsable de facturación"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "notificationPreference": {
+      "criticalOnly": "Solo alertas críticas",
+      "criticalAndDaily": "Alertas críticas y resumen diario",
+      "allOperational": "Todas las actualizaciones operativas"
+    },
+    "security": {
+      "description": "El cambio de contraseña es simulado en esta versión frontend y será conectado con IAM más adelante."
+    },
+    "actions": {
+      "saveChanges": "Guardar cambios",
+      "savePreferences": "Guardar preferencias",
+      "saving": "Guardando...",
+      "updateSecurity": "Actualizar seguridad"
+    },
+    "states": {
+      "loading": "Cargando perfil...",
+      "error": "No se pudo cargar el perfil de usuario.",
+      "saved": "Perfil actualizado correctamente."
+    }
+  }
+}

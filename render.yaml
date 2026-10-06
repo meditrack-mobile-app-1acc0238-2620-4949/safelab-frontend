@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: safelab-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://safelab-platform-api.onrender.com/api/v1
+      - key: VITE_APP_NAME
+        value: SafeLab
+      - key: VITE_DEFAULT_LOCALE
+        value: en
+      - key: VITE_USE_REMOTE_API
+        value: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
