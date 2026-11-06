@@ -1,237 +1,86 @@
-# SafeLab Frontend
+# SafeLab — Web Frontend
 
-SafeLab Frontend Web Application built with Vue 3, Vite, Pinia, Vue Router, PrimeVue and Vue I18n. This version is configured to consume the deployed SafeLab backend in Render.
+SafeLab is an academic clinical cold-chain monitoring platform for laboratory environments, temperature-sensitive supplies, equipment status and operational traceability. This repository contains the **web application**, built in **Vue 3 and Vite**. Its interface complements the Kotlin/Jetpack Compose Android application.
 
-## Backend integration
+This release is a **frontend demonstration with fictional data**. It does not require a production backend, Vercel, Render, cloud credentials, email providers, payment gateways or physical IoT devices.
 
-The frontend uses this API by default:
+## Local setup
 
-```env
-VITE_API_BASE_URL=https://safelab-platform-api.onrender.com/api/v1
-```
-
-The app no longer depends on JSON Server as its primary source. It loads the shared backend state from:
-
-```text
-GET /api/v1/demo/state
-```
-
-Then all main operations call the backend endpoints:
-
-- Sensors: `GET /sensors`, `POST /sensor-monitoring/sensors`, `PATCH /sensor-monitoring/sensors/{id}/reading`, `DELETE /sensors/{id}`
-- Assets: `POST/PATCH/DELETE /asset-inventory/assets`
-- Alerts: `POST /alerts-notifications/alerts/{id}/acknowledge`, `resolve`, `escalate`
-- Remote Control: `POST /remote-control/actuators/{id}/commands`
-- Incidents: `POST /incident-management/incidents/{id}/start-investigation`, `mark-resolved`, `close`
-- Reports: `POST /reports-analytics/reports/generate`
-- Audit: loaded through `GET /audit-traceability/timeline` and backend shared state
-
-If the backend is temporarily unavailable, the frontend keeps a local fallback cache so the demo does not break visually.
-
-## Demo credentials
-
-```text
-admin@safelab.pe / 123456
-coordinator@labcentral.pe / 123456
-technician@labcentral.pe / 123456
-compliance@farmaciaregional.pe / 123456
-manager@labcentral.pe / 123456
-pharma@pharmandina.pe / 123456
-```
-
-## Local development
+Requirements: Node.js 20+ and npm. Open two terminals in the project root.
 
 ```bash
 npm install
+```
+
+Terminal A — optional local mock data server (recommended):
+
+```bash
+npm run server
+```
+
+Terminal B — web application:
+
+```bash
 npm run dev
 ```
 
-Optional `.env.local`:
+Open **http://localhost:5173** in your browser. The local JSON Server is available at **http://localhost:3000**. If the JSON Server is not started, the frontend can still use the bundled mock seed.
 
-```env
-VITE_API_BASE_URL=https://safelab-platform-api.onrender.com/api/v1
-VITE_APP_NAME=SafeLab
-VITE_DEFAULT_LOCALE=en
-VITE_USE_REMOTE_API=true
-```
+### Demo account
 
-To force offline demo mode:
+- Email: `admin@hotmail.com`
+- Password: `SafeLab2026%`
+- Immutable username: `691339768298838915`
 
-```env
-VITE_USE_REMOTE_API=false
-```
-
-## Build
-
-```bash
-npm run build
-npm run preview
-```
-
-## Deploy on Render as Static Site
-
-Recommended Render configuration:
-
-```text
-Type: Static Site
-Name: safelab-frontend
-Branch: main
-Build Command: npm install && npm run build
-Publish Directory: dist
-```
-
-Environment variables:
-
-```text
-VITE_API_BASE_URL=https://safelab-platform-api.onrender.com/api/v1
-VITE_APP_NAME=SafeLab
-VITE_DEFAULT_LOCALE=en
-VITE_USE_REMOTE_API=true
-```
-
-For Vue Router history mode, configure a rewrite rule in Render:
-
-```text
-Source: /*
-Destination: /index.html
-Action: Rewrite
-```
-
-This repository also includes `render.yaml` with the same static site configuration.
-
-## Important CORS note
-
-After Render gives you the final frontend URL, update the backend environment variable:
-
-```text
-CORS_ALLOWED_ORIGINS=https://your-frontend-url.onrender.com,http://localhost:5173
-```
-
-Then redeploy the backend.
-
-## Stack
-
-- Vue 3 + Vite
-- Vue Router
-- Pinia
-- PrimeVue + PrimeFlex + PrimeIcons
-- Vue I18n
-- Axios
-- Render Static Site deployment
-- SafeLab Platform API backend deployed on Render
-
-## Project Structure
-
-```text
-safelab-frontend/
-├── public/
-├── server/                         # legacy mock seed, not required for deployed mode
-├── src/
-│   ├── assets/
-│   ├── locales/
-│   ├── router/
-│   ├── shared/
-│   ├── identity-access/
-│   ├── user-profiles/
-│   ├── subscription-billing/
-│   ├── dashboard-overview/
-│   ├── asset-inventory/
-│   ├── sensor-monitoring/
-│   ├── environmental-compliance/
-│   ├── alerts-notifications/
-│   ├── remote-control/
-│   ├── reports-analytics/
-│   ├── incident-management/
-│   └── audit-traceability/
-├── .env.example
-├── .env.production.example
-├── render.yaml
-├── package.json
-└── vite.config.js
-```
-
-## DDD Frontend Convention
-
-Each bounded context keeps the same structure:
-
-```text
-application/      use cases, services and stores
-domain/           entities, models and constants
-infrastructure/   API clients, repositories and mappers
-presentation/     routes, views and UI components
-```
+New registrations generate an internal UUID v4 and a random 18-digit username. New accounts remain **pending activation**: no real verification email is sent, no payment occurs, and the account cannot sign in. The administrator is the only active demo login. The browser stores temporary registration and profile data; **this mock authentication is not secure for production**. The eventual backend must own password hashing, authorization, uniqueness constraints, email verification and billing.
 
 ## Bounded Contexts
 
-1. `identity-access`
-2. `user-profiles`
-3. `subscription-billing`
-4. `dashboard-overview`
-5. `asset-inventory`
-6. `sensor-monitoring`
-7. `environmental-compliance`
-8. `alerts-notifications`
-9. `remote-control`
-10. `reports-analytics`
-11. `incident-management`
-12. `audit-traceability`
+The source code is grouped under `src/boundedcontext/`. Each context keeps its own domain, application, infrastructure (when useful) and presentation code.
 
+| Context | Directory | Responsibility |
+| --- | --- | --- |
+| Identity & Access Management | `identityaccess` | Login, registration and access checks |
+| User Profile Management | `userprofiles` | Personal profile and editable preferences |
+| Subscription & Billing | `subscriptionbilling` | Read-only plan, upcoming invoice and payment history |
+| Facility & Asset Management | `facilityassets` | Sites, storage areas and registered assets |
+| Sensor & Telemetry Monitoring | `sensormonitoring` | Sensor conditions, readings and status |
+| Equipment Health & Maintenance | `equipmentmaintenance` | Equipment condition and maintenance records |
+| Environmental Compliance Management | `environmentalcompliance` | Environmental rules, evaluations and violations |
+| Alert & Incident Management | `alertsincidents` | Alerts, notifications and incident tracking |
+| Remote Control & Actuation | `remoteactuation` | Simulated commands and local command history |
+| Operational Dashboard & Insights | `dashboardinsights` | Cross-context KPIs and operational summaries |
+| Reporting & Analytics | `reportinganalytics` | Reports, trends and exports |
+| Audit & Traceability | `audittraceability` | Actor actions and event history |
 
-## Vercel deployment
+The same 12 conceptual BCs are shared with the mobile application. User Profiles and Billing are accessed from the account area; IAM is accessed before login. The main navigation contains the operational BCs, while alert and incident views belong to one shared BC.
 
-This frontend is prepared for Vercel as a Vite static application.
+## Frontend behavior
 
-Recommended settings:
+- **Visuals:** original SafeLab blue-purple dashboard theme, with responsive cards, charts and light/dark mode.
+- **Languages:** Spanish and English using `vue-i18n`.
+- **Data:** `src/shared/domain/data/safelab-demo-seed.js` and `server/db.json` represent the same sample dataset, including 12 sensors, 10 assets and 4 incidents.
+- **Local operations:** mock changes are simulated in the browser. No email, real billing or device commands are executed.
+- **Architecture:** routes, stores and views are separated so the infrastructure data sources can later be replaced by backend REST clients.
 
-```txt
-Framework Preset: Vite
-Root Directory: empty
-Install Command: npm install --legacy-peer-deps
-Build Command: npm run build
-Output Directory: dist
-```
+To validate changes after editing mock data, inspect the shared identifiers across sensors, equipment, facilities, alerts, incidents and compliance evaluations. Database constraints and live APIs will be implemented in the backend phase.
 
-Required environment variables:
+## Development workflow
 
-```env
-VITE_API_BASE_URL=https://safelab-platform-api.onrender.com/api/v1
-VITE_APP_NAME=SafeLab
-VITE_DEFAULT_LOCALE=es
-VITE_USE_REMOTE_API=true
-```
+Use `develop` for integrated frontend work and create new `feature/*` branches from it. Merge tested features into `develop`, then promote stable milestones to `main`. Do not store local credentials, paid API keys or SDK secrets in Git.
 
-After deployment, add the final Vercel URL to the backend `CORS_ALLOWED_ORIGINS` variable in Render and redeploy the backend.
+## Limitations
 
-## Vercel deployment note
+This is **not** the finished client/server system. The local server is a development JSON file server, not a production backend. Data and simulated operations are not synchronized across devices. The future backend will provide authoritative authentication, subscriptions, audit persistence, device authorization and data consistency for both Vue Web and Android.
 
-If Vercel fails with `npm error Exit handler never called!`, use pnpm instead of npm:
+## Complete record views
 
-```txt
-Install Command: corepack enable && pnpm install --no-frozen-lockfile
-Build Command: pnpm run build
-Output Directory: dist
-```
+Cards that summarize records (such as environmental evaluations, command history,
+and audit logs) link to a dedicated, full-width records page. The detail pages
+reuse the same local data as the dashboards; no new backend is needed.
 
-This project declares `packageManager: pnpm@10.14.0` and Node 24 for Vercel builds.
+Select a summary card or its title to view the full list. You can search, filter
+by status, move between pages, select a row for details, and export the current
+filtered results as CSV. Use **Back** to return to the preceding module.
 
-
-## Deploy rápido en Vercel con Bun
-
-Usar Bun evita los errores de npm/pnpm vistos en el build cloud.
-
-```txt
-Framework Preset: Vite
-Install Command: bun install
-Build Command: bun run build
-Output Directory: dist
-```
-
-Variables requeridas:
-
-```env
-NODE_VERSION=24
-VITE_API_BASE_URL=https://safelab-platform-api.onrender.com/api/v1
-VITE_APP_NAME=SafeLab
-VITE_DEFAULT_LOCALE=es
-VITE_USE_REMOTE_API=true
-```
+Both language options and the existing light/dark themes work in these views.

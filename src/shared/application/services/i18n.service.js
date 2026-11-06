@@ -3,7 +3,7 @@ import en from '@/locales/en.json'
 import es from '@/locales/es.json'
 
 const savedLocale = localStorage.getItem('safelab-locale')
-const defaultLocale = import.meta.env.VITE_DEFAULT_LOCALE || 'en'
+const defaultLocale = 'en'
 
 const i18n = createI18n({
   legacy: false,

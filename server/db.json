@@ -1,14 +1,14 @@
 {
   "users": [
     {
-      "id": "usr-admin-001",
-      "username": "admin",
-      "email": "admin@safelab.pe",
-      "password": "123456",
-      "firstName": "Maria",
-      "lastName": "Lopez",
-      "fullName": "Dr. Maria Lopez",
-      "initials": "ML",
+      "id": "9f63a2e0-6839-4bff-9664-23eb8acfb9ca",
+      "username": "691339768298838915",
+      "email": "admin@hotmail.com",
+      "password": "SafeLab2026%",
+      "firstName": "SafeLab",
+      "lastName": "Administrator",
+      "fullName": "SafeLab Administrator",
+      "initials": "SA",
       "role": "safeLabAdministrator",
       "position": "SafeLab Administrator",
       "status": "active",
@@ -17,156 +17,18 @@
       "facilityId": "global",
       "facilityName": "Global administrator scope",
       "allowedContexts": [
-        "dashboard-overview",
-        "asset-inventory",
-        "sensor-monitoring",
-        "environmental-compliance",
-        "alerts-notifications",
-        "remote-control",
-        "reports-analytics",
-        "incident-management",
-        "audit-traceability",
-        "subscription-billing"
+        "dashboardinsights",
+        "facilityassets",
+        "sensormonitoring",
+        "environmentalcompliance",
+        "alertsincidents",
+        "remoteactuation",
+        "reportinganalytics",
+        "alertsincidents",
+        "audittraceability",
+        "subscriptionbilling"
       ],
-      "phone": "+51 900 111 222",
-      "timezone": "America/Lima"
-    },
-    {
-      "id": "usr-coord-001",
-      "username": "coordinator",
-      "email": "coordinator@labcentral.pe",
-      "password": "123456",
-      "firstName": "Carlos",
-      "lastName": "Mendoza",
-      "fullName": "Carlos Mendoza",
-      "initials": "CM",
-      "role": "bioclinicalCoordinator",
-      "position": "Bioclinical Operations Coordinator",
-      "status": "active",
-      "segment": "clinical-laboratory",
-      "organization": "Central Clinical Laboratory",
-      "facilityId": "fac-central",
-      "facilityName": "Central Clinical Laboratory",
-      "allowedContexts": [
-        "dashboard-overview",
-        "asset-inventory",
-        "sensor-monitoring",
-        "environmental-compliance",
-        "alerts-notifications",
-        "reports-analytics",
-        "incident-management",
-        "audit-traceability"
-      ],
-      "phone": "+51 900 222 333",
-      "timezone": "America/Lima"
-    },
-    {
-      "id": "usr-tech-001",
-      "username": "technician",
-      "email": "technician@labcentral.pe",
-      "password": "123456",
-      "firstName": "Andrea",
-      "lastName": "Torres",
-      "fullName": "Andrea Torres",
-      "initials": "AT",
-      "role": "labTechnician",
-      "position": "Laboratory Technician",
-      "status": "active",
-      "segment": "clinical-laboratory",
-      "organization": "Central Clinical Laboratory",
-      "facilityId": "fac-central",
-      "facilityName": "Central Clinical Laboratory",
-      "allowedContexts": [
-        "dashboard-overview",
-        "asset-inventory",
-        "sensor-monitoring",
-        "alerts-notifications",
-        "incident-management"
-      ],
-      "phone": "+51 900 333 444",
-      "timezone": "America/Lima"
-    },
-    {
-      "id": "usr-compliance-001",
-      "username": "compliance",
-      "email": "compliance@farmaciaregional.pe",
-      "password": "123456",
-      "firstName": "Patricia",
-      "lastName": "Salazar",
-      "fullName": "Patricia Salazar",
-      "initials": "PS",
-      "role": "complianceOfficer",
-      "position": "Compliance Officer",
-      "status": "active",
-      "segment": "shared",
-      "organization": "Regional Hospital Pharmacy",
-      "facilityId": "fac-hospital",
-      "facilityName": "San Gabriel Hospital Pharmacy",
-      "allowedContexts": [
-        "dashboard-overview",
-        "environmental-compliance",
-        "alerts-notifications",
-        "reports-analytics",
-        "incident-management",
-        "audit-traceability"
-      ],
-      "phone": "+51 900 444 555",
-      "timezone": "America/Lima"
-    },
-    {
-      "id": "usr-manager-001",
-      "username": "manager",
-      "email": "manager@labcentral.pe",
-      "password": "123456",
-      "firstName": "Luis",
-      "lastName": "Ramirez",
-      "fullName": "Luis Ramirez",
-      "initials": "LR",
-      "role": "billingManager",
-      "position": "Organization Manager",
-      "status": "active",
-      "segment": "clinical-laboratory",
-      "organization": "Central Clinical Laboratory",
-      "facilityId": "fac-central",
-      "facilityName": "Central Clinical Laboratory",
-      "allowedContexts": [
-        "dashboard-overview",
-        "subscription-billing",
-        "reports-analytics",
-        "environmental-compliance",
-        "incident-management",
-        "audit-traceability"
-      ],
-      "phone": "+51 900 555 666",
-      "timezone": "America/Lima"
-    },
-    {
-      "id": "usr-pharma-001",
-      "username": "pharma",
-      "email": "pharma@pharmandina.pe",
-      "password": "123456",
-      "firstName": "Valeria",
-      "lastName": "Rojas",
-      "fullName": "Valeria Rojas",
-      "initials": "VR",
-      "role": "hospitalPharmacyCoordinator",
-      "position": "Pharmaceutical Company Supervisor",
-      "status": "active",
-      "segment": "hospital-pharmacy",
-      "organization": "PharmAndina",
-      "facilityId": "fac-pharma",
-      "facilityName": "PharmAndina Cold Chain",
-      "allowedContexts": [
-        "dashboard-overview",
-        "asset-inventory",
-        "sensor-monitoring",
-        "environmental-compliance",
-        "alerts-notifications",
-        "reports-analytics",
-        "incident-management",
-        "audit-traceability"
-      ],
-      "phone": "+51 900 666 777",
+      "phone": "999999999",
       "timezone": "America/Lima"
     }
   ],
@@ -352,7 +214,7 @@
       "value": "Open",
       "min": 0,
       "max": 1,
-      "status": "invalid",
+      "status": "disconnected",
       "connection": "offline",
       "lastReading": "2026-06-19T00:29:00Z",
       "responsible": "Gabriel Paredes"
@@ -371,6 +233,38 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T02:20:00Z",
+      "responsible": "Valeria Rojas"
+    },
+    {
+      "id": "sen-011",
+      "code": "SEN-NPL-003",
+      "name": "North Lab Refrigerator Door",
+      "facilityId": "fac-north",
+      "assetId": "asset-005",
+      "type": "door",
+      "unit": "",
+      "value": 0,
+      "min": 0,
+      "max": 1,
+      "status": "disconnected",
+      "connection": "offline",
+      "lastReading": "2026-06-18T22:40:00Z",
+      "responsible": "Patricia Rivas"
+    },
+    {
+      "id": "sen-012",
+      "code": "SEN-PHA-002",
+      "name": "Cold Room Energy Meter",
+      "facilityId": "fac-pharma",
+      "assetId": "asset-010",
+      "type": "energy",
+      "unit": "kW",
+      "value": 2.3,
+      "min": 0,
+      "max": 5,
+      "status": "maintenance",
+      "connection": "maintenance",
+      "lastReading": "2026-06-18T20:15:00Z",
       "responsible": "Valeria Rojas"
     }
   ],
@@ -498,49 +392,165 @@
   ],
   "complianceRules": [
     {
-      "id": "rule-temp",
-      "title": "Temperature range: 2 - 8°C",
+      "id": "R-TEMP-01",
+      "title": "PCR reagent rack temperature",
+      "titleEs": "Temperatura de reactivos PCR",
       "type": "temperature",
+      "sensorId": "sen-003",
       "min": 2,
       "max": 8,
       "status": "active",
       "requiredEvidence": true
     },
     {
-      "id": "rule-humidity",
-      "title": "Humidity max: 35 - 60%",
+      "id": "R-HUM-02",
+      "title": "Hematology room humidity",
+      "titleEs": "Humedad de sala de hematología",
       "type": "humidity",
+      "sensorId": "sen-002",
       "min": 35,
       "max": 60,
       "status": "active",
       "requiredEvidence": true
     },
     {
-      "id": "rule-door",
-      "title": "Door status: closed during storage",
-      "type": "door",
-      "min": 0,
-      "max": 1,
-      "status": "active",
-      "requiredEvidence": false
-    },
-    {
-      "id": "rule-vibration",
-      "title": "Vibration range: 0 - 3mm/s",
-      "type": "vibration",
-      "min": 0,
-      "max": 3,
+      "id": "R-TEMP-03",
+      "title": "Reagent freezer temperature",
+      "titleEs": "Temperatura de congelador de reactivos",
+      "type": "temperature",
+      "sensorId": "sen-001",
+      "min": 2,
+      "max": 8,
       "status": "active",
       "requiredEvidence": true
     },
     {
-      "id": "rule-energy",
-      "title": "Energy range: 0 - 25kWh",
-      "type": "energy",
-      "min": 0,
-      "max": 25,
+      "id": "R-TEMP-04",
+      "title": "Vaccine fridge temperature",
+      "titleEs": "Temperatura de refrigerador de vacunas",
+      "type": "temperature",
+      "sensorId": "sen-007",
+      "min": 2,
+      "max": 8,
       "status": "active",
-      "requiredEvidence": false
+      "requiredEvidence": true
+    },
+    {
+      "id": "R-HUM-05",
+      "title": "Insulin storage humidity",
+      "titleEs": "Humedad de almacenamiento de insulina",
+      "type": "humidity",
+      "sensorId": "sen-008",
+      "min": 35,
+      "max": 60,
+      "status": "active",
+      "requiredEvidence": true
+    },
+    {
+      "id": "R-TEMP-06",
+      "title": "North lab refrigerator temperature",
+      "titleEs": "Temperatura de refrigerador del laboratorio norte",
+      "type": "temperature",
+      "sensorId": "sen-005",
+      "min": 2,
+      "max": 8,
+      "status": "active",
+      "requiredEvidence": true
+    }
+  ],
+  "complianceEvaluations": [
+    {
+      "id": "E-1006",
+      "ruleId": "R-TEMP-01",
+      "sensorId": "sen-003",
+      "observedAt": "2026-06-19T03:10:00",
+      "value": 9.1,
+      "status": "violation"
+    },
+    {
+      "id": "E-1005",
+      "ruleId": "R-HUM-05",
+      "sensorId": "sen-008",
+      "observedAt": "2026-06-19T04:00:00",
+      "value": 64,
+      "status": "violation"
+    },
+    {
+      "id": "E-1004",
+      "ruleId": "R-HUM-02",
+      "sensorId": "sen-002",
+      "observedAt": "2026-06-19T02:24:00",
+      "value": 46,
+      "status": "compliant"
+    },
+    {
+      "id": "E-1003",
+      "ruleId": "R-TEMP-03",
+      "sensorId": "sen-001",
+      "observedAt": "2026-06-19T02:25:00",
+      "value": 3.8,
+      "status": "compliant"
+    },
+    {
+      "id": "E-1002",
+      "ruleId": "R-TEMP-04",
+      "sensorId": "sen-007",
+      "observedAt": "2026-06-19T02:05:00",
+      "value": 5.1,
+      "status": "compliant"
+    },
+    {
+      "id": "E-1001",
+      "ruleId": "R-TEMP-06",
+      "sensorId": "sen-005",
+      "observedAt": "2026-06-19T02:10:00",
+      "value": 4.1,
+      "status": "compliant"
+    },
+    {
+      "id": "E-0999",
+      "ruleId": "R-TEMP-04",
+      "sensorId": "sen-007",
+      "observedAt": "2026-06-18T18:10:00",
+      "value": 8.6,
+      "status": "violation"
+    },
+    {
+      "id": "E-0998",
+      "ruleId": "R-TEMP-01",
+      "sensorId": "sen-003",
+      "observedAt": "2026-06-18T18:05:00",
+      "value": 4.5,
+      "status": "compliant"
+    }
+  ],
+  "complianceViolations": [
+    {
+      "id": "V-210",
+      "evaluationId": "E-1006",
+      "incidentCode": "INC-001",
+      "startedAt": "2026-06-19T03:10:00",
+      "endedAt": null,
+      "severity": "critical",
+      "status": "active"
+    },
+    {
+      "id": "V-209",
+      "evaluationId": "E-1005",
+      "incidentCode": "INC-002",
+      "startedAt": "2026-06-19T04:00:00",
+      "endedAt": null,
+      "severity": "warning",
+      "status": "active"
+    },
+    {
+      "id": "V-208",
+      "evaluationId": "E-0999",
+      "incidentCode": null,
+      "startedAt": "2026-06-18T18:10:00",
+      "endedAt": "2026-06-18T18:35:00",
+      "severity": "warning",
+      "status": "resolved"
     }
   ],
   "alerts": [
@@ -633,7 +643,7 @@
       "id": "not-003",
       "title": "Maintenance review",
       "message": "North incubator needs vibration inspection.",
-      "context": "remote-control",
+      "context": "remoteactuation",
       "severity": "warning",
       "unread": false,
       "createdAt": "2026-06-19T01:10:00Z"
@@ -711,87 +721,131 @@
   ],
   "actuators": [
     {
-      "id": "act-001",
-      "code": "ACT-001",
-      "name": "Freezer A Relay",
-      "type": "Relay",
+      "id": "ctrl-001",
+      "assetId": "asset-001",
+      "code": "EQ-CEN-001",
+      "name": "Reagent Freezer A",
+      "type": "Cooling",
       "facilityId": "fac-central",
-      "location": "Central Lab - Storage 1",
+      "location": "Storage 1 · Central Clinical Laboratory",
       "linkedSensorId": "sen-001",
       "safetyState": "enabled",
       "status": "online",
       "running": false,
-      "lastCommand": "Standby"
+      "lastCommand": "NORMAL"
     },
     {
-      "id": "act-002",
-      "code": "ACT-002",
-      "name": "PCR Freezer Emergency Cooling",
+      "id": "ctrl-002",
+      "assetId": "asset-005",
+      "code": "EQ-NOR-001",
+      "name": "North Lab Refrigerator",
       "type": "Cooling",
-      "facilityId": "fac-central",
-      "location": "Central Lab - PCR Room",
-      "linkedSensorId": "sen-003",
-      "safetyState": "enabled",
-      "status": "online",
-      "running": false,
-      "lastCommand": "Standby"
-    },
-    {
-      "id": "act-003",
-      "code": "ACT-003",
-      "name": "North Incubator Power Cycle",
-      "type": "Power cycle",
       "facilityId": "fac-north",
-      "location": "North Lab - Culture Room",
-      "linkedSensorId": "sen-006",
-      "safetyState": "blocked",
-      "status": "online",
+      "location": "Storage · North Province Clinical Lab",
+      "linkedSensorId": "sen-005",
+      "safetyState": "enabled",
+      "status": "offline",
       "running": false,
-      "lastCommand": "Standby"
+      "lastCommand": "NORMAL"
     },
     {
-      "id": "act-004",
-      "code": "ACT-004",
-      "name": "Vaccine Fridge Compressor",
+      "id": "ctrl-003",
+      "assetId": "asset-007",
+      "code": "EQ-HSP-001",
+      "name": "Vaccine Fridge",
       "type": "Cooling",
       "facilityId": "fac-hospital",
-      "location": "Hospital Pharmacy - Vaccines",
+      "location": "Vaccines · San Gabriel Hospital Pharmacy",
       "linkedSensorId": "sen-007",
       "safetyState": "enabled",
       "status": "online",
       "running": false,
-      "lastCommand": "Standby"
+      "lastCommand": "NORMAL"
     },
     {
-      "id": "act-005",
-      "code": "ACT-005",
-      "name": "Controlled Cabinet Lock",
-      "type": "Lock",
-      "facilityId": "fac-hospital",
-      "location": "Hospital Pharmacy - Restricted Area",
-      "linkedSensorId": "sen-009",
+      "id": "ctrl-004",
+      "assetId": "asset-010",
+      "code": "EQ-PHA-001",
+      "name": "PharmAndina Cold Room",
+      "type": "Cooling",
+      "facilityId": "fac-pharma",
+      "location": "Cold Chain · PharmAndina Cold Chain",
+      "linkedSensorId": "sen-010",
+      "safetyState": "enabled",
+      "status": "online",
+      "running": true,
+      "lastCommand": "BOOST"
+    },
+    {
+      "id": "ctrl-a01",
+      "assetId": null,
+      "code": "ACT-CEN-A01",
+      "name": "Cold Chamber A-01",
+      "type": "Cooling",
+      "facilityId": "fac-central",
+      "location": "Central Clinical Laboratory",
+      "linkedSensorId": null,
+      "safetyState": "enabled",
+      "status": "online",
+      "running": false,
+      "lastCommand": "NORMAL"
+    },
+    {
+      "id": "ctrl-freezer-b02",
+      "assetId": null,
+      "code": "ACT-CEN-B02",
+      "name": "Freezer B-02",
+      "type": "Cooling",
+      "facilityId": "fac-central",
+      "location": "Central Clinical Laboratory",
+      "linkedSensorId": null,
       "safetyState": "blocked",
       "status": "offline",
       "running": false,
-      "lastCommand": "Standby"
+      "lastCommand": "NORMAL"
+    },
+    {
+      "id": "ctrl-gw-02",
+      "assetId": null,
+      "code": "GW-S-02",
+      "name": "Gateway S-02",
+      "type": "Gateway",
+      "facilityId": "fac-central",
+      "location": "Central Clinical Laboratory",
+      "linkedSensorId": null,
+      "safetyState": "enabled",
+      "status": "online",
+      "running": false,
+      "lastCommand": "READY"
     }
   ],
   "remoteCommands": [
     {
-      "id": "cmd-001",
-      "command": "Reset",
-      "device": "Vaccine Fridge Compressor",
-      "status": "completed",
-      "requestedBy": "Paola Campos",
-      "createdAt": "2026-06-19T08:25:00Z"
+      "id": "CMD-081",
+      "actuatorId": "ctrl-a01",
+      "command": "Cooling boost",
+      "device": "Cold Chamber A-01",
+      "status": "confirmed-sample",
+      "requestedBy": "Lab Technician",
+      "createdAt": "2026-06-19T08:54:00Z"
     },
     {
-      "id": "cmd-002",
-      "command": "Start",
-      "device": "PCR Freezer Emergency Cooling",
-      "status": "completed",
-      "requestedBy": "Miguel Rojas",
-      "createdAt": "2026-06-19T08:10:00Z"
+      "id": "CMD-080",
+      "actuatorId": "ctrl-gw-02",
+      "command": "Restart gateway",
+      "device": "Gateway S-02",
+      "status": "confirmed-sample",
+      "requestedBy": "SafeLab Administrator",
+      "createdAt": "2026-06-19T08:11:00Z"
+    },
+    {
+      "id": "CMD-079",
+      "actuatorId": "ctrl-freezer-b02",
+      "command": "Normal cooling",
+      "device": "Freezer B-02",
+      "status": "cancelled-sample",
+      "requestedBy": "Dr. Maria Lopez",
+      "createdAt": "2026-06-18T17:34:00Z"
     }
   ],
   "reports": [
@@ -823,7 +877,7 @@
   "auditLogs": [
     {
       "id": "aud-1208",
-      "actor": "Dr. Maria Lopez",
+      "actor": "SafeLab Administrator",
       "action": "Reviewed compliance evidence",
       "module": "Compliance Traceability",
       "severity": "info",
@@ -863,65 +917,189 @@
     }
   ],
   "billing": {
-    "plan": "Professional Monitoring",
+    "accountId": "9f63a2e0-6839-4bff-9664-23eb8acfb9ca",
+    "plan": "SafeLab Professional",
     "status": "Active",
-    "renewalDate": "2026-07-01",
-    "monthlyCost": 99,
+    "startDate": "2026-08-06",
+    "renewalDate": "2026-12-06",
+    "monthlyCost": 118,
+    "currencyCode": "PEN",
     "deviceUsage": 10,
     "deviceLimit": 35,
     "invoices": [
       {
-        "id": "inv-2026-002",
-        "amount": 99,
-        "status": "paid",
-        "date": "2026-06-01"
+        "id": "invoice-2026-12",
+        "number": "SL-F-202612",
+        "amount": 118,
+        "subtotal": 100,
+        "tax": 18,
+        "status": "upcoming",
+        "date": "2026-11-06",
+        "dueDate": "2026-12-06",
+        "periodStart": "2026-12-06",
+        "periodEnd": "2027-01-05"
       },
       {
-        "id": "inv-2026-001",
-        "amount": 99,
+        "id": "receipt-202611",
+        "number": "SL-R-202611",
+        "amount": 118,
+        "subtotal": 100,
+        "tax": 18,
         "status": "paid",
-        "date": "2026-05-01"
+        "date": "2026-11-06",
+        "dueDate": "2026-11-06",
+        "method": "Online",
+        "reference": "PAY-202611-01"
+      },
+      {
+        "id": "receipt-202610",
+        "number": "SL-R-202610",
+        "amount": 118,
+        "subtotal": 100,
+        "tax": 18,
+        "status": "paid",
+        "date": "2026-10-06",
+        "dueDate": "2026-10-06",
+        "method": "Online",
+        "reference": "PAY-202610-01"
+      },
+      {
+        "id": "receipt-202609",
+        "number": "SL-R-202609",
+        "amount": 118,
+        "subtotal": 100,
+        "tax": 18,
+        "status": "paid",
+        "date": "2026-09-06",
+        "dueDate": "2026-09-06",
+        "method": "Online",
+        "reference": "PAY-202609-01"
+      },
+      {
+        "id": "receipt-202608",
+        "number": "SL-R-202608",
+        "amount": 118,
+        "subtotal": 100,
+        "tax": 18,
+        "status": "paid",
+        "date": "2026-08-06",
+        "dueDate": "2026-08-06",
+        "method": "Online",
+        "reference": "PAY-202608-01"
       }
     ],
     "payments": [
       {
-        "id": "pay-001",
-        "method": "Visa **** 4482",
-        "amount": 99,
-        "date": "2026-06-01",
+        "id": "PAY-202611-01",
+        "method": "Online",
+        "amount": 118,
+        "date": "2026-11-06",
+        "status": "completed"
+      },
+      {
+        "id": "PAY-202610-01",
+        "method": "Online",
+        "amount": 118,
+        "date": "2026-10-06",
+        "status": "completed"
+      },
+      {
+        "id": "PAY-202609-01",
+        "method": "Online",
+        "amount": 118,
+        "date": "2026-09-06",
+        "status": "completed"
+      },
+      {
+        "id": "PAY-202608-01",
+        "method": "Online",
+        "amount": 118,
+        "date": "2026-08-06",
         "status": "completed"
       }
     ]
   },
-  "currentUser": {
-    "id": "usr-admin-001",
-    "username": "admin",
-    "email": "admin@safelab.pe",
-    "password": "123456",
-    "firstName": "Maria",
-    "lastName": "Lopez",
-    "fullName": "Dr. Maria Lopez",
-    "initials": "ML",
-    "role": "safeLabAdministrator",
-    "position": "SafeLab Administrator",
-    "status": "active",
-    "segment": "platform",
-    "organization": "SafeLab",
-    "facilityId": "global",
-    "facilityName": "Global administrator scope",
-    "allowedContexts": [
-      "dashboard-overview",
-      "asset-inventory",
-      "sensor-monitoring",
-      "environmental-compliance",
-      "alerts-notifications",
-      "remote-control",
-      "reports-analytics",
-      "incident-management",
-      "audit-traceability",
-      "subscription-billing"
-    ],
-    "phone": "+51 900 111 222",
-    "timezone": "America/Lima"
-  }
+  "maintenanceRecords": [
+    {
+      "id": "MNT-012",
+      "equipmentId": "asset-003",
+      "type": "Inspection",
+      "status": "Scheduled",
+      "date": "2026-06-23",
+      "responsible": "Andrea Torres",
+      "notes": "Monthly inspection of the reagent rack and analyzer supplies."
+    },
+    {
+      "id": "MNT-011",
+      "equipmentId": "asset-006",
+      "type": "Corrective",
+      "status": "Scheduled",
+      "date": "2026-06-22",
+      "responsible": "Patricia Rivas",
+      "notes": "Replace the fan bearing and level the incubator."
+    },
+    {
+      "id": "MNT-010",
+      "equipmentId": "asset-009",
+      "type": "Corrective",
+      "status": "In progress",
+      "date": "2026-06-19",
+      "responsible": "Gabriel Paredes",
+      "notes": "Door sensor offline. Battery and wiring check requested."
+    },
+    {
+      "id": "MNT-009",
+      "equipmentId": "asset-002",
+      "type": "Corrective",
+      "status": "In progress",
+      "date": "2026-06-19",
+      "responsible": "Carlos Mendoza",
+      "notes": "Door gasket replaced after the temperature deviation. 24 h stability check pending."
+    },
+    {
+      "id": "MNT-008",
+      "equipmentId": "asset-006",
+      "type": "Inspection",
+      "status": "Completed",
+      "date": "2026-06-18",
+      "responsible": "Patricia Rivas",
+      "notes": "Vibration confirmed with a portable meter. Fan bearing shows wear."
+    },
+    {
+      "id": "MNT-007",
+      "equipmentId": "asset-008",
+      "type": "Inspection",
+      "status": "Completed",
+      "date": "2026-06-18",
+      "responsible": "Rosa Fernandez",
+      "notes": "Desiccant replaced and door seal checked."
+    },
+    {
+      "id": "MNT-006",
+      "equipmentId": "asset-010",
+      "type": "Preventive",
+      "status": "Completed",
+      "date": "2026-06-18",
+      "responsible": "Valeria Rojas",
+      "notes": "Quarterly preventive maintenance of compressors and evaporators."
+    },
+    {
+      "id": "MNT-005",
+      "equipmentId": "asset-007",
+      "type": "Calibration",
+      "status": "Completed",
+      "date": "2026-06-17",
+      "responsible": "Rosa Fernandez",
+      "notes": "Temperature probe calibrated against a reference thermometer."
+    },
+    {
+      "id": "MNT-004",
+      "equipmentId": "asset-001",
+      "type": "Preventive",
+      "status": "Completed",
+      "date": "2026-06-17",
+      "responsible": "Carlos Mendoza",
+      "notes": "Condenser cleaning and alarm test."
+    }
+  ]
 }

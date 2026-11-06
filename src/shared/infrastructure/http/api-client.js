@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 export const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL ||
-  'https://safelab-platform-api.onrender.com/api/v1'
+  'http://localhost:3000'
 ).replace(/\/$/, '')
 
 export const apiClient = axios.create({

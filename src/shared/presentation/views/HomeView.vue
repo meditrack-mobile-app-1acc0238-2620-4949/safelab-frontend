@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/identity-access/application/stores/auth.store'
+import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 import { useSafeLabDemoStore } from '@/shared/application/stores/demo.store'
 import { boundedContextNavigation } from '@/shared/domain/model/navigation-items'
 
@@ -28,7 +28,7 @@ const incidents = computed(() => demo.scopedItems('incidents', user.value).filte
           Role-aware summary for {{ user?.position || 'SafeLab user' }}. This page connects the main bounded contexts and shows what requires attention today based on the current data state.
         </p>
         <div class="actions">
-          <RouterLink class="btn" to="/dashboard-overview/laboratory-dashboard">
+          <RouterLink class="btn" to="/dashboardinsights/laboratory-dashboard">
             Open dashboard
           </RouterLink>
         </div>
@@ -86,11 +86,11 @@ const incidents = computed(() => demo.scopedItems('incidents', user.value).filte
           </div>
         </div>
         <div class="item-list">
-          <button v-for="alert in recentAlerts" :key="alert.id" class="list-row" type="button" @click="router.push('/alerts-notifications/active-alerts')">
+          <button v-for="alert in recentAlerts" :key="alert.id" class="list-row" type="button" @click="router.push('/alertsincidents/active-alerts')">
             <span><strong>{{ alert.title }}</strong><small>{{ alert.message }}</small></span>
             <span :class="['status-pill', alert.severity]">{{ alert.severity }}</span>
           </button>
-          <button v-for="incident in incidents" :key="incident.id" class="list-row" type="button" @click="router.push(`/incident-management/incident-detail/${incident.id}`)">
+          <button v-for="incident in incidents" :key="incident.id" class="list-row" type="button" @click="router.push(`/alertsincidents/incident-detail/${incident.id}`)">
             <span><strong>{{ incident.code }} · {{ incident.title }}</strong><small>{{ incident.description }}</small></span>
             <span :class="['status-pill', incident.status]">{{ incident.status }}</span>
           </button>
