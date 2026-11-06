@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { initialSafeLabData } from '@/shared/domain/data/safelab-demo-seed'
 import { apiClient } from '@/shared/infrastructure/http/api-client'
 
-const STORAGE_KEY = 'safelab-integrated-api-cache-v1'
-const USE_REMOTE_API = import.meta.env.VITE_USE_REMOTE_API !== 'false'
+const STORAGE_KEY = 'safelab-web-mocks-v2'
+const USE_REMOTE_API = false // Only local mock state. No deployment or remote backend.
 
 const clone = (value) => JSON.parse(JSON.stringify(value))
 const nowIso = () => new Date().toISOString()
@@ -11,7 +11,7 @@ const nextId = (prefix) => `${prefix}-${Math.floor(100000 + Math.random() * 9000
 
 const listKeys = [
   'users', 'facilities', 'sensors', 'assets', 'alerts', 'notifications', 'incidents',
-  'actuators', 'remoteCommands', 'reports', 'auditLogs', 'complianceRules'
+  'actuators', 'remoteCommands', 'reports', 'auditLogs', 'complianceRules', 'complianceEvaluations', 'complianceViolations', 'maintenanceRecords'
 ]
 
 function normalizeDataShape(value) {
@@ -89,6 +89,8 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     auditLogs: (state) => Array.isArray(state.data.auditLogs) ? state.data.auditLogs : [],
     billing: (state) => state.data.billing || {},
     complianceRules: (state) => Array.isArray(state.data.complianceRules) ? state.data.complianceRules : [],
+    complianceEvaluations: (state) => state.data.complianceEvaluations || [],
+    complianceViolations: (state) => state.data.complianceViolations || [],
     unreadNotifications: (state) => (Array.isArray(state.data.notifications) ? state.data.notifications : []).filter((n) => n.unread),
     unreadCount: (state) => (Array.isArray(state.data.notifications) ? state.data.notifications : []).filter((n) => n.unread).length,
 
@@ -138,7 +140,8 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
         openIncidents,
         reportsReady: reports.filter((r) => r.status === 'ready').length,
         facilities: facilities.length,
-        disconnectedSensors: sensors.filter((s) => s.connection !== 'online').length,
+        disconnectedSensors: sensors.filter((s) => s.connection === 'offline').length,
+        maintenanceSensors: sensors.filter((s) => s.connection === 'maintenance').length,
         abnormalSensors,
         pendingEvidence: incidents.reduce((sum, incident) => sum + (incident.evidence ? 0 : 1), 0)
       }
@@ -151,23 +154,19 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     },
 
     async syncFromBackend() {
-      if (!USE_REMOTE_API) return false
-
-      this.backendLoading = true
+      // Reads the optional local JSON server: npm run server. Never contacts a deployed backend.
+      // After loading, interactions remain client-side simulated.
       try {
-        const { data } = await apiClient.get('/demo/state')
+        const { data } = await apiClient.get('/db', { timeout: 2500 })
+        if (!Array.isArray(data?.sensors) || !Array.isArray(data?.assets)) return false
         this.data = normalizeDataShape(data)
-        this.backendConnected = true
-        this.backendError = null
+        this.backendConnected = false
         this.lastSyncedAt = nowIso()
         this.persist()
         return true
-      } catch (error) {
-        this.backendConnected = false
-        this.backendError = error.message
+      } catch {
+        // The bundled seed still allows the interface to work without npm run server.
         return false
-      } finally {
-        this.backendLoading = false
       }
     },
 
@@ -201,7 +200,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
 
     async initializeOperationalState() {
       this.data = normalizeDataShape(this.data)
-      const synced = await this.syncFromBackend()
+      const synced = !localStorage.getItem(STORAGE_KEY) && await this.syncFromBackend()
       if (synced || this.operationalStateInitialized) return
       this.operationalStateInitialized = true
       this.persist()
@@ -231,7 +230,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const notification = patchLocalItem(this.data.notifications, id, { unread: false })
       this.persist()
       if (USE_REMOTE_API && notification) {
-        try { await apiClient.post(`/alerts-notifications/notifications/${id}/mark-read`); await this.syncFromBackend() } catch {}
+        try { await apiClient.post(`/alertsincidents/notifications/${id}/mark-read`); await this.syncFromBackend() } catch {}
       }
     },
 
@@ -239,7 +238,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.data.notifications.forEach((item) => { item.unread = false })
       this.persist()
       if (USE_REMOTE_API) {
-        await Promise.allSettled(this.data.notifications.map((item) => apiClient.post(`/alerts-notifications/notifications/${item.id}/mark-read`)))
+        await Promise.allSettled(this.data.notifications.map((item) => apiClient.post(`/alertsincidents/notifications/${item.id}/mark-read`)))
         await this.syncFromBackend()
       }
     },
@@ -271,7 +270,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const alert = patchLocalItem(this.data.alerts, id, { status: 'acknowledged', acknowledgedAt: nowIso() })
       this.persist()
       if (USE_REMOTE_API && alert) {
-        try { await apiClient.post(`/alerts-notifications/alerts/${id}/acknowledge`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
+        try { await apiClient.post(`/alertsincidents/alerts/${id}/acknowledge`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
       }
     },
 
@@ -283,7 +282,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       }
       this.persist()
       if (USE_REMOTE_API && alert) {
-        try { await apiClient.post(`/alerts-notifications/alerts/${id}/resolve`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
+        try { await apiClient.post(`/alertsincidents/alerts/${id}/resolve`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
       }
     },
 
@@ -292,7 +291,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const incident = alert ? this.createIncidentFromAlertLocal(alert) : null
       this.persist()
       if (USE_REMOTE_API && alert) {
-        try { await apiClient.post(`/alerts-notifications/alerts/${id}/escalate`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
+        try { await apiClient.post(`/alertsincidents/alerts/${id}/escalate`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
       }
       return incident
     },
@@ -315,7 +314,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const incident = this.createIncidentFromAlertLocal(alert)
       this.persist()
       if (USE_REMOTE_API) {
-        try { await apiClient.post('/incident-management/incidents', incident); await this.syncFromBackend() } catch {}
+        try { await apiClient.post('/alertsincidents/incidents', incident); await this.syncFromBackend() } catch {}
       }
       return incident
     },
@@ -345,7 +344,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       if (USE_REMOTE_API) {
         try {
           if (Object.prototype.hasOwnProperty.call(patch, 'value')) {
-            await apiClient.patch(`/sensor-monitoring/sensors/${id}/reading`, { value: sensor.value })
+            await apiClient.patch(`/sensormonitoring/sensors/${id}/reading`, { value: sensor.value })
           } else {
             await apiClient.patch(`/sensors/${id}`, patch)
           }
@@ -361,7 +360,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.data.sensors.unshift(sensor)
       this.persist()
       if (USE_REMOTE_API) {
-        try { await apiClient.post('/sensor-monitoring/sensors', sensor); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
+        try { await apiClient.post('/sensormonitoring/sensors', sensor); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
       }
       return sensor
     },
@@ -387,8 +386,8 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.persist()
       if (USE_REMOTE_API) {
         try {
-          if (asset.id) await apiClient.patch(`/asset-inventory/assets/${asset.id}`, asset)
-          else await apiClient.post('/asset-inventory/assets', created)
+          if (asset.id) await apiClient.patch(`/facilityassets/assets/${asset.id}`, asset)
+          else await apiClient.post('/facilityassets/assets', created)
           await this.syncFromBackend()
         } catch (error) { this.backendError = error.message }
       }
@@ -399,7 +398,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.data.assets = filtered
       this.persist()
       if (USE_REMOTE_API) {
-        try { await apiClient.delete(`/asset-inventory/assets/${id}`); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
+        try { await apiClient.delete(`/facilityassets/assets/${id}`); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
       }
     },
 
@@ -428,7 +427,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const actuator = this.data.actuators.find((item) => item.id === actuatorId)
       if (!actuator) return
       if (actuator.status !== 'online' || actuator.safetyState === 'blocked') {
-        await this.addNotification({ title: 'Command blocked', message: `${actuator.name} rejected ${command}.`, context: 'remote-control', severity: 'warning' })
+        await this.addNotification({ title: 'Command blocked', message: `${actuator.name} rejected ${command}.`, context: 'remoteactuation', severity: 'warning' })
         return
       }
       this.commandInProgress = actuatorId
@@ -437,7 +436,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.persist()
       if (USE_REMOTE_API) {
         try {
-          await apiClient.post(`/remote-control/actuators/${actuatorId}/commands`, { command, requestedBy: actor })
+          await apiClient.post(`/remoteactuation/actuators/${actuatorId}/commands`, { command, requestedBy: actor })
           await this.syncFromBackend()
         } catch (error) {
           this.backendError = error.message
@@ -467,9 +466,9 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.persist()
       if (USE_REMOTE_API) {
         try {
-          if (normalized === 'investigating') await apiClient.post(`/incident-management/incidents/${id}/start-investigation`)
-          else if (normalized === 'resolved') await apiClient.post(`/incident-management/incidents/${id}/mark-resolved`)
-          else if (normalized === 'closed') await apiClient.post(`/incident-management/incidents/${id}/close`)
+          if (normalized === 'investigating') await apiClient.post(`/alertsincidents/incidents/${id}/start-investigation`)
+          else if (normalized === 'resolved') await apiClient.post(`/alertsincidents/incidents/${id}/mark-resolved`)
+          else if (normalized === 'closed') await apiClient.post(`/alertsincidents/incidents/${id}/close`)
           else await apiClient.patch(`/incidents/${id}`, { status: normalized, updatedAt: incident.updatedAt })
           await this.syncFromBackend()
         } catch (error) { this.backendError = error.message }
@@ -482,7 +481,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.persist()
       if (USE_REMOTE_API) {
         try {
-          const { data } = await apiClient.post('/reports-analytics/reports/generate', { type, title: report.title, format: report.format })
+          const { data } = await apiClient.post('/reportinganalytics/reports/generate', { type, title: report.title, format: report.format })
           await this.syncFromBackend()
           return data
         } catch (error) { this.backendError = error.message }

@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/identity-access/application/stores/auth.store'
+import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 
 const toId = (value) => String(value ?? '')
 
