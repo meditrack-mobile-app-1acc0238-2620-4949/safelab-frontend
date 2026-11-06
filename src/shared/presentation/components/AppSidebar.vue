@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { boundedContextNavigation } from '@/shared/domain/model/navigation-items'
 import { useAppStore } from '@/shared/application/stores/app.store'
-import { useAuthStore } from '@/identity-access/application/stores/auth.store'
+import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 
 const route = useRoute()
 const router = useRouter()
@@ -46,7 +46,7 @@ function closeOnMobile() {
 function logout() {
   authStore.logout()
   appStore.closeMobileSidebar()
-  router.push('/identity-access/login')
+  router.push('/identityaccess/login')
 }
 </script>
 
@@ -77,7 +77,7 @@ function logout() {
           @click="closeOnMobile"
       >
         <i :class="`pi pi-${item.icon}`" aria-hidden="true"></i>
-        <span>{{ item.shortLabel || t(item.titleKey) }}</span>
+        <span>{{ t(item.titleKey) }}</span>
       </RouterLink>
     </nav>
 
@@ -102,7 +102,7 @@ function logout() {
   left: 0;
   bottom: 0;
   z-index: 40;
-  width: 248px;
+  width: var(--sidebar-width);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -128,6 +128,9 @@ function logout() {
   }
 }
 
+/* User-facing names are short labels; technical BC names stay in source code. */
+.sidebar-nav .nav-group-link { font-size: .86rem; padding: 11px 10px; }
+.sidebar-nav .nav-group-link span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-footnote {
   margin-top: auto;
   display: grid;

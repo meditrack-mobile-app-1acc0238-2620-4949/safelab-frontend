@@ -1,20 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppShell from '@/shared/presentation/layouts/AppShell.vue'
-import HomeView from '@/shared/presentation/views/HomeView.vue'
-import { useAuthStore } from '@/identity-access/application/stores/auth.store'
+import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 
-import { routes as IdentityAccessRoutes } from '@/identity-access/presentation/routes'
-import { routes as UserProfilesRoutes } from '@/user-profiles/presentation/routes'
-import { routes as SubscriptionBillingRoutes } from '@/subscription-billing/presentation/routes'
-import { routes as DashboardOverviewRoutes } from '@/dashboard-overview/presentation/routes'
-import { routes as AssetInventoryRoutes } from '@/asset-inventory/presentation/routes'
-import { routes as SensorMonitoringRoutes } from '@/sensor-monitoring/presentation/routes'
-import { routes as EnvironmentalComplianceRoutes } from '@/environmental-compliance/presentation/routes'
-import { routes as AlertsNotificationsRoutes } from '@/alerts-notifications/presentation/routes'
-import { routes as RemoteControlRoutes } from '@/remote-control/presentation/routes'
-import { routes as ReportsAnalyticsRoutes } from '@/reports-analytics/presentation/routes'
-import { routes as IncidentManagementRoutes } from '@/incident-management/presentation/routes'
-import { routes as AuditTraceabilityRoutes } from '@/audit-traceability/presentation/routes'
+import { routes as IdentityAccessRoutes } from '@/boundedcontext/identityaccess/presentation/routes'
+import { routes as UserProfilesRoutes } from '@/boundedcontext/userprofiles/presentation/routes'
+import { routes as SubscriptionBillingRoutes } from '@/boundedcontext/subscriptionbilling/presentation/routes'
+import { routes as DashboardOverviewRoutes } from '@/boundedcontext/dashboardinsights/presentation/routes'
+import { routes as EquipmentMaintenanceRoutes } from '@/boundedcontext/equipmentmaintenance/presentation/routes'
+import { routes as AssetInventoryRoutes } from '@/boundedcontext/facilityassets/presentation/routes'
+import { routes as SensorMonitoringRoutes } from '@/boundedcontext/sensormonitoring/presentation/routes'
+import { routes as EnvironmentalComplianceRoutes } from '@/boundedcontext/environmentalcompliance/presentation/routes'
+import { routes as AlertsNotificationsRoutes } from '@/boundedcontext/alertsincidents/presentation/routes'
+import { routes as RemoteControlRoutes } from '@/boundedcontext/remoteactuation/presentation/routes'
+import { routes as ReportsAnalyticsRoutes } from '@/boundedcontext/reportinganalytics/presentation/routes'
+import { routes as IncidentManagementRoutes } from '@/boundedcontext/alertsincidents/presentation/incident-routes'
+import { routes as AuditTraceabilityRoutes } from '@/boundedcontext/audittraceability/presentation/routes'
+import { recordRoutes } from '@/shared/presentation/routes/record-routes'
 
 const routes = [
     ...IdentityAccessRoutes,
@@ -25,21 +26,21 @@ const routes = [
         children: [
             {
                 path: '',
-                name: 'home',
-                component: HomeView,
-                meta: { title: 'Home', contextKey: 'home' }
+                redirect: '/dashboardinsights/laboratory-dashboard'
             },
             ...UserProfilesRoutes,
             ...SubscriptionBillingRoutes,
             ...DashboardOverviewRoutes,
             ...AssetInventoryRoutes,
+            ...EquipmentMaintenanceRoutes,
             ...SensorMonitoringRoutes,
             ...EnvironmentalComplianceRoutes,
             ...AlertsNotificationsRoutes,
             ...RemoteControlRoutes,
             ...ReportsAnalyticsRoutes,
             ...IncidentManagementRoutes,
-            ...AuditTraceabilityRoutes
+            ...AuditTraceabilityRoutes,
+            ...recordRoutes
         ]
     },
 
@@ -68,7 +69,7 @@ router.beforeEach((to) => {
 
     if (!isPublicRoute && !isAuthenticated) {
         return {
-            path: '/identity-access/login',
+            path: '/identityaccess/login',
             query: {
                 redirect: to.fullPath
             }
@@ -76,7 +77,7 @@ router.beforeEach((to) => {
     }
 
     if (isPublicRoute && isAuthenticated) {
-        return '/dashboard-overview/laboratory-dashboard'
+        return '/dashboardinsights/laboratory-dashboard'
     }
 
     if (
@@ -84,7 +85,7 @@ router.beforeEach((to) => {
         protectedContext &&
         !authStore.canAccessContext(protectedContext)
     ) {
-        return '/dashboard-overview/laboratory-dashboard'
+        return '/dashboardinsights/laboratory-dashboard'
     }
 
     return true

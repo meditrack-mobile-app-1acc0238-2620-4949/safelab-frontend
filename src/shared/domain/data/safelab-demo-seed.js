@@ -1,3 +1,5 @@
+import { maintenanceRecords } from '../../../boundedcontext/equipmentmaintenance/data/maintenance-mock.js'
+
 export const roleLabels = {
   safeLabAdministrator: 'SafeLab Administrator',
   bioclinicalCoordinator: 'Bioclinical Operations Coordinator',
@@ -10,61 +12,26 @@ export const roleLabels = {
 }
 
 const allContexts = [
-  'dashboard-overview',
-  'asset-inventory',
-  'sensor-monitoring',
-  'environmental-compliance',
-  'alerts-notifications',
-  'remote-control',
-  'reports-analytics',
-  'incident-management',
-  'audit-traceability',
-  'subscription-billing'
+  'dashboardinsights',
+  'facilityassets',
+  'sensormonitoring',
+  'environmentalcompliance',
+  'alertsincidents',
+  'remoteactuation',
+  'reportinganalytics',
+  'alertsincidents',
+  'audittraceability',
+  'subscriptionbilling'
 ]
 
 export const demoUsers = [
   {
-    id: 'usr-admin-001', username: 'admin', email: 'admin@safelab.pe', password: '123456',
-    firstName: 'Maria', lastName: 'Lopez', fullName: 'Dr. Maria Lopez', initials: 'ML',
+    id: '9f63a2e0-6839-4bff-9664-23eb8acfb9ca', username: '691339768298838915', email: 'admin@hotmail.com', password: 'SafeLab2026%',
+    firstName: 'SafeLab', lastName: 'Administrator', fullName: 'SafeLab Administrator', initials: 'SA',
     role: 'safeLabAdministrator', position: roleLabels.safeLabAdministrator, status: 'active', segment: 'platform',
     organization: 'SafeLab', facilityId: 'global', facilityName: 'Global administrator scope', allowedContexts: allContexts,
-    phone: '+51 900 111 222', timezone: 'America/Lima'
+    phone: '999999999', timezone: 'America/Lima'
   },
-  {
-    id: 'usr-coord-001', username: 'coordinator', email: 'coordinator@labcentral.pe', password: '123456',
-    firstName: 'Carlos', lastName: 'Mendoza', fullName: 'Carlos Mendoza', initials: 'CM',
-    role: 'bioclinicalCoordinator', position: roleLabels.bioclinicalCoordinator, status: 'active', segment: 'clinical-laboratory',
-    organization: 'Central Clinical Laboratory', facilityId: 'fac-central', facilityName: 'Central Clinical Laboratory',
-    allowedContexts: ['dashboard-overview','asset-inventory','sensor-monitoring','environmental-compliance','alerts-notifications','reports-analytics','incident-management','audit-traceability'], phone: '+51 900 222 333', timezone: 'America/Lima'
-  },
-  {
-    id: 'usr-tech-001', username: 'technician', email: 'technician@labcentral.pe', password: '123456',
-    firstName: 'Andrea', lastName: 'Torres', fullName: 'Andrea Torres', initials: 'AT',
-    role: 'labTechnician', position: roleLabels.labTechnician, status: 'active', segment: 'clinical-laboratory',
-    organization: 'Central Clinical Laboratory', facilityId: 'fac-central', facilityName: 'Central Clinical Laboratory',
-    allowedContexts: ['dashboard-overview','asset-inventory','sensor-monitoring','alerts-notifications','incident-management'], phone: '+51 900 333 444', timezone: 'America/Lima'
-  },
-  {
-    id: 'usr-compliance-001', username: 'compliance', email: 'compliance@farmaciaregional.pe', password: '123456',
-    firstName: 'Patricia', lastName: 'Salazar', fullName: 'Patricia Salazar', initials: 'PS',
-    role: 'complianceOfficer', position: roleLabels.complianceOfficer, status: 'active', segment: 'shared',
-    organization: 'Regional Hospital Pharmacy', facilityId: 'fac-hospital', facilityName: 'San Gabriel Hospital Pharmacy',
-    allowedContexts: ['dashboard-overview','environmental-compliance','alerts-notifications','reports-analytics','incident-management','audit-traceability'], phone: '+51 900 444 555', timezone: 'America/Lima'
-  },
-  {
-    id: 'usr-manager-001', username: 'manager', email: 'manager@labcentral.pe', password: '123456',
-    firstName: 'Luis', lastName: 'Ramirez', fullName: 'Luis Ramirez', initials: 'LR',
-    role: 'billingManager', position: 'Organization Manager', status: 'active', segment: 'clinical-laboratory',
-    organization: 'Central Clinical Laboratory', facilityId: 'fac-central', facilityName: 'Central Clinical Laboratory',
-    allowedContexts: ['dashboard-overview','subscription-billing','reports-analytics','environmental-compliance','incident-management','audit-traceability'], phone: '+51 900 555 666', timezone: 'America/Lima'
-  },
-  {
-    id: 'usr-pharma-001', username: 'pharma', email: 'pharma@pharmandina.pe', password: '123456',
-    firstName: 'Valeria', lastName: 'Rojas', fullName: 'Valeria Rojas', initials: 'VR',
-    role: 'hospitalPharmacyCoordinator', position: 'Pharmaceutical Company Supervisor', status: 'active', segment: 'hospital-pharmacy',
-    organization: 'PharmAndina', facilityId: 'fac-pharma', facilityName: 'PharmAndina Cold Chain',
-    allowedContexts: ['dashboard-overview','asset-inventory','sensor-monitoring','environmental-compliance','alerts-notifications','reports-analytics','incident-management','audit-traceability'], phone: '+51 900 666 777', timezone: 'America/Lima'
-  }
 ]
 
 export const initialSafeLabData = {
@@ -84,8 +51,10 @@ export const initialSafeLabData = {
     { id: 'sen-006', code: 'SEN-NPL-002', name: 'North Incubator Vibration', facilityId: 'fac-north', assetId: 'asset-006', type: 'vibration', unit: 'mm/s', value: 4.8, min: 0, max: 3, status: 'out-of-range', connection: 'online', lastReading: '2026-06-19T02:12:00Z', responsible: 'Patricia Rivas' },
     { id: 'sen-007', code: 'SEN-PHM-001', name: 'Vaccine Fridge Temperature', facilityId: 'fac-hospital', assetId: 'asset-007', type: 'temperature', unit: '°C', value: 5.1, min: 2, max: 8, status: 'normal', connection: 'online', lastReading: '2026-06-19T02:05:00Z', responsible: 'Rosa Fernandez' },
     { id: 'sen-008', code: 'SEN-PHM-002', name: 'Insulin Storage Humidity', facilityId: 'fac-hospital', assetId: 'asset-008', type: 'humidity', unit: '%', value: 64, min: 35, max: 60, status: 'out-of-range', connection: 'online', lastReading: '2026-06-19T04:00:00Z', responsible: 'Rosa Fernandez' },
-    { id: 'sen-009', code: 'SEN-PHM-003', name: 'Controlled Drugs Cabinet Door', facilityId: 'fac-hospital', assetId: 'asset-009', type: 'door', unit: '', value: 'Open', min: 0, max: 1, status: 'invalid', connection: 'offline', lastReading: '2026-06-19T00:29:00Z', responsible: 'Gabriel Paredes' },
-    { id: 'sen-010', code: 'SEN-PHA-001', name: 'PharmAndina Cold Room', facilityId: 'fac-pharma', assetId: 'asset-010', type: 'temperature', unit: '°C', value: 4.5, min: 2, max: 8, status: 'normal', connection: 'online', lastReading: '2026-06-19T02:20:00Z', responsible: 'Valeria Rojas' }
+    { id: 'sen-009', code: 'SEN-PHM-003', name: 'Controlled Drugs Cabinet Door', facilityId: 'fac-hospital', assetId: 'asset-009', type: 'door', unit: '', value: 'Open', min: 0, max: 1, status: 'disconnected', connection: 'offline', lastReading: '2026-06-19T00:29:00Z', responsible: 'Gabriel Paredes' },
+    { id: 'sen-010', code: 'SEN-PHA-001', name: 'PharmAndina Cold Room', facilityId: 'fac-pharma', assetId: 'asset-010', type: 'temperature', unit: '°C', value: 4.5, min: 2, max: 8, status: 'normal', connection: 'online', lastReading: '2026-06-19T02:20:00Z', responsible: 'Valeria Rojas' },
+    { id: 'sen-011', code: 'SEN-NPL-003', name: 'North Lab Refrigerator Door', facilityId: 'fac-north', assetId: 'asset-005', type: 'door', unit: '', value: 0, min: 0, max: 1, status: 'disconnected', connection: 'offline', lastReading: '2026-06-18T22:40:00Z', responsible: 'Patricia Rivas' },
+    { id: 'sen-012', code: 'SEN-PHA-002', name: 'Cold Room Energy Meter', facilityId: 'fac-pharma', assetId: 'asset-010', type: 'energy', unit: 'kW', value: 2.3, min: 0, max: 5, status: 'maintenance', connection: 'maintenance', lastReading: '2026-06-18T20:15:00Z', responsible: 'Valeria Rojas' }
   ],
   assets: [
     { id: 'asset-001', name: 'Reagent Freezer A', category: 'Cold Storage', facilityId: 'fac-central', storageUnit: 'Freezer A', location: 'Central Lab - Storage 1', lastInspection: '2026-06-17', responsible: 'Carlos Mendoza', status: 'compliant', scope: 'clinical-laboratory' },
@@ -100,11 +69,27 @@ export const initialSafeLabData = {
     { id: 'asset-010', name: 'PharmAndina Cold Room', category: 'Pharmaceutical Cold Chain', facilityId: 'fac-pharma', storageUnit: 'Cold Room P1', location: 'PharmAndina - Cold Chain', lastInspection: '2026-06-18', responsible: 'Valeria Rojas', status: 'compliant', scope: 'pharmaceutical-operations' }
   ],
   complianceRules: [
-    { id: 'rule-temp', title: 'Temperature range: 2 - 8°C', type: 'temperature', min: 2, max: 8, status: 'active', requiredEvidence: true },
-    { id: 'rule-humidity', title: 'Humidity max: 35 - 60%', type: 'humidity', min: 35, max: 60, status: 'active', requiredEvidence: true },
-    { id: 'rule-door', title: 'Door status: closed during storage', type: 'door', min: 0, max: 1, status: 'active', requiredEvidence: false },
-    { id: 'rule-vibration', title: 'Vibration range: 0 - 3mm/s', type: 'vibration', min: 0, max: 3, status: 'active', requiredEvidence: true },
-    { id: 'rule-energy', title: 'Energy range: 0 - 25kWh', type: 'energy', min: 0, max: 25, status: 'active', requiredEvidence: false }
+    {id:'R-TEMP-01',title:'PCR reagent rack temperature',titleEs:'Temperatura de reactivos PCR',type:'temperature',sensorId:'sen-003',min:2,max:8,status:'active',requiredEvidence:true},
+    {id:'R-HUM-02',title:'Hematology room humidity',titleEs:'Humedad de sala de hematología',type:'humidity',sensorId:'sen-002',min:35,max:60,status:'active',requiredEvidence:true},
+    {id:'R-TEMP-03',title:'Reagent freezer temperature',titleEs:'Temperatura de congelador de reactivos',type:'temperature',sensorId:'sen-001',min:2,max:8,status:'active',requiredEvidence:true},
+    {id:'R-TEMP-04',title:'Vaccine fridge temperature',titleEs:'Temperatura de refrigerador de vacunas',type:'temperature',sensorId:'sen-007',min:2,max:8,status:'active',requiredEvidence:true},
+    {id:'R-HUM-05',title:'Insulin storage humidity',titleEs:'Humedad de almacenamiento de insulina',type:'humidity',sensorId:'sen-008',min:35,max:60,status:'active',requiredEvidence:true},
+    {id:'R-TEMP-06',title:'North lab refrigerator temperature',titleEs:'Temperatura de refrigerador del laboratorio norte',type:'temperature',sensorId:'sen-005',min:2,max:8,status:'active',requiredEvidence:true}
+  ],
+  complianceEvaluations: [
+    {id:'E-1006',ruleId:'R-TEMP-01',sensorId:'sen-003',observedAt:'2026-06-19T03:10:00',value:9.1,status:'violation'},
+    {id:'E-1005',ruleId:'R-HUM-05',sensorId:'sen-008',observedAt:'2026-06-19T04:00:00',value:64,status:'violation'},
+    {id:'E-1004',ruleId:'R-HUM-02',sensorId:'sen-002',observedAt:'2026-06-19T02:24:00',value:46,status:'compliant'},
+    {id:'E-1003',ruleId:'R-TEMP-03',sensorId:'sen-001',observedAt:'2026-06-19T02:25:00',value:3.8,status:'compliant'},
+    {id:'E-1002',ruleId:'R-TEMP-04',sensorId:'sen-007',observedAt:'2026-06-19T02:05:00',value:5.1,status:'compliant'},
+    {id:'E-1001',ruleId:'R-TEMP-06',sensorId:'sen-005',observedAt:'2026-06-19T02:10:00',value:4.1,status:'compliant'},
+    {id:'E-0999',ruleId:'R-TEMP-04',sensorId:'sen-007',observedAt:'2026-06-18T18:10:00',value:8.6,status:'violation'},
+    {id:'E-0998',ruleId:'R-TEMP-01',sensorId:'sen-003',observedAt:'2026-06-18T18:05:00',value:4.5,status:'compliant'}
+  ],
+  complianceViolations: [
+    {id:'V-210',evaluationId:'E-1006',incidentCode:'INC-001',startedAt:'2026-06-19T03:10:00',endedAt:null,severity:'critical',status:'active'},
+    {id:'V-209',evaluationId:'E-1005',incidentCode:'INC-002',startedAt:'2026-06-19T04:00:00',endedAt:null,severity:'warning',status:'active'},
+    {id:'V-208',evaluationId:'E-0999',incidentCode:null,startedAt:'2026-06-18T18:10:00',endedAt:'2026-06-18T18:35:00',severity:'warning',status:'resolved'}
   ],
   alerts: [
     { id: 'alert-001', type: 'Temperature', title: 'PCR freezer out of range', message: 'PCR freezer exceeded maximum temperature.', sensorId: 'sen-003', assetId: 'asset-002', facilityId: 'fac-central', severity: 'critical', status: 'active', createdAt: '2026-06-19T03:10:00Z', assignedTo: 'Carlos Mendoza' },
@@ -116,7 +101,7 @@ export const initialSafeLabData = {
   notifications: [
     { id: 'not-001', title: 'Critical freezer alert', message: 'PCR freezer exceeded the configured temperature range.', context: 'alerts', severity: 'critical', unread: true, createdAt: '2026-06-19T03:10:00Z' },
     { id: 'not-002', title: 'Humidity deviation', message: 'Insulin storage requires validation.', context: 'alerts', severity: 'warning', unread: true, createdAt: '2026-06-19T04:10:00Z' },
-    { id: 'not-003', title: 'Maintenance review', message: 'North incubator needs vibration inspection.', context: 'remote-control', severity: 'warning', unread: false, createdAt: '2026-06-19T01:10:00Z' }
+    { id: 'not-003', title: 'Maintenance review', message: 'North incubator needs vibration inspection.', context: 'remoteactuation', severity: 'warning', unread: false, createdAt: '2026-06-19T01:10:00Z' }
   ],
   incidents: [
     { id: 'inc-001', code: 'INC-001', title: 'PCR freezer deviation', description: 'Temperature deviation requires quarantine validation.', facilityId: 'fac-central', relatedAlertId: 'alert-001', relatedSensorId: 'sen-003', relatedAssetId: 'asset-002', severity: 'critical', status: 'open', assignedTo: 'Carlos Mendoza', dueDate: '2026-06-20', evidence: 1, createdAt: '2026-06-19T02:00:00Z', updatedAt: '2026-06-19T03:10:00Z' },
@@ -125,15 +110,18 @@ export const initialSafeLabData = {
     { id: 'inc-004', code: 'INC-004', title: 'North incubator maintenance', description: 'Vibration values require inspection.', facilityId: 'fac-north', relatedAlertId: 'alert-004', relatedSensorId: 'sen-006', relatedAssetId: 'asset-006', severity: 'warning', status: 'open', assignedTo: 'Patricia Rivas', dueDate: '2026-06-22', evidence: 0, createdAt: '2026-06-19T02:00:00Z', updatedAt: '2026-06-19T02:00:00Z' }
   ],
   actuators: [
-    { id: 'act-001', code: 'ACT-001', name: 'Freezer A Relay', type: 'Relay', facilityId: 'fac-central', location: 'Central Lab - Storage 1', linkedSensorId: 'sen-001', safetyState: 'enabled', status: 'online', running: false, lastCommand: 'Standby' },
-    { id: 'act-002', code: 'ACT-002', name: 'PCR Freezer Emergency Cooling', type: 'Cooling', facilityId: 'fac-central', location: 'Central Lab - PCR Room', linkedSensorId: 'sen-003', safetyState: 'enabled', status: 'online', running: false, lastCommand: 'Standby' },
-    { id: 'act-003', code: 'ACT-003', name: 'North Incubator Power Cycle', type: 'Power cycle', facilityId: 'fac-north', location: 'North Lab - Culture Room', linkedSensorId: 'sen-006', safetyState: 'blocked', status: 'online', running: false, lastCommand: 'Standby' },
-    { id: 'act-004', code: 'ACT-004', name: 'Vaccine Fridge Compressor', type: 'Cooling', facilityId: 'fac-hospital', location: 'Hospital Pharmacy - Vaccines', linkedSensorId: 'sen-007', safetyState: 'enabled', status: 'online', running: false, lastCommand: 'Standby' },
-    { id: 'act-005', code: 'ACT-005', name: 'Controlled Cabinet Lock', type: 'Lock', facilityId: 'fac-hospital', location: 'Hospital Pharmacy - Restricted Area', linkedSensorId: 'sen-009', safetyState: 'blocked', status: 'offline', running: false, lastCommand: 'Standby' }
+    {id:'ctrl-001',assetId:'asset-001',code:'EQ-CEN-001',name:'Reagent Freezer A',type:'Cooling',facilityId:'fac-central',location:'Storage 1 · Central Clinical Laboratory',linkedSensorId:'sen-001',safetyState:'enabled',status:'online',running:false,lastCommand:'NORMAL'},
+    {id:'ctrl-002',assetId:'asset-005',code:'EQ-NOR-001',name:'North Lab Refrigerator',type:'Cooling',facilityId:'fac-north',location:'Storage · North Province Clinical Lab',linkedSensorId:'sen-005',safetyState:'enabled',status:'offline',running:false,lastCommand:'NORMAL'},
+    {id:'ctrl-003',assetId:'asset-007',code:'EQ-HSP-001',name:'Vaccine Fridge',type:'Cooling',facilityId:'fac-hospital',location:'Vaccines · San Gabriel Hospital Pharmacy',linkedSensorId:'sen-007',safetyState:'enabled',status:'online',running:false,lastCommand:'NORMAL'},
+    {id:'ctrl-004',assetId:'asset-010',code:'EQ-PHA-001',name:'PharmAndina Cold Room',type:'Cooling',facilityId:'fac-pharma',location:'Cold Chain · PharmAndina Cold Chain',linkedSensorId:'sen-010',safetyState:'enabled',status:'online',running:true,lastCommand:'BOOST'},
+    {id:'ctrl-a01',assetId:null,code:'ACT-CEN-A01',name:'Cold Chamber A-01',type:'Cooling',facilityId:'fac-central',location:'Central Clinical Laboratory',linkedSensorId:null,safetyState:'enabled',status:'online',running:false,lastCommand:'NORMAL'},
+    {id:'ctrl-freezer-b02',assetId:null,code:'ACT-CEN-B02',name:'Freezer B-02',type:'Cooling',facilityId:'fac-central',location:'Central Clinical Laboratory',linkedSensorId:null,safetyState:'blocked',status:'offline',running:false,lastCommand:'NORMAL'},
+    {id:'ctrl-gw-02',assetId:null,code:'GW-S-02',name:'Gateway S-02',type:'Gateway',facilityId:'fac-central',location:'Central Clinical Laboratory',linkedSensorId:null,safetyState:'enabled',status:'online',running:false,lastCommand:'READY'}
   ],
   remoteCommands: [
-    { id: 'cmd-001', command: 'Reset', device: 'Vaccine Fridge Compressor', status: 'completed', requestedBy: 'Paola Campos', createdAt: '2026-06-19T08:25:00Z' },
-    { id: 'cmd-002', command: 'Start', device: 'PCR Freezer Emergency Cooling', status: 'completed', requestedBy: 'Miguel Rojas', createdAt: '2026-06-19T08:10:00Z' }
+    {id:'CMD-081',actuatorId:'ctrl-a01',command:'Cooling boost',device:'Cold Chamber A-01',status:'confirmed-sample',requestedBy:'Lab Technician',createdAt:'2026-06-19T08:54:00Z'},
+    {id:'CMD-080',actuatorId:'ctrl-gw-02',command:'Restart gateway',device:'Gateway S-02',status:'confirmed-sample',requestedBy:'SafeLab Administrator',createdAt:'2026-06-19T08:11:00Z'},
+    {id:'CMD-079',actuatorId:'ctrl-freezer-b02',command:'Normal cooling',device:'Freezer B-02',status:'cancelled-sample',requestedBy:'Dr. Maria Lopez',createdAt:'2026-06-18T17:34:00Z'}
   ],
   reports: [
     { id: 'rep-001', title: 'Cold Chain Executive Summary', type: 'Operational', format: 'PDF', status: 'ready', generatedAt: '2026-06-19T08:30:00Z' },
@@ -141,19 +129,22 @@ export const initialSafeLabData = {
     { id: 'rep-003', title: 'Remote Command Execution Trace', type: 'Audit', format: 'PDF', status: 'draft', generatedAt: '2026-06-19T07:40:00Z' }
   ],
   auditLogs: [
-    { id: 'aud-1208', actor: 'Dr. Maria Lopez', action: 'Reviewed compliance evidence', module: 'Compliance Traceability', severity: 'info', status: 'reviewed', createdAt: '2026-06-19T09:45:00Z', evidence: 'EVD-442' },
+    { id: 'aud-1208', actor: 'SafeLab Administrator', action: 'Reviewed compliance evidence', module: 'Compliance Traceability', severity: 'info', status: 'reviewed', createdAt: '2026-06-19T09:45:00Z', evidence: 'EVD-442' },
     { id: 'aud-1207', actor: 'System', action: 'Registered temperature threshold event', module: 'Sensor History', severity: 'warning', status: 'pending', createdAt: '2026-06-19T09:12:00Z', evidence: 'EVD-441' },
     { id: 'aud-1206', actor: 'Lab Technician', action: 'Executed remote cooling adjustment', module: 'Remote Command History', severity: 'critical', status: 'reviewed', createdAt: '2026-06-19T08:54:00Z', evidence: 'EVD-440' },
     { id: 'aud-1205', actor: 'Compliance Officer', action: 'Approved incident closure evidence', module: 'Incident History', severity: 'info', status: 'reviewed', createdAt: '2026-06-18T18:20:00Z', evidence: 'EVD-439' }
   ],
   billing: {
-    plan: 'Professional Monitoring', status: 'Active', renewalDate: '2026-07-01', monthlyCost: 99, deviceUsage: 10, deviceLimit: 35,
+    accountId: '9f63a2e0-6839-4bff-9664-23eb8acfb9ca',
+    plan: 'SafeLab Professional', status: 'Active', startDate: '2026-08-06', renewalDate: '2026-12-06',
+    monthlyCost: 118, currencyCode: 'PEN', deviceUsage: 10, deviceLimit: 35,
     invoices: [
-      { id: 'inv-2026-002', amount: 99, status: 'paid', date: '2026-06-01' },
-      { id: 'inv-2026-001', amount: 99, status: 'paid', date: '2026-05-01' }
+      { id:'invoice-2026-12', number:'SL-F-202612', amount:118, subtotal:100, tax:18, status:'upcoming', date:'2026-11-06', dueDate:'2026-12-06', periodStart:'2026-12-06', periodEnd:'2027-01-05' },
+      ...[11,10,9,8].map(month => ({id:`receipt-2026${String(month).padStart(2,'0')}`, number:`SL-R-2026${String(month).padStart(2,'0')}`, amount:118, subtotal:100, tax:18, status:'paid', date:`2026-${String(month).padStart(2,'0')}-06`, dueDate:`2026-${String(month).padStart(2,'0')}-06`, method:'Online', reference:`PAY-2026${String(month).padStart(2,'0')}-01`}))
     ],
-    payments: [
-      { id: 'pay-001', method: 'Visa **** 4482', amount: 99, date: '2026-06-01', status: 'completed' }
-    ]
+    payments: [11,10,9,8].map(month => ({id:`PAY-2026${String(month).padStart(2,'0')}-01`, method:'Online', amount:118, date:`2026-${String(month).padStart(2,'0')}-06`, status:'completed'}))
   }
 }
+
+// Maintenance belongs to its BC; the shared seed keeps references consistent.
+initialSafeLabData.maintenanceRecords = maintenanceRecords

@@ -4,8 +4,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from '@/shared/application/services/i18n.service'
 import { useAppStore } from '@/shared/application/stores/app.store'
-import { useNotificationStore } from '@/alerts-notifications/application/stores/notification.store'
-import NotificationBellPanel from '@/alerts-notifications/presentation/components/NotificationBellPanel.vue'
+import { useNotificationStore } from '@/boundedcontext/alertsincidents/application/stores/notification.store'
+import NotificationBellPanel from '@/boundedcontext/alertsincidents/presentation/components/NotificationBellPanel.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -42,7 +42,7 @@ function toggleTheme() {
 }
 
 function openProfile() {
-  router.push('/user-profiles/my-profile')
+  router.push('/userprofiles/my-profile')
 }
 
 function closeNotifications() {

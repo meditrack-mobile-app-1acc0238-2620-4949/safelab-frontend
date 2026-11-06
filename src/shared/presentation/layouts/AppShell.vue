@@ -38,7 +38,7 @@ onMounted(() => {
   --sidebar-width: 248px;
 
   min-height: 100vh;
-  background: #f5f7fb;
+  background: var(--surface);
 }
 
 .app-main {
@@ -75,7 +75,8 @@ onMounted(() => {
 }
 
 .route-frame {
-  width: min(100%, 1320px);
+  width: min(100%, 1440px);
+  min-width: 0;
 }
 
 @media (max-width: 1024px) {
