@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppShell from '@/shared/presentation/layouts/AppShell.vue'
+import UsersPermissionsView from '@/boundedcontext/identityaccess/presentation/views/UsersPermissionsView.vue'
+import PlatformConsoleView from '@/boundedcontext/identityaccess/presentation/views/PlatformConsoleView.vue'
+import PlatformRecordsView from '@/boundedcontext/identityaccess/presentation/views/PlatformRecordsView.vue'
 import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 
 import { routes as IdentityAccessRoutes } from '@/boundedcontext/identityaccess/presentation/routes'
@@ -28,6 +31,10 @@ const routes = [
                 path: '',
                 redirect: '/dashboardinsights/laboratory-dashboard'
             },
+            { path:'identityaccess/users-permissions',component:UsersPermissionsView,meta:{sidebarContext:'userpermissions'} },
+            { path:'platform/organizations/:organizationId',component:PlatformConsoleView,meta:{sidebarContext:'platform'} },
+            { path:'platform/records/:collection',component:PlatformRecordsView,meta:{sidebarContext:'platform'} },
+            { path:'platform/:section',component:PlatformConsoleView,meta:{sidebarContext:'platform'} },
             ...UserProfilesRoutes,
             ...SubscriptionBillingRoutes,
             ...DashboardOverviewRoutes,
@@ -58,37 +65,17 @@ const router = createRouter({
     }
 })
 
-router.beforeEach((to) => {
-    const authStore = useAuthStore()
-
-    authStore.restoreSession()
-
-    const isPublicRoute = to.meta.public === true
-    const isAuthenticated = authStore.isAuthenticated
-    const protectedContext = to.meta.sidebarContext
-
-    if (!isPublicRoute && !isAuthenticated) {
-        return {
-            path: '/identityaccess/login',
-            query: {
-                redirect: to.fullPath
-            }
-        }
-    }
-
-    if (isPublicRoute && isAuthenticated) {
-        return '/dashboardinsights/laboratory-dashboard'
-    }
-
-    if (
-        isAuthenticated &&
-        protectedContext &&
-        !authStore.canAccessContext(protectedContext)
-    ) {
-        return '/dashboardinsights/laboratory-dashboard'
-    }
-
+router.beforeEach(to => {
+    const auth = useAuthStore()
+    auth.restoreSession()
+    const isPublic=to.meta.public===true
+    if(!isPublic && !auth.isAuthenticated)return {path:'/identityaccess/login',query:{redirect:to.fullPath}}
+    const home=auth.isPlatformAdmin?'/platform/overview':'/dashboardinsights/laboratory-dashboard'
+    if(isPublic && auth.isAuthenticated)return home
+    if(to.path==='/' || to.path==='/dashboardinsights/laboratory-dashboard' && auth.isPlatformAdmin)return home
+    if(auth.isPlatformAdmin && !to.path.startsWith('/platform/') && !to.path.startsWith('/userprofiles/'))return home
+    if(!auth.isPlatformAdmin && to.path.startsWith('/platform/'))return home
+    if(to.meta.sidebarContext && !auth.canAccessContext(to.meta.sidebarContext))return home
     return true
 })
-
 export default router

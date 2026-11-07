@@ -1,4 +1,5 @@
 <script setup>
+import LocalizedStatusBadge from '@/shared/presentation/components/LocalizedStatusBadge.vue'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
@@ -88,11 +89,11 @@ const incidents = computed(() => demo.scopedItems('incidents', user.value).filte
         <div class="item-list">
           <button v-for="alert in recentAlerts" :key="alert.id" class="list-row" type="button" @click="router.push('/alertsincidents/active-alerts')">
             <span><strong>{{ alert.title }}</strong><small>{{ alert.message }}</small></span>
-            <span :class="['status-pill', alert.severity]">{{ alert.severity }}</span>
+            <LocalizedStatusBadge :status="alert.severity"/>
           </button>
           <button v-for="incident in incidents" :key="incident.id" class="list-row" type="button" @click="router.push(`/alertsincidents/incident-detail/${incident.id}`)">
             <span><strong>{{ incident.code }} · {{ incident.title }}</strong><small>{{ incident.description }}</small></span>
-            <span :class="['status-pill', incident.status]">{{ incident.status }}</span>
+            <span :class="['status-pill', incident.status]">{{ $t(`platformUi.state_${incident.status}`) }}</span>
           </button>
         </div>
       </article>

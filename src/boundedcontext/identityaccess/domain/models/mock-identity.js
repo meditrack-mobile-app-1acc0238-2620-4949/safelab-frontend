@@ -1,7 +1,7 @@
 /** Demo identity shared with the SafeLab Android frontend. Replace with backend IAM later. */
 export const ADMIN_ID = '9f63a2e0-6839-4bff-9664-23eb8acfb9ca'
 export const ADMIN_USERNAME = '691339768298838915'
-export const ADMIN_EMAIL = 'admin@hotmail.com'
+export const ADMIN_EMAIL = 'admin@safelab.test'
 export const ADMIN_PASSWORD = 'SafeLab2026%'
 
 /** 18-digit account username with cryptographic browser randomness. */

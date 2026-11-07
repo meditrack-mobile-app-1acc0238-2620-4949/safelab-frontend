@@ -1,4 +1,6 @@
 <script setup>
+import LocalizedStatusBadge from '@/shared/presentation/components/LocalizedStatusBadge.vue'
+import { downloadCsv } from '@/shared/application/services/csv-export'
 import ContextPageHeading from '@/shared/presentation/components/ContextPageHeading.vue'
 import { useRecordNavigation } from '@/shared/presentation/composables/useRecordNavigation'
 import { computed, ref } from 'vue'
@@ -35,6 +37,10 @@ function toggleWidget(widget) {
     ? visibleWidgets.value.filter((item) => item !== widget)
     : [...visibleWidgets.value, widget]
 }
+function exportDashboard(){
+  const record=demo.generateReport('Operational','Dashboard snapshot')
+  downloadCsv('safelab-dashboard',[{organization:user.value?.organization||'SafeLab',...summary.value}])
+}
 const { openRecords } = useRecordNavigation()
 </script>
 
@@ -66,7 +72,7 @@ const { openRecords } = useRecordNavigation()
       </div>
       <div class="actions">
         <RouterLink class="btn primary" to="/alertsincidents/active-alerts"><i class="pi pi-bell"></i> {{ $t('legacy.label_415a1cd2c5') }}</RouterLink>
-        <button class="btn" type="button" @click="demo.generateReport('Operational', 'Dashboard snapshot')"><i class="pi pi-download"></i> {{ $t('legacy.label_edd58b3ae7') }}</button>
+        <button v-if="auth.hasPermission('reports.export')" class="btn" type="button" @click="exportDashboard"><i class="pi pi-download"></i> {{ $t('legacy.label_edd58b3ae7') }}</button>
       </div>
     </div>
 
@@ -105,7 +111,7 @@ const { openRecords } = useRecordNavigation()
         <div class="item-list">
           <article v-for="alert in alerts.slice(0, 5)" :key="alert.id" class="list-row compact">
             <span><strong>{{ alert.title }}</strong><small>{{ alert.message }}</small></span>
-            <span :class="['status-pill', alert.severity]">{{ alert.severity }}</span>
+            <LocalizedStatusBadge :status="alert.severity"/>
             <button class="btn small" type="button" @click="demo.acknowledgeAlert(alert.id)">{{ $t('legacy.label_f0f2836bef') }}</button>
           </article>
         </div>

@@ -10,6 +10,16 @@ export const boundedContextNavigation = [
   { context: 'audittraceability', titleKey: 'sidebar.audit', shortLabel: 'Audit Trail', icon: 'history', path: '/audittraceability/audit-log', roleScope: 'Admin / Compliance' }
 ]
 
+export const platformNavigation = [
+ {context:'platform',titleKey:'multi.platform_overview',icon:'th-large',path:'/platform/overview'},
+ {context:'platform',titleKey:'multi.platform_organizations',icon:'building',path:'/platform/organizations'},
+ {context:'platform',titleKey:'multi.platform_users',icon:'users',path:'/platform/users'},
+ {context:'platform',titleKey:'multi.platform_subscriptions',icon:'credit-card',path:'/platform/subscriptions'},
+ {context:'platform',titleKey:'multi.platform_activity',icon:'history',path:'/platform/activity'},
+ {context:'platform',titleKey:'multi.platform_settings',icon:'cog',path:'/platform/settings'}
+]
+export const managementNavigation = {context:'userpermissions',titleKey:'multi.usersTitle',icon:'users',path:'/identityaccess/users-permissions'}
+
 export const hiddenOperationalContexts = [
   { context: 'userprofiles', path: '/userprofiles/my-profile' },
   { context: 'identityaccess', path: '/identityaccess/login' },
