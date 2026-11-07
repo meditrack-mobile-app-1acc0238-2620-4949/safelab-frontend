@@ -4,7 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 import { useSafeLabDemoStore } from '@/shared/application/stores/demo.store'
-import { maintenanceRecords } from '@/boundedcontext/equipmentmaintenance/data/maintenance-mock'
+import { downloadCsv } from '@/shared/application/services/csv-export'
+import LocalizedStatusBadge from '@/shared/presentation/components/LocalizedStatusBadge.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -53,10 +54,10 @@ const source = computed(() => {
   if (!validDataset.value) return []
   if (dataset.value === 'maintenanceRecords') {
     const ids = new Set(demo.scopedItems('assets', auth.currentUser, 'all').map((item) => item.id))
-    return maintenanceRecords.filter((record) => ids.has(record.equipmentId))
+    return demo.maintenanceRecords.filter((record) => ids.has(record.equipmentId))
   }
   if (dataset.value === 'invoices') {
-    return auth.currentUser?.id === demo.billing?.accountId ? (demo.billing.invoices || []) : []
+    return auth.isOrganizationAdmin ? (demo.subscriptionFor(auth.currentUser.organizationId)?.invoices || []) : []
   }
   if (dataset.value === 'remoteCommands') {
     const ids = new Set(demo.scopedItems('actuators', auth.currentUser, 'all').map((item) => item.id))
@@ -99,8 +100,8 @@ function fieldLabel(key) {
 function formatValue(value, key = '') {
   if (value === undefined || value === null || value === '') return '—'
   if (['status', 'severity', 'connection', 'safetyState'].includes(key)) {
-    const translationKey = `records.states.${String(value).toLowerCase().replaceAll(' ', '-')}`
-    return t(translationKey, String(value))
+    const key = `platformUi.state_${String(value).toLowerCase().replaceAll(/[\s-]+/g, '_')}`
+    return te(key) ? t(key) : String(value)
   }
   if (typeof value === 'boolean') return value ? t('records.yes') : t('records.no')
   if (key === 'amount' || key === 'subtotal' || key === 'tax') {
@@ -123,33 +124,14 @@ function fieldValue(record, key) {
   return record[key]
 }
 function isStatus(key) { return ['status', 'connection', 'severity'].includes(key) }
-function statusTone(value) {
-  const key = String(value || '').toLowerCase()
-  if (['active', 'critical', 'violation', 'offline', 'disconnected'].includes(key)) return 'danger'
-  if (['warning', 'pending', 'upcoming', 'investigating', 'maintenance', 'scheduled', 'in progress', 'cancelled-sample'].includes(key)) return 'warning'
-  if (['compliant', 'normal', 'paid', 'ready', 'resolved', 'completed', 'reviewed', 'online', 'confirmed-sample'].includes(key)) return 'success'
-  return ''
-}
 function back() {
   // Direct links should also have a meaningful destination.
   if (window.history.state?.back) router.back()
   else router.push(`/${context.value}`)
 }
-function exportCsv() {
-  const quote = (value) => {
-    const text = String(value ?? '')
-    const safe = /^[=+@-]/.test(text) ? `'${text}` : text
-    return `"${safe.replaceAll('"', '""')}"`
-  }
-  const rows = [columns.value.map(fieldLabel), ...filtered.value.map((item) => columns.value.map((key) => formatValue(fieldValue(item, key), key)))]
-  const csv = '\uFEFF' + rows.map((record) => record.map(quote).join(',')).join('\r\n')
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
-  const url = URL.createObjectURL(blob)
-  const anchor = document.createElement('a')
-  anchor.href = url
-  anchor.download = `safelab-${dataset.value}.csv`
-  anchor.click()
-  URL.revokeObjectURL(url)
+function exportCsv(){
+  if(!auth.hasPermission('reports.export'))return
+  downloadCsv(`safelab-${dataset.value}`,filtered.value.map(item=>Object.fromEntries(columns.value.map(key=>[fieldLabel(key),formatValue(fieldValue(item,key),key)]))))
 }
 </script>
 
@@ -166,15 +148,15 @@ function exportCsv() {
     <article v-if="validDataset" class="card records-card">
       <div class="records-toolbar">
         <div class="field records-search"><label for="record-search">{{ t('records.search') }}</label><input id="record-search" v-model="query" class="input" :placeholder="t('records.searchHint')" /></div>
-        <div v-if="statuses.length" class="field"><label for="record-status">{{ t('records.status') }}</label><select id="record-status" v-model="selectedStatus" class="select"><option value="all">{{ t('records.allStatuses') }}</option><option v-for="item in statuses" :key="item" :value="item">{{ item }}</option></select></div>
-        <div class="records-actions"><span class="records-count">{{ filtered.length }} {{ t('records.results') }}</span><button class="btn" type="button" :disabled="!filtered.length" @click="exportCsv"><i class="pi pi-download" /> {{ t('records.export') }}</button></div>
+        <div v-if="statuses.length" class="field"><label for="record-status">{{ t('records.status') }}</label><select id="record-status" v-model="selectedStatus" class="select"><option value="all">{{ t('records.allStatuses') }}</option><option v-for="item in statuses" :key="item" :value="item">{{ formatValue(item,'status') }}</option></select></div>
+        <div class="records-actions"><span class="records-count">{{ filtered.length }} {{ t('records.results') }}</span><button v-if="auth.hasPermission('reports.export')" class="btn" type="button" :disabled="!filtered.length" @click="exportCsv"><i class="pi pi-download" /> {{ t('records.export') }}</button></div>
       </div>
       <div class="records-table-scroll">
         <table class="records-table">
           <thead><tr><th v-for="key in columns" :key="key">{{ fieldLabel(key) }}</th><th>{{ t('records.details') }}</th></tr></thead>
           <tbody>
             <tr v-for="(record, index) in visible" :key="record.id || record.code || record.number || index" class="records-row" tabindex="0" @click="selectedRow=record" @keydown.enter.prevent="selectedRow=record" @keydown.space.prevent="selectedRow=record">
-              <td v-for="key in columns" :key="key"><span v-if="isStatus(key)" :class="['status-pill', statusTone(record[key])]">{{ formatValue(fieldValue(record, key), key) }}</span><span v-else>{{ formatValue(fieldValue(record, key), key) }}</span></td>
+              <td v-for="key in columns" :key="key"><LocalizedStatusBadge v-if="isStatus(key)" :status="record[key]" :context="dataset==='alerts'?'alerts':dataset==='complianceViolations'?'violations':''"/><span v-else>{{ formatValue(fieldValue(record, key), key) }}</span></td>
               <td><button class="btn small" type="button" @click.stop="selectedRow=record">{{ t('records.details') }} <i class="pi pi-arrow-right" /></button></td>
             </tr>
             <tr v-if="!visible.length"><td :colspan="columns.length + 1" class="records-empty">{{ t('records.empty') }}</td></tr>

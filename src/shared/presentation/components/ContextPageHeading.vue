@@ -14,6 +14,8 @@ const titleKey = computed(() => {
   if (item) return item.titleKey
   if (context === 'userprofiles') return 'sidebar.profile'
   if (context === 'subscriptionbilling') return 'sidebar.billing'
+  if (context === 'userpermissions') return 'multi.usersTitle'
+  if (context === 'platform') return 'multi.platform_overview'
   return route.meta.titleKey || 'sidebar.dashboard'
 })
 </script>

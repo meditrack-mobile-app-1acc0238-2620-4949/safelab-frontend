@@ -26,7 +26,7 @@ const allContexts = [
 
 export const demoUsers = [
   {
-    id: '9f63a2e0-6839-4bff-9664-23eb8acfb9ca', username: '691339768298838915', email: 'admin@hotmail.com', password: 'SafeLab2026%',
+    id: '9f63a2e0-6839-4bff-9664-23eb8acfb9ca', username: '691339768298838915', email: 'admin@safelab.test', password: 'SafeLab2026%',
     firstName: 'SafeLab', lastName: 'Administrator', fullName: 'SafeLab Administrator', initials: 'SA',
     role: 'safeLabAdministrator', position: roleLabels.safeLabAdministrator, status: 'active', segment: 'platform',
     organization: 'SafeLab', facilityId: 'global', facilityName: 'Global administrator scope', allowedContexts: allContexts,

@@ -1,4 +1,5 @@
 <script setup>
+import LocalizedStatusBadge from '@/shared/presentation/components/LocalizedStatusBadge.vue'
 defineProps({
   notifications: {
     type: Array,
@@ -26,7 +27,7 @@ const emit = defineEmits(['retry']);
         <th>{{ $t('legacy.label_a6f45556ee') }}</th>
         <th>{{ $t('legacy.label_c48a7af14e') }}</th>
         <th>{{ $t('legacy.label_13093e568f') }}</th>
-        <th aria-label="Actions"></th>
+        <th :aria-label="$t('uiReview.actions')"></th>
       </tr>
       </thead>
 
@@ -34,9 +35,9 @@ const emit = defineEmits(['retry']);
       <tr v-for="notification in notifications" :key="notification.id">
         <td>{{ notification.message }}</td>
         <td>{{ notification.channel }}</td>
-        <td>{{ notification.status }}</td>
-        <td>{{ notification.sentAt || 'Not sent' }}</td>
-        <td>{{ notification.deliveredAt || 'Not delivered' }}</td>
+        <td><LocalizedStatusBadge :status="notification.status"/></td>
+        <td>{{notification.sentAt || $t('uiReview.notSent')}}</td>
+        <td>{{notification.deliveredAt || $t('uiReview.notDelivered')}}</td>
         <td>{{ notification.retryCount }}</td>
         <td>
           <button
@@ -45,7 +46,7 @@ const emit = defineEmits(['retry']);
               :disabled="notification.status !== 'Failed'"
               @click="emit('retry', notification.id)"
           >
-            Retry
+            {{ $t('uiReview.retry') }}
           </button>
         </td>
       </tr>

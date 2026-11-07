@@ -7,7 +7,7 @@ import AuthShell from '../components/AuthShell.vue'
 const route=useRoute(),router=useRouter(),auth=useAuthStore(),{t}=useI18n()
 const identifier=ref(''),password=ref(''),showPassword=ref(false)
 const errorText=computed(()=>auth.error?t(`webAuth.${auth.error}`):'')
-async function signIn(){if(await auth.login(identifier.value,password.value))router.push(route.query.redirect||'/dashboardinsights/laboratory-dashboard')}
+async function signIn(){if(await auth.login(identifier.value,password.value))router.push(route.query.redirect||(auth.isPlatformAdmin?'/platform/overview':'/dashboardinsights/laboratory-dashboard'))}
 </script>
 <template>
   <AuthShell :title="t('webAuth.welcome')" :subtitle="t('webAuth.loginIntro')">
