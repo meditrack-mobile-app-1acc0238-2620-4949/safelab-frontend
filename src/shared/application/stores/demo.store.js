@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
-import { initialSafeLabData } from '@/shared/domain/data/safelab-demo-seed'
+import { initialMultiTenantData as initialSafeLabData } from '@/shared/domain/data/safelab-multitenant-seed'
 import { apiClient } from '@/shared/infrastructure/http/api-client'
+import { ROLE_GRANTABLE } from '@/boundedcontext/identityaccess/domain/models/permission-catalog'
 
-const STORAGE_KEY = 'safelab-web-mocks-v2'
+const STORAGE_KEY = 'safelab-web-multitenant-v1'
 const USE_REMOTE_API = false // Only local mock state. No deployment or remote backend.
 
 const clone = (value) => JSON.parse(JSON.stringify(value))
@@ -11,7 +12,8 @@ const nextId = (prefix) => `${prefix}-${Math.floor(100000 + Math.random() * 9000
 
 const listKeys = [
   'users', 'facilities', 'sensors', 'assets', 'alerts', 'notifications', 'incidents',
-  'actuators', 'remoteCommands', 'reports', 'auditLogs', 'complianceRules', 'complianceEvaluations', 'complianceViolations', 'maintenanceRecords'
+  'actuators', 'remoteCommands', 'reports', 'auditLogs', 'complianceRules', 'complianceEvaluations', 'complianceViolations', 'maintenanceRecords',
+  'organizations', 'subscriptions', 'invitations', 'accountRequests'
 ]
 
 function normalizeDataShape(value) {
@@ -21,6 +23,16 @@ function normalizeDataShape(value) {
   listKeys.forEach((key) => {
     base[key] = Array.isArray(candidate[key]) ? candidate[key] : base[key]
   })
+
+  // An older browser cache may still contain the previous platform-admin email.
+  // Update only this fixed demonstration identity, not corporate user accounts.
+  for (const user of base.users) {
+    if (user.role === 'platformAdmin' && user.email === 'admin@hotmail.com') {
+      user.email = 'admin@safelab.test'
+    }
+  }
+
+  base.permissionOverrides = candidate.permissionOverrides && typeof candidate.permissionOverrides === 'object' ? candidate.permissionOverrides : {}
 
   base.billing = candidate.billing && typeof candidate.billing === 'object'
     ? { ...base.billing, ...candidate.billing }
@@ -61,9 +73,43 @@ function removeLocalItem(items, id) {
   return { item, filtered }
 }
 
+// A single, understandable scope function is used by summaries, lists and exports.
+// Frontend filtering improves UX; the future backend MUST enforce these rules too.
+function visibleRows(state, key, user) {
+  const rows = Array.isArray(state.data[key]) ? state.data[key] : []
+  if (!user || user.role === 'platformAdmin' || user.role === 'safeLabAdministrator') return rows
+  const organizationId = user.organizationId
+  const tenantRows = rows.filter(row => row.organizationId === organizationId)
+  if (user.role === 'organizationAdmin') return tenantRows
+  const facilities = new Set(user.facilityIds || (user.facilityId ? [user.facilityId] : []))
+  const resourceIds = new Set(user.resourceIds || [])
+  const targeted = ['assets','sensors','alerts','incidents','actuators','maintenanceRecords','remoteCommands','complianceRules','complianceEvaluations','complianceViolations']
+  return tenantRows.filter(row => {
+    if (row.facilityId && facilities.size && !facilities.has(row.facilityId)) return false
+    if (!targeted.includes(key) || !resourceIds.size) return true
+    if (key==='assets') return resourceIds.has(row.id)
+    if (key==='sensors') return resourceIds.has(row.id) || resourceIds.has(row.assetId)
+    if (row.assetId || row.sensorId || row.relatedAssetId || row.relatedSensorId) return [row.assetId,row.sensorId,row.relatedAssetId,row.relatedSensorId].some(id=>resourceIds.has(id))
+    if (row.equipmentId) return resourceIds.has(row.equipmentId)
+    if (row.actuatorId) {
+      const actuator=state.data.actuators.find(a=>a.id===row.actuatorId)
+      return actuator ? (!actuator.assetId || resourceIds.has(actuator.assetId)) : false
+    }
+    if (row.ruleId) {
+      const rule=state.data.complianceRules.find(a=>a.id===row.ruleId)
+      return rule ? resourceIds.has(rule.sensorId) : false
+    }
+    if (row.evaluationId) {
+      const evaluation=state.data.complianceEvaluations.find(a=>a.id===row.evaluationId)
+      return evaluation ? resourceIds.has(evaluation.sensorId) : false
+    }
+    return true
+  })
+}
 export const useSafeLabDemoStore = defineStore('safelab-demo', {
   state: () => ({
     data: getInitialState(),
+    sessionUser: null,
     selectedFacilityId: 'all',
     selectedPeriod: '24h',
     liveSimulation: false,
@@ -76,49 +122,41 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
   }),
 
   getters: {
-    users: (state) => Array.isArray(state.data.users) ? state.data.users : [],
-    facilities: (state) => Array.isArray(state.data.facilities) ? state.data.facilities : [],
-    sensors: (state) => Array.isArray(state.data.sensors) ? state.data.sensors : [],
-    assets: (state) => Array.isArray(state.data.assets) ? state.data.assets : [],
-    alerts: (state) => Array.isArray(state.data.alerts) ? state.data.alerts : [],
-    notifications: (state) => Array.isArray(state.data.notifications) ? state.data.notifications : [],
-    incidents: (state) => Array.isArray(state.data.incidents) ? state.data.incidents : [],
-    actuators: (state) => Array.isArray(state.data.actuators) ? state.data.actuators : [],
-    remoteCommands: (state) => Array.isArray(state.data.remoteCommands) ? state.data.remoteCommands : [],
-    reports: (state) => Array.isArray(state.data.reports) ? state.data.reports : [],
-    auditLogs: (state) => Array.isArray(state.data.auditLogs) ? state.data.auditLogs : [],
-    billing: (state) => state.data.billing || {},
-    complianceRules: (state) => Array.isArray(state.data.complianceRules) ? state.data.complianceRules : [],
-    complianceEvaluations: (state) => state.data.complianceEvaluations || [],
-    complianceViolations: (state) => state.data.complianceViolations || [],
-    unreadNotifications: (state) => (Array.isArray(state.data.notifications) ? state.data.notifications : []).filter((n) => n.unread),
-    unreadCount: (state) => (Array.isArray(state.data.notifications) ? state.data.notifications : []).filter((n) => n.unread).length,
+    organizations: (state) => state.data.organizations || [],
+    subscriptions: (state) => state.data.subscriptions || [],
+    invitations: (state) => state.data.invitations || [],
+    accountRequests: (state) => state.data.accountRequests || [],
+    users: (state) => visibleRows(state, 'users', state.sessionUser),
+    facilities: (state) => visibleRows(state, 'facilities', state.sessionUser),
+    sensors: (state) => visibleRows(state, 'sensors', state.sessionUser),
+    assets: (state) => visibleRows(state, 'assets', state.sessionUser),
+    alerts: (state) => visibleRows(state, 'alerts', state.sessionUser),
+    notifications: (state) => visibleRows(state, 'notifications', state.sessionUser),
+    incidents: (state) => visibleRows(state, 'incidents', state.sessionUser),
+    actuators: (state) => visibleRows(state, 'actuators', state.sessionUser),
+    remoteCommands: (state) => visibleRows(state, 'remoteCommands', state.sessionUser),
+    reports: (state) => visibleRows(state, 'reports', state.sessionUser),
+    auditLogs: (state) => visibleRows(state, 'auditLogs', state.sessionUser),
+    maintenanceRecords: (state) => visibleRows(state, 'maintenanceRecords', state.sessionUser),
+    billing: (state) => state.data.subscriptions?.find(s=>s.organizationId===state.sessionUser?.organizationId) || {},
+    complianceRules: (state) => visibleRows(state, 'complianceRules', state.sessionUser),
+    complianceEvaluations: (state) => visibleRows(state, 'complianceEvaluations', state.sessionUser),
+    complianceViolations: (state) => visibleRows(state, 'complianceViolations', state.sessionUser),
+    unreadNotifications: (state) => visibleRows(state,'notifications',state.sessionUser).filter(n => n.unread),
+    unreadCount: (state) => visibleRows(state,'notifications',state.sessionUser).filter(n => n.unread).length,
 
-    scopedFacilities: (state) => (user) => {
-      if (!user || user.role === 'safeLabAdministrator' || user.facilityId === 'global') return state.data.facilities
-      return state.data.facilities.filter((facility) => facility.id === user.facilityId)
-    },
+    scopedFacilities: (state) => user => visibleRows(state,'facilities',user),
 
-    scopedItems: (state) => (collection, user, facilityId = state.selectedFacilityId) => {
-      const items = Array.isArray(state.data[collection]) ? state.data[collection] : []
-      const userFacilityId = user?.facilityId
-      return items.filter((item) => {
-        const itemFacility = item.facilityId || item.facilityID
-        const matchesRole = !user || user.role === 'safeLabAdministrator' || userFacilityId === 'global' || !itemFacility || itemFacility === userFacilityId
-        const matchesFilter = !facilityId || facilityId === 'all' || !itemFacility || itemFacility === facilityId
-        return matchesRole && matchesFilter
-      })
-    },
+    scopedItems: (state) => (collection,user,facilityId=state.selectedFacilityId) => visibleRows(state,collection,user)
+      .filter(item=>facilityId==='all' || !facilityId || !item.facilityId || item.facilityId===facilityId),
 
     dashboardSummary: (state) => (user) => {
-      const isGlobal = !user || user.role === 'safeLabAdministrator' || user.facilityId === 'global'
-      const facilities = isGlobal ? state.data.facilities : state.data.facilities.filter((f) => f.id === user.facilityId)
-      const facilityIds = new Set(facilities.map((f) => f.id))
-      const sensors = state.data.sensors.filter((s) => facilityIds.has(s.facilityId))
-      const assets = state.data.assets.filter((a) => facilityIds.has(a.facilityId))
-      const alerts = state.data.alerts.filter((a) => facilityIds.has(a.facilityId))
-      const incidents = state.data.incidents.filter((i) => facilityIds.has(i.facilityId))
-      const reports = state.data.reports
+      const facilities = visibleRows(state, 'facilities', user)
+      const sensors = visibleRows(state, 'sensors', user)
+      const assets = visibleRows(state, 'assets', user)
+      const alerts = visibleRows(state, 'alerts', user)
+      const incidents = visibleRows(state, 'incidents', user)
+      const reports = visibleRows(state, 'reports', user)
       const onlineSensors = sensors.filter((s) => s.connection === 'online').length
       const abnormalSensors = sensors.filter((s) => !isNormalSensor(s)).length
       const activeAlerts = alerts.filter((a) => ['active', 'acknowledged'].includes(a.status)).length
@@ -149,6 +187,46 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
   },
 
   actions: {
+    setSessionScope(user) { this.sessionUser = user ? {id:user.id,role:user.role,organizationId:user.organizationId,facilityId:user.facilityId,facilityIds:user.facilityIds || [],resourceIds:user.resourceIds || []} : null; this.selectedFacilityId='all' },
+    organizationUsers(organizationId) { return this.data.users.filter(u=>u.organizationId===organizationId) },
+    subscriptionFor(organizationId) { return this.data.subscriptions.find(s=>s.organizationId===organizationId) },
+    reservedSeats(organizationId) {return this.data.invitations.filter(i=>i.organizationId===organizationId && i.status==='pending' && new Date(i.expiresAt)>new Date()).length},
+    occupiedSeats(organizationId) {return this.organizationUsers(organizationId).filter(u=>u.role!=='organizationAdmin' && ['active','pending_email_verification'].includes(u.status)).length},
+    availableSeats(organizationId) {const s=this.subscriptionFor(organizationId);return s?Math.max(0,s.includedSeats+s.additionalSeats-this.occupiedSeats(organizationId)-this.reservedSeats(organizationId)):0},
+    saveResourceAssignments(userId, facilityIds, resourceIds, actor) {
+      const target=this.data.users.find(u=>u.id===userId)
+      const org=this.data.organizations.find(o=>o.id===actor?.organizationId)
+      if(!target||!org||actor.role!=='organizationAdmin'||target.organizationId!==org.id||target.role==='organizationAdmin')return false
+      target.facilityIds=facilityIds.filter(id=>org.facilityIds.includes(id))
+      const resources=new Set(this.data.assets.filter(a=>a.organizationId===org.id).map(a=>a.id))
+      target.resourceIds=resourceIds.filter(id=>resources.has(id))
+      this.persist()
+      this.addAudit({actor:actor.fullName,action:`Updated assignments for ${target.fullName}`,module:'Identity & Access',organizationId:org.id})
+      if(this.sessionUser?.id===userId)this.setSessionScope(target)
+      return true
+    },
+    savePermissionOverrides(userId, values, actor) {
+      const target=this.data.users.find(u=>u.id===userId)
+      if (!target || !actor || actor.role!=='organizationAdmin' || actor.organizationId!==target.organizationId || target.role==='organizationAdmin') return false
+      // Prevent privilege escalation even when the UI is bypassed.
+      if(Object.entries(values).some(([name,enabled])=>enabled && !(ROLE_GRANTABLE[target.role]||[]).includes(name)))return false
+      this.data.permissionOverrides[userId]={...values}
+      this.addAudit({actor:actor.fullName,action:`Updated permissions for ${target.fullName}`,module:'Identity & Access',severity:'info',organizationId:target.organizationId})
+      this.persist()
+      return true
+    },
+    createInvitation({email,role,facilityIds,resourceIds},actor){
+      if(actor?.role!=='organizationAdmin'||!this.availableSeats(actor.organizationId)) return {error:'noSeats'}
+      if(!email || !role || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return {error:'invalid'}
+      if(this.data.users.some(u=>u.email.toLowerCase()===email.toLowerCase())) return {error:'duplicate'}
+      if(this.data.invitations.some(i=>i.organizationId===actor.organizationId&&i.email===email.toLowerCase()&&i.status==='pending'&&new Date(i.expiresAt)>new Date())) return {error:'duplicate'}
+      const org=this.data.organizations.find(o=>o.id===actor.organizationId)
+      if(!org || !((org.segment==='pharmaceutical'?['pharmaOperationsCoordinator','pharmaTechnician','complianceOfficer','maintenanceOperator']:['bioclinicalCoordinator','labTechnician','complianceOfficer','maintenanceOperator']).includes(role))) return {error:'invalidRole'}
+      const token=Array.from(crypto.getRandomValues(new Uint8Array(12)),v=>v.toString(16).padStart(2,'0')).join('').toUpperCase()
+      const invitation={id:crypto.randomUUID(),token,organizationId:org.id,email:email.toLowerCase(),role,facilityIds:(facilityIds||[]).filter(id=>org.facilityIds.includes(id)),resourceIds:resourceIds||[],status:'pending',createdBy:actor.id,createdAt:nowIso(),expiresAt:new Date(Date.now()+72*3600000).toISOString()}
+      this.data.invitations.push(invitation);this.persist();return {invitation}
+    },
+    cancelInvitation(id,actor){const inv=this.data.invitations.find(i=>i.id===id && i.organizationId===actor?.organizationId);if(!inv||actor.role!=='organizationAdmin'||inv.status!=='pending')return false;inv.status='cancelled';this.persist();return true},
     persist() {
       if (typeof localStorage !== 'undefined') localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizeDataShape(this.data)))
     },
@@ -206,8 +284,8 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       this.persist()
     },
 
-    async addAudit({ actor = 'System', action, module = 'System', severity = 'info', status = 'reviewed', evidence = null }) {
-      const payload = { id: nextId('aud'), actor, action, module, severity, status, evidence: evidence || nextId('EVD'), createdAt: nowIso() }
+    async addAudit({ actor = 'System', action, module = 'System', severity = 'info', status = 'reviewed', evidence = null, organizationId = this.sessionUser?.organizationId }) {
+      const payload = { id: nextId('aud'), actor, action, module, severity, status, evidence: evidence || nextId('EVD'), createdAt: nowIso(), organizationId }
       this.data.auditLogs.unshift(payload)
       this.persist()
       if (USE_REMOTE_API && this.backendConnected) {
@@ -217,7 +295,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     },
 
     async addNotification({ title, message, context = 'system', severity = 'info' }) {
-      const payload = { id: nextId('not'), title, message, context, severity, unread: true, createdAt: nowIso() }
+      const payload = { id: nextId('not'), title, message, context, severity, unread: true, organizationId:this.sessionUser?.organizationId, createdAt: nowIso() }
       this.data.notifications.unshift(payload)
       this.persist()
       if (USE_REMOTE_API && this.backendConnected) {
@@ -476,7 +554,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     },
 
     async generateReport(type = 'Operational', title = null) {
-      const report = { id: nextId('rep'), title: title || `${type} report ${new Date().toLocaleDateString()}`, type, format: type === 'Compliance' ? 'PDF' : 'CSV', status: 'ready', generatedAt: nowIso() }
+      const report = { id: nextId('rep'), title: title || `${type} report ${new Date().toLocaleDateString()}`, type, format: 'CSV', status: 'ready', organizationId:this.sessionUser?.organizationId, generatedAt: nowIso() }
       this.data.reports.unshift(report)
       this.persist()
       if (USE_REMOTE_API) {

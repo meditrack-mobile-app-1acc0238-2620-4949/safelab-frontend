@@ -3,75 +3,585 @@
     {
       "id": "9f63a2e0-6839-4bff-9664-23eb8acfb9ca",
       "username": "691339768298838915",
-      "email": "admin@hotmail.com",
+      "email": "admin@safelab.test",
       "password": "SafeLab2026%",
       "firstName": "SafeLab",
       "lastName": "Administrator",
       "fullName": "SafeLab Administrator",
       "initials": "SA",
-      "role": "safeLabAdministrator",
-      "position": "SafeLab Administrator",
-      "status": "active",
-      "segment": "platform",
-      "organization": "SafeLab",
-      "facilityId": "global",
-      "facilityName": "Global administrator scope",
-      "allowedContexts": [
-        "dashboardinsights",
-        "facilityassets",
-        "sensormonitoring",
-        "environmentalcompliance",
-        "alertsincidents",
-        "remoteactuation",
-        "reportinganalytics",
-        "alertsincidents",
-        "audittraceability",
-        "subscriptionbilling"
-      ],
       "phone": "999999999",
+      "role": "platformAdmin",
+      "position": "Platform Administrator",
+      "status": "active",
+      "organizationId": null,
+      "organization": "SafeLab Platform",
+      "facilityId": "global",
+      "facilityIds": [],
+      "segment": "platform"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "username": "581200000000000101",
+      "email": "gerente.andes@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Valeria",
+      "lastName": "Chávez",
+      "fullName": "Valeria Chávez",
+      "initials": "VC",
+      "phone": "945000101",
+      "role": "organizationAdmin",
+      "position": "organizationAdmin",
+      "status": "active",
+      "organizationId": "org-andes",
+      "organization": "Laboratorios Andinos S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-central",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Huancayo",
+      "jobTitle": "organizationAdmin",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000101",
+      "username": "581200000000000102",
+      "email": "bioclinical-coordinator1.andes@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Carlos",
+      "lastName": "Mendoza",
+      "fullName": "Carlos Mendoza",
+      "initials": "CM",
+      "phone": "945000102",
+      "role": "bioclinicalCoordinator",
+      "position": "bioclinicalCoordinator",
+      "status": "active",
+      "organizationId": "org-andes",
+      "organization": "Laboratorios Andinos S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-north",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Huancayo",
+      "jobTitle": "bioclinicalCoordinator",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000102",
+      "username": "581200000000000103",
+      "email": "lab-technician2.andes@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Andrea",
+      "lastName": "Torres",
+      "fullName": "Andrea Torres",
+      "initials": "AT",
+      "phone": "945000103",
+      "role": "labTechnician",
+      "position": "labTechnician",
+      "status": "active",
+      "organizationId": "org-andes",
+      "organization": "Laboratorios Andinos S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-central",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ],
+      "resourceIds": [
+        "asset-002",
+        "asset-004",
+        "asset-006",
+        "sen-002",
+        "sen-004",
+        "sen-006"
+      ],
+      "age": null,
+      "city": "Huancayo",
+      "jobTitle": "labTechnician",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000103",
+      "username": "581200000000000104",
+      "email": "lab-technician3.andes@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Patricia",
+      "lastName": "Rivas",
+      "fullName": "Patricia Rivas",
+      "initials": "PR",
+      "phone": "945000104",
+      "role": "labTechnician",
+      "position": "labTechnician",
+      "status": "active",
+      "organizationId": "org-andes",
+      "organization": "Laboratorios Andinos S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-north",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ],
+      "resourceIds": [
+        "asset-001",
+        "asset-003",
+        "asset-005",
+        "sen-001",
+        "sen-003",
+        "sen-005",
+        "sen-011"
+      ],
+      "age": null,
+      "city": "Huancayo",
+      "jobTitle": "labTechnician",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000104",
+      "username": "581200000000000105",
+      "email": "compliance-officer4.andes@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Ana",
+      "lastName": "Salazar",
+      "fullName": "Ana Salazar",
+      "initials": "AS",
+      "phone": "945000105",
+      "role": "complianceOfficer",
+      "position": "complianceOfficer",
+      "status": "active",
+      "organizationId": "org-andes",
+      "organization": "Laboratorios Andinos S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-central",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Huancayo",
+      "jobTitle": "complianceOfficer",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000105",
+      "username": "581200000000000106",
+      "email": "maintenance-operator5.andes@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "José",
+      "lastName": "Ramírez",
+      "fullName": "José Ramírez",
+      "initials": "JR",
+      "phone": "945000106",
+      "role": "maintenanceOperator",
+      "position": "maintenanceOperator",
+      "status": "active",
+      "organizationId": "org-andes",
+      "organization": "Laboratorios Andinos S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-north",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ],
+      "resourceIds": [
+        "asset-001",
+        "asset-003",
+        "asset-005",
+        "sen-001",
+        "sen-003",
+        "sen-005",
+        "sen-011"
+      ],
+      "age": null,
+      "city": "Huancayo",
+      "jobTitle": "maintenanceOperator",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "username": "581200000000000107",
+      "email": "gerente.gabriel@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Lucía",
+      "lastName": "Benites",
+      "fullName": "Lucía Benites",
+      "initials": "LB",
+      "phone": "945000107",
+      "role": "organizationAdmin",
+      "position": "organizationAdmin",
+      "status": "active",
+      "organizationId": "org-gabriel",
+      "organization": "Centro Clínico San Gabriel S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-hospital",
+      "facilityIds": [
+        "fac-hospital"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Trujillo",
+      "jobTitle": "organizationAdmin",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000107",
+      "username": "581200000000000108",
+      "email": "bioclinical-coordinator1.gabriel@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Rosa",
+      "lastName": "Fernández",
+      "fullName": "Rosa Fernández",
+      "initials": "RF",
+      "phone": "945000108",
+      "role": "bioclinicalCoordinator",
+      "position": "bioclinicalCoordinator",
+      "status": "active",
+      "organizationId": "org-gabriel",
+      "organization": "Centro Clínico San Gabriel S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-hospital",
+      "facilityIds": [
+        "fac-hospital"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Trujillo",
+      "jobTitle": "bioclinicalCoordinator",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000108",
+      "username": "581200000000000109",
+      "email": "lab-technician2.gabriel@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Gabriel",
+      "lastName": "Paredes",
+      "fullName": "Gabriel Paredes",
+      "initials": "GP",
+      "phone": "945000109",
+      "role": "labTechnician",
+      "position": "labTechnician",
+      "status": "active",
+      "organizationId": "org-gabriel",
+      "organization": "Centro Clínico San Gabriel S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-hospital",
+      "facilityIds": [
+        "fac-hospital"
+      ],
+      "resourceIds": [
+        "asset-008",
+        "sen-008"
+      ],
+      "age": null,
+      "city": "Trujillo",
+      "jobTitle": "labTechnician",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000109",
+      "username": "581200000000000110",
+      "email": "lab-technician3.gabriel@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Diana",
+      "lastName": "Soto",
+      "fullName": "Diana Soto",
+      "initials": "DS",
+      "phone": "945000110",
+      "role": "labTechnician",
+      "position": "labTechnician",
+      "status": "active",
+      "organizationId": "org-gabriel",
+      "organization": "Centro Clínico San Gabriel S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-hospital",
+      "facilityIds": [
+        "fac-hospital"
+      ],
+      "resourceIds": [
+        "asset-007",
+        "asset-009",
+        "sen-007",
+        "sen-009"
+      ],
+      "age": null,
+      "city": "Trujillo",
+      "jobTitle": "labTechnician",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000110",
+      "username": "581200000000000111",
+      "email": "compliance-officer4.gabriel@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Miguel",
+      "lastName": "León",
+      "fullName": "Miguel León",
+      "initials": "ML",
+      "phone": "945000111",
+      "role": "complianceOfficer",
+      "position": "complianceOfficer",
+      "status": "active",
+      "organizationId": "org-gabriel",
+      "organization": "Centro Clínico San Gabriel S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-hospital",
+      "facilityIds": [
+        "fac-hospital"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Trujillo",
+      "jobTitle": "complianceOfficer",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000111",
+      "username": "581200000000000112",
+      "email": "maintenance-operator5.gabriel@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Raúl",
+      "lastName": "Chávez",
+      "fullName": "Raúl Chávez",
+      "initials": "RC",
+      "phone": "945000112",
+      "role": "maintenanceOperator",
+      "position": "maintenanceOperator",
+      "status": "active",
+      "organizationId": "org-gabriel",
+      "organization": "Centro Clínico San Gabriel S.A.C.",
+      "segment": "laboratory",
+      "facilityId": "fac-hospital",
+      "facilityIds": [
+        "fac-hospital"
+      ],
+      "resourceIds": [
+        "asset-007",
+        "asset-009",
+        "sen-007",
+        "sen-009"
+      ],
+      "age": null,
+      "city": "Trujillo",
+      "jobTitle": "maintenanceOperator",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "username": "581200000000000113",
+      "email": "gerente.farma@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "María",
+      "lastName": "Delgado",
+      "fullName": "María Delgado",
+      "initials": "MD",
+      "phone": "945000113",
+      "role": "organizationAdmin",
+      "position": "organizationAdmin",
+      "status": "active",
+      "organizationId": "org-farma",
+      "organization": "Farmacéutica Andina S.A.C.",
+      "segment": "pharmaceutical",
+      "facilityId": "fac-pharma",
+      "facilityIds": [
+        "fac-pharma"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Arequipa",
+      "jobTitle": "organizationAdmin",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000113",
+      "username": "581200000000000114",
+      "email": "pharma-operations-coordinator1.farma@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Valeria",
+      "lastName": "Rojas",
+      "fullName": "Valeria Rojas",
+      "initials": "VR",
+      "phone": "945000114",
+      "role": "pharmaOperationsCoordinator",
+      "position": "pharmaOperationsCoordinator",
+      "status": "active",
+      "organizationId": "org-farma",
+      "organization": "Farmacéutica Andina S.A.C.",
+      "segment": "pharmaceutical",
+      "facilityId": "fac-pharma",
+      "facilityIds": [
+        "fac-pharma"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Arequipa",
+      "jobTitle": "pharmaOperationsCoordinator",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000114",
+      "username": "581200000000000115",
+      "email": "pharma-technician2.farma@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Luis",
+      "lastName": "Gómez",
+      "fullName": "Luis Gómez",
+      "initials": "LG",
+      "phone": "945000115",
+      "role": "pharmaTechnician",
+      "position": "pharmaTechnician",
+      "status": "active",
+      "organizationId": "org-farma",
+      "organization": "Farmacéutica Andina S.A.C.",
+      "segment": "pharmaceutical",
+      "facilityId": "fac-pharma",
+      "facilityIds": [
+        "fac-pharma"
+      ],
+      "resourceIds": [
+        "sen-012"
+      ],
+      "age": null,
+      "city": "Arequipa",
+      "jobTitle": "pharmaTechnician",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000115",
+      "username": "581200000000000116",
+      "email": "pharma-technician3.farma@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Elena",
+      "lastName": "Silva",
+      "fullName": "Elena Silva",
+      "initials": "ES",
+      "phone": "945000116",
+      "role": "pharmaTechnician",
+      "position": "pharmaTechnician",
+      "status": "active",
+      "organizationId": "org-farma",
+      "organization": "Farmacéutica Andina S.A.C.",
+      "segment": "pharmaceutical",
+      "facilityId": "fac-pharma",
+      "facilityIds": [
+        "fac-pharma"
+      ],
+      "resourceIds": [
+        "asset-010",
+        "sen-010"
+      ],
+      "age": null,
+      "city": "Arequipa",
+      "jobTitle": "pharmaTechnician",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000116",
+      "username": "581200000000000117",
+      "email": "compliance-officer4.farma@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Claudia",
+      "lastName": "Ponce",
+      "fullName": "Claudia Ponce",
+      "initials": "CP",
+      "phone": "945000117",
+      "role": "complianceOfficer",
+      "position": "complianceOfficer",
+      "status": "active",
+      "organizationId": "org-farma",
+      "organization": "Farmacéutica Andina S.A.C.",
+      "segment": "pharmaceutical",
+      "facilityId": "fac-pharma",
+      "facilityIds": [
+        "fac-pharma"
+      ],
+      "resourceIds": [],
+      "age": null,
+      "city": "Arequipa",
+      "jobTitle": "complianceOfficer",
+      "timezone": "America/Lima"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000117",
+      "username": "581200000000000118",
+      "email": "maintenance-operator5.farma@safelab.test",
+      "password": "SafeLab2026%",
+      "firstName": "Héctor",
+      "lastName": "Núñez",
+      "fullName": "Héctor Núñez",
+      "initials": "HN",
+      "phone": "945000118",
+      "role": "maintenanceOperator",
+      "position": "maintenanceOperator",
+      "status": "active",
+      "organizationId": "org-farma",
+      "organization": "Farmacéutica Andina S.A.C.",
+      "segment": "pharmaceutical",
+      "facilityId": "fac-pharma",
+      "facilityIds": [
+        "fac-pharma"
+      ],
+      "resourceIds": [
+        "asset-010",
+        "sen-010"
+      ],
+      "age": null,
+      "city": "Arequipa",
+      "jobTitle": "maintenanceOperator",
       "timezone": "America/Lima"
     }
   ],
   "facilities": [
     {
       "id": "fac-central",
-      "name": "Central Clinical Laboratory",
+      "name": "Andinos Central Laboratory",
       "type": "Clinical laboratory",
       "city": "Huancayo",
-      "manager": "Carlos Mendoza",
+      "manager": "Valeria Chávez",
       "healthScore": 72,
       "complianceScore": 78,
-      "telemetryScore": 86
+      "telemetryScore": 86,
+      "organizationId": "org-andes"
     },
     {
       "id": "fac-north",
-      "name": "North Province Clinical Lab",
+      "name": "Andinos North Laboratory",
       "type": "Clinical laboratory",
       "city": "Cajamarca",
-      "manager": "Patricia Rivas",
+      "manager": "Valeria Chávez",
       "healthScore": 64,
       "complianceScore": 69,
-      "telemetryScore": 74
+      "telemetryScore": 74,
+      "organizationId": "org-andes"
     },
     {
       "id": "fac-hospital",
-      "name": "San Gabriel Hospital Pharmacy",
+      "name": "San Gabriel Clinical Laboratory",
       "type": "Hospital pharmacy",
       "city": "Trujillo",
-      "manager": "Rosa Fernandez",
+      "manager": "Lucía Benites",
       "healthScore": 58,
       "complianceScore": 62,
-      "telemetryScore": 80
+      "telemetryScore": 80,
+      "organizationId": "org-gabriel"
     },
     {
       "id": "fac-pharma",
-      "name": "PharmAndina Cold Chain",
+      "name": "FarmaAndina Cold Storage",
       "type": "Pharmaceutical storage",
       "city": "Arequipa",
-      "manager": "Valeria Rojas",
+      "manager": "María Delgado",
       "healthScore": 81,
       "complianceScore": 87,
-      "telemetryScore": 90
+      "telemetryScore": 90,
+      "organizationId": "org-farma"
     }
   ],
   "sensors": [
@@ -89,7 +599,8 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T02:25:00Z",
-      "responsible": "Carlos Mendoza"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-002",
@@ -105,7 +616,8 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T02:24:00Z",
-      "responsible": "Andrea Torres"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-003",
@@ -121,7 +633,8 @@
       "status": "out-of-range",
       "connection": "online",
       "lastReading": "2026-06-19T03:10:00Z",
-      "responsible": "Carlos Mendoza"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-004",
@@ -137,7 +650,8 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T01:24:00Z",
-      "responsible": "Andrea Torres"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-005",
@@ -153,7 +667,8 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T02:10:00Z",
-      "responsible": "Patricia Rivas"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-006",
@@ -169,7 +684,8 @@
       "status": "out-of-range",
       "connection": "online",
       "lastReading": "2026-06-19T02:12:00Z",
-      "responsible": "Patricia Rivas"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-007",
@@ -185,7 +701,8 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T02:05:00Z",
-      "responsible": "Rosa Fernandez"
+      "responsible": "Gabriel Paredes",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "sen-008",
@@ -201,7 +718,8 @@
       "status": "out-of-range",
       "connection": "online",
       "lastReading": "2026-06-19T04:00:00Z",
-      "responsible": "Rosa Fernandez"
+      "responsible": "Gabriel Paredes",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "sen-009",
@@ -217,7 +735,8 @@
       "status": "disconnected",
       "connection": "offline",
       "lastReading": "2026-06-19T00:29:00Z",
-      "responsible": "Gabriel Paredes"
+      "responsible": "Gabriel Paredes",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "sen-010",
@@ -233,7 +752,8 @@
       "status": "normal",
       "connection": "online",
       "lastReading": "2026-06-19T02:20:00Z",
-      "responsible": "Valeria Rojas"
+      "responsible": "Luis Gómez",
+      "organizationId": "org-farma"
     },
     {
       "id": "sen-011",
@@ -249,7 +769,8 @@
       "status": "disconnected",
       "connection": "offline",
       "lastReading": "2026-06-18T22:40:00Z",
-      "responsible": "Patricia Rivas"
+      "responsible": "Andrea Torres",
+      "organizationId": "org-andes"
     },
     {
       "id": "sen-012",
@@ -265,7 +786,8 @@
       "status": "maintenance",
       "connection": "maintenance",
       "lastReading": "2026-06-18T20:15:00Z",
-      "responsible": "Valeria Rojas"
+      "responsible": "Luis Gómez",
+      "organizationId": "org-farma"
     }
   ],
   "assets": [
@@ -277,9 +799,10 @@
       "storageUnit": "Freezer A",
       "location": "Central Lab - Storage 1",
       "lastInspection": "2026-06-17",
-      "responsible": "Carlos Mendoza",
+      "responsible": "Andrea Torres",
       "status": "compliant",
-      "scope": "clinical-laboratory"
+      "scope": "clinical-laboratory",
+      "organizationId": "org-andes"
     },
     {
       "id": "asset-002",
@@ -289,9 +812,10 @@
       "storageUnit": "PCR Rack",
       "location": "Central Lab - PCR Room",
       "lastInspection": "2026-06-18",
-      "responsible": "Carlos Mendoza",
+      "responsible": "Andrea Torres",
       "status": "critical",
-      "scope": "clinical-laboratory"
+      "scope": "clinical-laboratory",
+      "organizationId": "org-andes"
     },
     {
       "id": "asset-003",
@@ -303,7 +827,8 @@
       "lastInspection": "2026-06-16",
       "responsible": "Andrea Torres",
       "status": "warning",
-      "scope": "clinical-laboratory"
+      "scope": "clinical-laboratory",
+      "organizationId": "org-andes"
     },
     {
       "id": "asset-004",
@@ -315,7 +840,8 @@
       "lastInspection": "2026-06-18",
       "responsible": "Andrea Torres",
       "status": "compliant",
-      "scope": "clinical-laboratory"
+      "scope": "clinical-laboratory",
+      "organizationId": "org-andes"
     },
     {
       "id": "asset-005",
@@ -325,9 +851,10 @@
       "storageUnit": "Fridge N1",
       "location": "North Lab - Storage",
       "lastInspection": "2026-06-15",
-      "responsible": "Patricia Rivas",
+      "responsible": "Andrea Torres",
       "status": "compliant",
-      "scope": "clinical-laboratory"
+      "scope": "clinical-laboratory",
+      "organizationId": "org-andes"
     },
     {
       "id": "asset-006",
@@ -337,9 +864,10 @@
       "storageUnit": "Incubator N2",
       "location": "North Lab - Culture Room",
       "lastInspection": "2026-06-18",
-      "responsible": "Patricia Rivas",
+      "responsible": "Andrea Torres",
       "status": "warning",
-      "scope": "clinical-laboratory"
+      "scope": "clinical-laboratory",
+      "organizationId": "org-andes"
     },
     {
       "id": "asset-007",
@@ -349,9 +877,10 @@
       "storageUnit": "Fridge V1",
       "location": "Hospital Pharmacy - Vaccines",
       "lastInspection": "2026-06-17",
-      "responsible": "Rosa Fernandez",
+      "responsible": "Gabriel Paredes",
       "status": "compliant",
-      "scope": "hospital-pharmacy"
+      "scope": "hospital-pharmacy",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "asset-008",
@@ -361,9 +890,10 @@
       "storageUnit": "Insulin Box",
       "location": "Hospital Pharmacy - Insulin",
       "lastInspection": "2026-06-18",
-      "responsible": "Rosa Fernandez",
+      "responsible": "Gabriel Paredes",
       "status": "warning",
-      "scope": "hospital-pharmacy"
+      "scope": "hospital-pharmacy",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "asset-009",
@@ -375,7 +905,8 @@
       "lastInspection": "2026-06-16",
       "responsible": "Gabriel Paredes",
       "status": "critical",
-      "scope": "hospital-pharmacy"
+      "scope": "hospital-pharmacy",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "asset-010",
@@ -385,9 +916,10 @@
       "storageUnit": "Cold Room P1",
       "location": "PharmAndina - Cold Chain",
       "lastInspection": "2026-06-18",
-      "responsible": "Valeria Rojas",
+      "responsible": "Luis Gómez",
       "status": "compliant",
-      "scope": "pharmaceutical-operations"
+      "scope": "pharmaceutical-operations",
+      "organizationId": "org-farma"
     }
   ],
   "complianceRules": [
@@ -400,7 +932,8 @@
       "min": 2,
       "max": 8,
       "status": "active",
-      "requiredEvidence": true
+      "requiredEvidence": true,
+      "organizationId": "org-andes"
     },
     {
       "id": "R-HUM-02",
@@ -411,7 +944,8 @@
       "min": 35,
       "max": 60,
       "status": "active",
-      "requiredEvidence": true
+      "requiredEvidence": true,
+      "organizationId": "org-andes"
     },
     {
       "id": "R-TEMP-03",
@@ -422,7 +956,8 @@
       "min": 2,
       "max": 8,
       "status": "active",
-      "requiredEvidence": true
+      "requiredEvidence": true,
+      "organizationId": "org-andes"
     },
     {
       "id": "R-TEMP-04",
@@ -433,7 +968,8 @@
       "min": 2,
       "max": 8,
       "status": "active",
-      "requiredEvidence": true
+      "requiredEvidence": true,
+      "organizationId": "org-gabriel"
     },
     {
       "id": "R-HUM-05",
@@ -444,7 +980,8 @@
       "min": 35,
       "max": 60,
       "status": "active",
-      "requiredEvidence": true
+      "requiredEvidence": true,
+      "organizationId": "org-gabriel"
     },
     {
       "id": "R-TEMP-06",
@@ -455,7 +992,8 @@
       "min": 2,
       "max": 8,
       "status": "active",
-      "requiredEvidence": true
+      "requiredEvidence": true,
+      "organizationId": "org-andes"
     }
   ],
   "complianceEvaluations": [
@@ -465,7 +1003,8 @@
       "sensorId": "sen-003",
       "observedAt": "2026-06-19T03:10:00",
       "value": 9.1,
-      "status": "violation"
+      "status": "violation",
+      "organizationId": "org-andes"
     },
     {
       "id": "E-1005",
@@ -473,7 +1012,8 @@
       "sensorId": "sen-008",
       "observedAt": "2026-06-19T04:00:00",
       "value": 64,
-      "status": "violation"
+      "status": "violation",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "E-1004",
@@ -481,7 +1021,8 @@
       "sensorId": "sen-002",
       "observedAt": "2026-06-19T02:24:00",
       "value": 46,
-      "status": "compliant"
+      "status": "compliant",
+      "organizationId": "org-andes"
     },
     {
       "id": "E-1003",
@@ -489,7 +1030,8 @@
       "sensorId": "sen-001",
       "observedAt": "2026-06-19T02:25:00",
       "value": 3.8,
-      "status": "compliant"
+      "status": "compliant",
+      "organizationId": "org-andes"
     },
     {
       "id": "E-1002",
@@ -497,7 +1039,8 @@
       "sensorId": "sen-007",
       "observedAt": "2026-06-19T02:05:00",
       "value": 5.1,
-      "status": "compliant"
+      "status": "compliant",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "E-1001",
@@ -505,7 +1048,8 @@
       "sensorId": "sen-005",
       "observedAt": "2026-06-19T02:10:00",
       "value": 4.1,
-      "status": "compliant"
+      "status": "compliant",
+      "organizationId": "org-andes"
     },
     {
       "id": "E-0999",
@@ -513,7 +1057,8 @@
       "sensorId": "sen-007",
       "observedAt": "2026-06-18T18:10:00",
       "value": 8.6,
-      "status": "violation"
+      "status": "violation",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "E-0998",
@@ -521,7 +1066,8 @@
       "sensorId": "sen-003",
       "observedAt": "2026-06-18T18:05:00",
       "value": 4.5,
-      "status": "compliant"
+      "status": "compliant",
+      "organizationId": "org-andes"
     }
   ],
   "complianceViolations": [
@@ -532,7 +1078,8 @@
       "startedAt": "2026-06-19T03:10:00",
       "endedAt": null,
       "severity": "critical",
-      "status": "active"
+      "status": "active",
+      "organizationId": "org-andes"
     },
     {
       "id": "V-209",
@@ -541,7 +1088,8 @@
       "startedAt": "2026-06-19T04:00:00",
       "endedAt": null,
       "severity": "warning",
-      "status": "active"
+      "status": "active",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "V-208",
@@ -550,7 +1098,8 @@
       "startedAt": "2026-06-18T18:10:00",
       "endedAt": "2026-06-18T18:35:00",
       "severity": "warning",
-      "status": "resolved"
+      "status": "resolved",
+      "organizationId": "org-gabriel"
     }
   ],
   "alerts": [
@@ -565,7 +1114,8 @@
       "severity": "critical",
       "status": "active",
       "createdAt": "2026-06-19T03:10:00Z",
-      "assignedTo": "Carlos Mendoza"
+      "assignedTo": "Carlos Mendoza",
+      "organizationId": "org-andes"
     },
     {
       "id": "alert-002",
@@ -578,7 +1128,8 @@
       "severity": "warning",
       "status": "active",
       "createdAt": "2026-06-19T04:10:00Z",
-      "assignedTo": "Rosa Fernandez"
+      "assignedTo": "Rosa Fernández",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "alert-003",
@@ -591,7 +1142,8 @@
       "severity": "critical",
       "status": "acknowledged",
       "createdAt": "2026-06-19T05:10:00Z",
-      "assignedTo": "Gabriel Paredes"
+      "assignedTo": "Rosa Fernández",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "alert-004",
@@ -604,7 +1156,8 @@
       "severity": "warning",
       "status": "active",
       "createdAt": "2026-06-19T06:10:00Z",
-      "assignedTo": "Patricia Rivas"
+      "assignedTo": "Carlos Mendoza",
+      "organizationId": "org-andes"
     },
     {
       "id": "alert-005",
@@ -617,7 +1170,8 @@
       "severity": "info",
       "status": "resolved",
       "createdAt": "2026-06-19T07:10:00Z",
-      "assignedTo": "Rosa Fernandez"
+      "assignedTo": "Rosa Fernández",
+      "organizationId": "org-gabriel"
     }
   ],
   "notifications": [
@@ -628,7 +1182,8 @@
       "context": "alerts",
       "severity": "critical",
       "unread": true,
-      "createdAt": "2026-06-19T03:10:00Z"
+      "createdAt": "2026-06-19T03:10:00Z",
+      "organizationId": "org-andes"
     },
     {
       "id": "not-002",
@@ -637,7 +1192,8 @@
       "context": "alerts",
       "severity": "warning",
       "unread": true,
-      "createdAt": "2026-06-19T04:10:00Z"
+      "createdAt": "2026-06-19T04:10:00Z",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "not-003",
@@ -646,7 +1202,8 @@
       "context": "remoteactuation",
       "severity": "warning",
       "unread": false,
-      "createdAt": "2026-06-19T01:10:00Z"
+      "createdAt": "2026-06-19T01:10:00Z",
+      "organizationId": "org-farma"
     }
   ],
   "incidents": [
@@ -665,7 +1222,8 @@
       "dueDate": "2026-06-20",
       "evidence": 1,
       "createdAt": "2026-06-19T02:00:00Z",
-      "updatedAt": "2026-06-19T03:10:00Z"
+      "updatedAt": "2026-06-19T03:10:00Z",
+      "organizationId": "org-andes"
     },
     {
       "id": "inc-002",
@@ -678,11 +1236,12 @@
       "relatedAssetId": "asset-008",
       "severity": "warning",
       "status": "investigating",
-      "assignedTo": "Rosa Fernandez",
+      "assignedTo": "Rosa Fernández",
       "dueDate": "2026-06-21",
       "evidence": 1,
       "createdAt": "2026-06-19T02:00:00Z",
-      "updatedAt": "2026-06-19T04:00:00Z"
+      "updatedAt": "2026-06-19T04:00:00Z",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "inc-003",
@@ -695,11 +1254,12 @@
       "relatedAssetId": "asset-009",
       "severity": "critical",
       "status": "investigating",
-      "assignedTo": "Gabriel Paredes",
+      "assignedTo": "Rosa Fernández",
       "dueDate": "2026-06-20",
       "evidence": 2,
       "createdAt": "2026-06-19T02:00:00Z",
-      "updatedAt": "2026-06-19T04:00:00Z"
+      "updatedAt": "2026-06-19T04:00:00Z",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "inc-004",
@@ -712,11 +1272,12 @@
       "relatedAssetId": "asset-006",
       "severity": "warning",
       "status": "open",
-      "assignedTo": "Patricia Rivas",
+      "assignedTo": "Carlos Mendoza",
       "dueDate": "2026-06-22",
       "evidence": 0,
       "createdAt": "2026-06-19T02:00:00Z",
-      "updatedAt": "2026-06-19T02:00:00Z"
+      "updatedAt": "2026-06-19T02:00:00Z",
+      "organizationId": "org-andes"
     }
   ],
   "actuators": [
@@ -727,12 +1288,13 @@
       "name": "Reagent Freezer A",
       "type": "Cooling",
       "facilityId": "fac-central",
-      "location": "Storage 1 · Central Clinical Laboratory",
+      "location": "Storage 1 · Andinos Central Laboratory",
       "linkedSensorId": "sen-001",
       "safetyState": "enabled",
       "status": "online",
       "running": false,
-      "lastCommand": "NORMAL"
+      "lastCommand": "NORMAL",
+      "organizationId": "org-andes"
     },
     {
       "id": "ctrl-002",
@@ -741,12 +1303,13 @@
       "name": "North Lab Refrigerator",
       "type": "Cooling",
       "facilityId": "fac-north",
-      "location": "Storage · North Province Clinical Lab",
+      "location": "Storage · Andinos North Laboratory",
       "linkedSensorId": "sen-005",
       "safetyState": "enabled",
       "status": "offline",
       "running": false,
-      "lastCommand": "NORMAL"
+      "lastCommand": "NORMAL",
+      "organizationId": "org-andes"
     },
     {
       "id": "ctrl-003",
@@ -755,12 +1318,13 @@
       "name": "Vaccine Fridge",
       "type": "Cooling",
       "facilityId": "fac-hospital",
-      "location": "Vaccines · San Gabriel Hospital Pharmacy",
+      "location": "Vaccines · San Gabriel Clinical Laboratory",
       "linkedSensorId": "sen-007",
       "safetyState": "enabled",
       "status": "online",
       "running": false,
-      "lastCommand": "NORMAL"
+      "lastCommand": "NORMAL",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "ctrl-004",
@@ -769,12 +1333,13 @@
       "name": "PharmAndina Cold Room",
       "type": "Cooling",
       "facilityId": "fac-pharma",
-      "location": "Cold Chain · PharmAndina Cold Chain",
+      "location": "Cold Chain · FarmaAndina Cold Storage",
       "linkedSensorId": "sen-010",
       "safetyState": "enabled",
       "status": "online",
       "running": true,
-      "lastCommand": "BOOST"
+      "lastCommand": "BOOST",
+      "organizationId": "org-farma"
     },
     {
       "id": "ctrl-a01",
@@ -783,12 +1348,13 @@
       "name": "Cold Chamber A-01",
       "type": "Cooling",
       "facilityId": "fac-central",
-      "location": "Central Clinical Laboratory",
+      "location": "Andinos Central Laboratory",
       "linkedSensorId": null,
       "safetyState": "enabled",
       "status": "online",
       "running": false,
-      "lastCommand": "NORMAL"
+      "lastCommand": "NORMAL",
+      "organizationId": "org-andes"
     },
     {
       "id": "ctrl-freezer-b02",
@@ -797,12 +1363,13 @@
       "name": "Freezer B-02",
       "type": "Cooling",
       "facilityId": "fac-central",
-      "location": "Central Clinical Laboratory",
+      "location": "Andinos Central Laboratory",
       "linkedSensorId": null,
       "safetyState": "blocked",
       "status": "offline",
       "running": false,
-      "lastCommand": "NORMAL"
+      "lastCommand": "NORMAL",
+      "organizationId": "org-andes"
     },
     {
       "id": "ctrl-gw-02",
@@ -811,12 +1378,13 @@
       "name": "Gateway S-02",
       "type": "Gateway",
       "facilityId": "fac-central",
-      "location": "Central Clinical Laboratory",
+      "location": "Andinos Central Laboratory",
       "linkedSensorId": null,
       "safetyState": "enabled",
       "status": "online",
       "running": false,
-      "lastCommand": "READY"
+      "lastCommand": "READY",
+      "organizationId": "org-andes"
     }
   ],
   "remoteCommands": [
@@ -827,7 +1395,8 @@
       "device": "Cold Chamber A-01",
       "status": "confirmed-sample",
       "requestedBy": "Lab Technician",
-      "createdAt": "2026-06-19T08:54:00Z"
+      "createdAt": "2026-06-19T08:54:00Z",
+      "organizationId": "org-andes"
     },
     {
       "id": "CMD-080",
@@ -836,7 +1405,8 @@
       "device": "Gateway S-02",
       "status": "confirmed-sample",
       "requestedBy": "SafeLab Administrator",
-      "createdAt": "2026-06-19T08:11:00Z"
+      "createdAt": "2026-06-19T08:11:00Z",
+      "organizationId": "org-andes"
     },
     {
       "id": "CMD-079",
@@ -845,7 +1415,8 @@
       "device": "Freezer B-02",
       "status": "cancelled-sample",
       "requestedBy": "Dr. Maria Lopez",
-      "createdAt": "2026-06-18T17:34:00Z"
+      "createdAt": "2026-06-18T17:34:00Z",
+      "organizationId": "org-andes"
     }
   ],
   "reports": [
@@ -855,7 +1426,8 @@
       "type": "Operational",
       "format": "PDF",
       "status": "ready",
-      "generatedAt": "2026-06-19T08:30:00Z"
+      "generatedAt": "2026-06-19T08:30:00Z",
+      "organizationId": "org-andes"
     },
     {
       "id": "rep-002",
@@ -863,7 +1435,8 @@
       "type": "Compliance",
       "format": "CSV",
       "status": "ready",
-      "generatedAt": "2026-06-19T08:10:00Z"
+      "generatedAt": "2026-06-19T08:10:00Z",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "rep-003",
@@ -871,7 +1444,8 @@
       "type": "Audit",
       "format": "PDF",
       "status": "draft",
-      "generatedAt": "2026-06-19T07:40:00Z"
+      "generatedAt": "2026-06-19T07:40:00Z",
+      "organizationId": "org-farma"
     }
   ],
   "auditLogs": [
@@ -883,7 +1457,8 @@
       "severity": "info",
       "status": "reviewed",
       "createdAt": "2026-06-19T09:45:00Z",
-      "evidence": "EVD-442"
+      "evidence": "EVD-442",
+      "organizationId": "org-andes"
     },
     {
       "id": "aud-1207",
@@ -893,7 +1468,8 @@
       "severity": "warning",
       "status": "pending",
       "createdAt": "2026-06-19T09:12:00Z",
-      "evidence": "EVD-441"
+      "evidence": "EVD-441",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "aud-1206",
@@ -903,7 +1479,8 @@
       "severity": "critical",
       "status": "reviewed",
       "createdAt": "2026-06-19T08:54:00Z",
-      "evidence": "EVD-440"
+      "evidence": "EVD-440",
+      "organizationId": "org-farma"
     },
     {
       "id": "aud-1205",
@@ -913,109 +1490,82 @@
       "severity": "info",
       "status": "reviewed",
       "createdAt": "2026-06-18T18:20:00Z",
-      "evidence": "EVD-439"
+      "evidence": "EVD-439",
+      "organizationId": "org-andes"
     }
   ],
   "billing": {
-    "accountId": "9f63a2e0-6839-4bff-9664-23eb8acfb9ca",
-    "plan": "SafeLab Professional",
-    "status": "Active",
+    "id": "sub-org-andes",
+    "organizationId": "org-andes",
+    "plan": "SafeLab Business",
+    "status": "active",
     "startDate": "2026-08-06",
     "renewalDate": "2026-12-06",
+    "includedSeats": 10,
+    "additionalSeats": 0,
+    "seatPrice": 17,
+    "baseAmount": 118,
     "monthlyCost": 118,
     "currencyCode": "PEN",
-    "deviceUsage": 10,
-    "deviceLimit": 35,
     "invoices": [
       {
-        "id": "invoice-2026-12",
-        "number": "SL-F-202612",
+        "id": "invoice-org-andes-202612",
+        "number": "SL-ORG-ANDES-202612",
         "amount": 118,
-        "subtotal": 100,
-        "tax": 18,
         "status": "upcoming",
         "date": "2026-11-06",
         "dueDate": "2026-12-06",
-        "periodStart": "2026-12-06",
-        "periodEnd": "2027-01-05"
-      },
-      {
-        "id": "receipt-202611",
-        "number": "SL-R-202611",
-        "amount": 118,
         "subtotal": 100,
         "tax": 18,
+        "reference": ""
+      },
+      {
+        "id": "invoice-org-andes-202611",
+        "number": "SL-ORG-ANDES-202611",
+        "amount": 118,
         "status": "paid",
         "date": "2026-11-06",
         "dueDate": "2026-11-06",
-        "method": "Online",
-        "reference": "PAY-202611-01"
-      },
-      {
-        "id": "receipt-202610",
-        "number": "SL-R-202610",
-        "amount": 118,
         "subtotal": 100,
         "tax": 18,
+        "method": "Online",
+        "reference": "PAY-org-andes-11"
+      },
+      {
+        "id": "invoice-org-andes-202610",
+        "number": "SL-ORG-ANDES-202610",
+        "amount": 118,
         "status": "paid",
         "date": "2026-10-06",
         "dueDate": "2026-10-06",
-        "method": "Online",
-        "reference": "PAY-202610-01"
-      },
-      {
-        "id": "receipt-202609",
-        "number": "SL-R-202609",
-        "amount": 118,
         "subtotal": 100,
         "tax": 18,
+        "method": "Online",
+        "reference": "PAY-org-andes-10"
+      },
+      {
+        "id": "invoice-org-andes-20269",
+        "number": "SL-ORG-ANDES-20269",
+        "amount": 118,
         "status": "paid",
         "date": "2026-09-06",
         "dueDate": "2026-09-06",
-        "method": "Online",
-        "reference": "PAY-202609-01"
-      },
-      {
-        "id": "receipt-202608",
-        "number": "SL-R-202608",
-        "amount": 118,
         "subtotal": 100,
         "tax": 18,
+        "method": "Online",
+        "reference": "PAY-org-andes-9"
+      },
+      {
+        "id": "invoice-org-andes-20268",
+        "number": "SL-ORG-ANDES-20268",
+        "amount": 118,
         "status": "paid",
         "date": "2026-08-06",
         "dueDate": "2026-08-06",
+        "subtotal": 100,
+        "tax": 18,
         "method": "Online",
-        "reference": "PAY-202608-01"
-      }
-    ],
-    "payments": [
-      {
-        "id": "PAY-202611-01",
-        "method": "Online",
-        "amount": 118,
-        "date": "2026-11-06",
-        "status": "completed"
-      },
-      {
-        "id": "PAY-202610-01",
-        "method": "Online",
-        "amount": 118,
-        "date": "2026-10-06",
-        "status": "completed"
-      },
-      {
-        "id": "PAY-202609-01",
-        "method": "Online",
-        "amount": 118,
-        "date": "2026-09-06",
-        "status": "completed"
-      },
-      {
-        "id": "PAY-202608-01",
-        "method": "Online",
-        "amount": 118,
-        "date": "2026-08-06",
-        "status": "completed"
+        "reference": "PAY-org-andes-8"
       }
     ]
   },
@@ -1026,8 +1576,9 @@
       "type": "Inspection",
       "status": "Scheduled",
       "date": "2026-06-23",
-      "responsible": "Andrea Torres",
-      "notes": "Monthly inspection of the reagent rack and analyzer supplies."
+      "responsible": "José Ramírez",
+      "notes": "Monthly inspection of the reagent rack and analyzer supplies.",
+      "organizationId": "org-andes"
     },
     {
       "id": "MNT-011",
@@ -1035,8 +1586,9 @@
       "type": "Corrective",
       "status": "Scheduled",
       "date": "2026-06-22",
-      "responsible": "Patricia Rivas",
-      "notes": "Replace the fan bearing and level the incubator."
+      "responsible": "José Ramírez",
+      "notes": "Replace the fan bearing and level the incubator.",
+      "organizationId": "org-andes"
     },
     {
       "id": "MNT-010",
@@ -1044,8 +1596,9 @@
       "type": "Corrective",
       "status": "In progress",
       "date": "2026-06-19",
-      "responsible": "Gabriel Paredes",
-      "notes": "Door sensor offline. Battery and wiring check requested."
+      "responsible": "Raúl Chávez",
+      "notes": "Door sensor offline. Battery and wiring check requested.",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "MNT-009",
@@ -1053,8 +1606,9 @@
       "type": "Corrective",
       "status": "In progress",
       "date": "2026-06-19",
-      "responsible": "Carlos Mendoza",
-      "notes": "Door gasket replaced after the temperature deviation. 24 h stability check pending."
+      "responsible": "José Ramírez",
+      "notes": "Door gasket replaced after the temperature deviation. 24 h stability check pending.",
+      "organizationId": "org-andes"
     },
     {
       "id": "MNT-008",
@@ -1062,8 +1616,9 @@
       "type": "Inspection",
       "status": "Completed",
       "date": "2026-06-18",
-      "responsible": "Patricia Rivas",
-      "notes": "Vibration confirmed with a portable meter. Fan bearing shows wear."
+      "responsible": "José Ramírez",
+      "notes": "Vibration confirmed with a portable meter. Fan bearing shows wear.",
+      "organizationId": "org-andes"
     },
     {
       "id": "MNT-007",
@@ -1071,8 +1626,9 @@
       "type": "Inspection",
       "status": "Completed",
       "date": "2026-06-18",
-      "responsible": "Rosa Fernandez",
-      "notes": "Desiccant replaced and door seal checked."
+      "responsible": "Raúl Chávez",
+      "notes": "Desiccant replaced and door seal checked.",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "MNT-006",
@@ -1080,8 +1636,9 @@
       "type": "Preventive",
       "status": "Completed",
       "date": "2026-06-18",
-      "responsible": "Valeria Rojas",
-      "notes": "Quarterly preventive maintenance of compressors and evaporators."
+      "responsible": "Héctor Núñez",
+      "notes": "Quarterly preventive maintenance of compressors and evaporators.",
+      "organizationId": "org-farma"
     },
     {
       "id": "MNT-005",
@@ -1089,8 +1646,9 @@
       "type": "Calibration",
       "status": "Completed",
       "date": "2026-06-17",
-      "responsible": "Rosa Fernandez",
-      "notes": "Temperature probe calibrated against a reference thermometer."
+      "responsible": "Raúl Chávez",
+      "notes": "Temperature probe calibrated against a reference thermometer.",
+      "organizationId": "org-gabriel"
     },
     {
       "id": "MNT-004",
@@ -1098,8 +1656,281 @@
       "type": "Preventive",
       "status": "Completed",
       "date": "2026-06-17",
-      "responsible": "Carlos Mendoza",
-      "notes": "Condenser cleaning and alarm test."
+      "responsible": "José Ramírez",
+      "notes": "Condenser cleaning and alarm test.",
+      "organizationId": "org-andes"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "org-andes",
+      "name": "Laboratorios Andinos S.A.C.",
+      "ruc": "20604567891",
+      "segment": "laboratory",
+      "corporateEmail": "contacto@andinos.example",
+      "city": "Huancayo",
+      "status": "active",
+      "managerId": "00000000-0000-4000-8000-000000000001",
+      "facilityIds": [
+        "fac-central",
+        "fac-north"
+      ]
+    },
+    {
+      "id": "org-gabriel",
+      "name": "Centro Clínico San Gabriel S.A.C.",
+      "ruc": "20607891231",
+      "segment": "laboratory",
+      "corporateEmail": "gerencia@sangabriel.example",
+      "city": "Trujillo",
+      "status": "active",
+      "managerId": "00000000-0000-4000-8000-000000000002",
+      "facilityIds": [
+        "fac-hospital"
+      ]
+    },
+    {
+      "id": "org-farma",
+      "name": "Farmacéutica Andina S.A.C.",
+      "ruc": "20601234565",
+      "segment": "pharmaceutical",
+      "corporateEmail": "administracion@farmaandina.example",
+      "city": "Arequipa",
+      "status": "active",
+      "managerId": "00000000-0000-4000-8000-000000000003",
+      "facilityIds": [
+        "fac-pharma"
+      ]
+    }
+  ],
+  "invitations": [],
+  "permissionOverrides": {},
+  "accountRequests": [],
+  "subscriptions": [
+    {
+      "id": "sub-org-andes",
+      "organizationId": "org-andes",
+      "plan": "SafeLab Business",
+      "status": "active",
+      "startDate": "2026-08-06",
+      "renewalDate": "2026-12-06",
+      "includedSeats": 10,
+      "additionalSeats": 0,
+      "seatPrice": 17,
+      "baseAmount": 118,
+      "monthlyCost": 118,
+      "currencyCode": "PEN",
+      "invoices": [
+        {
+          "id": "invoice-org-andes-202612",
+          "number": "SL-ORG-ANDES-202612",
+          "amount": 118,
+          "status": "upcoming",
+          "date": "2026-11-06",
+          "dueDate": "2026-12-06",
+          "subtotal": 100,
+          "tax": 18,
+          "reference": ""
+        },
+        {
+          "id": "invoice-org-andes-202611",
+          "number": "SL-ORG-ANDES-202611",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-11-06",
+          "dueDate": "2026-11-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-andes-11"
+        },
+        {
+          "id": "invoice-org-andes-202610",
+          "number": "SL-ORG-ANDES-202610",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-10-06",
+          "dueDate": "2026-10-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-andes-10"
+        },
+        {
+          "id": "invoice-org-andes-20269",
+          "number": "SL-ORG-ANDES-20269",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-09-06",
+          "dueDate": "2026-09-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-andes-9"
+        },
+        {
+          "id": "invoice-org-andes-20268",
+          "number": "SL-ORG-ANDES-20268",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-08-06",
+          "dueDate": "2026-08-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-andes-8"
+        }
+      ]
+    },
+    {
+      "id": "sub-org-gabriel",
+      "organizationId": "org-gabriel",
+      "plan": "SafeLab Business",
+      "status": "active",
+      "startDate": "2026-08-06",
+      "renewalDate": "2026-12-06",
+      "includedSeats": 10,
+      "additionalSeats": 0,
+      "seatPrice": 17,
+      "baseAmount": 118,
+      "monthlyCost": 118,
+      "currencyCode": "PEN",
+      "invoices": [
+        {
+          "id": "invoice-org-gabriel-202612",
+          "number": "SL-ORG-GABRIEL-202612",
+          "amount": 118,
+          "status": "upcoming",
+          "date": "2026-11-06",
+          "dueDate": "2026-12-06",
+          "subtotal": 100,
+          "tax": 18,
+          "reference": ""
+        },
+        {
+          "id": "invoice-org-gabriel-202611",
+          "number": "SL-ORG-GABRIEL-202611",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-11-06",
+          "dueDate": "2026-11-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-gabriel-11"
+        },
+        {
+          "id": "invoice-org-gabriel-202610",
+          "number": "SL-ORG-GABRIEL-202610",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-10-06",
+          "dueDate": "2026-10-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-gabriel-10"
+        },
+        {
+          "id": "invoice-org-gabriel-20269",
+          "number": "SL-ORG-GABRIEL-20269",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-09-06",
+          "dueDate": "2026-09-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-gabriel-9"
+        },
+        {
+          "id": "invoice-org-gabriel-20268",
+          "number": "SL-ORG-GABRIEL-20268",
+          "amount": 118,
+          "status": "paid",
+          "date": "2026-08-06",
+          "dueDate": "2026-08-06",
+          "subtotal": 100,
+          "tax": 18,
+          "method": "Online",
+          "reference": "PAY-org-gabriel-8"
+        }
+      ]
+    },
+    {
+      "id": "sub-org-farma",
+      "organizationId": "org-farma",
+      "plan": "SafeLab Business",
+      "status": "active",
+      "startDate": "2026-08-06",
+      "renewalDate": "2026-12-06",
+      "includedSeats": 10,
+      "additionalSeats": 2,
+      "seatPrice": 17,
+      "baseAmount": 118,
+      "monthlyCost": 152,
+      "currencyCode": "PEN",
+      "invoices": [
+        {
+          "id": "invoice-org-farma-202612",
+          "number": "SL-ORG-FARMA-202612",
+          "amount": 152,
+          "status": "upcoming",
+          "date": "2026-11-06",
+          "dueDate": "2026-12-06",
+          "subtotal": 128.81,
+          "tax": 23.19,
+          "reference": ""
+        },
+        {
+          "id": "invoice-org-farma-202611",
+          "number": "SL-ORG-FARMA-202611",
+          "amount": 152,
+          "status": "paid",
+          "date": "2026-11-06",
+          "dueDate": "2026-11-06",
+          "subtotal": 128.81,
+          "tax": 23.19,
+          "method": "Online",
+          "reference": "PAY-org-farma-11"
+        },
+        {
+          "id": "invoice-org-farma-202610",
+          "number": "SL-ORG-FARMA-202610",
+          "amount": 152,
+          "status": "paid",
+          "date": "2026-10-06",
+          "dueDate": "2026-10-06",
+          "subtotal": 128.81,
+          "tax": 23.19,
+          "method": "Online",
+          "reference": "PAY-org-farma-10"
+        },
+        {
+          "id": "invoice-org-farma-20269",
+          "number": "SL-ORG-FARMA-20269",
+          "amount": 152,
+          "status": "paid",
+          "date": "2026-09-06",
+          "dueDate": "2026-09-06",
+          "subtotal": 128.81,
+          "tax": 23.19,
+          "method": "Online",
+          "reference": "PAY-org-farma-9"
+        },
+        {
+          "id": "invoice-org-farma-20268",
+          "number": "SL-ORG-FARMA-20268",
+          "amount": 152,
+          "status": "paid",
+          "date": "2026-08-06",
+          "dueDate": "2026-08-06",
+          "subtotal": 128.81,
+          "tax": 23.19,
+          "method": "Online",
+          "reference": "PAY-org-farma-8"
+        }
+      ]
     }
   ]
 }

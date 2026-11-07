@@ -3,6 +3,7 @@ import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from '@/shared/application/services/i18n.service'
+import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 import { useAppStore } from '@/shared/application/stores/app.store'
 import { useNotificationStore } from '@/boundedcontext/alertsincidents/application/stores/notification.store'
 import NotificationBellPanel from '@/boundedcontext/alertsincidents/presentation/components/NotificationBellPanel.vue'
@@ -10,6 +11,7 @@ import NotificationBellPanel from '@/boundedcontext/alertsincidents/presentation
 const router = useRouter()
 const route = useRoute()
 const appStore = useAppStore()
+const authStore = useAuthStore()
 const notificationStore = useNotificationStore()
 const { t, locale } = useI18n()
 
@@ -21,7 +23,7 @@ const isNotificationsRoute = computed(() =>
 )
 
 const currentRoleLabel = computed(() =>
-  appStore.currentUser.roleLabel || appStore.currentUser.position || appStore.currentUser.role
+  t(`multi.role_${authStore.currentUser?.role || 'platformAdmin'}`)
 )
 
 function toggleSidebar() {

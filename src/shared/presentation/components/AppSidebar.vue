@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { boundedContextNavigation } from '@/shared/domain/model/navigation-items'
+import { boundedContextNavigation, platformNavigation, managementNavigation } from '@/shared/domain/model/navigation-items'
 import { useAppStore } from '@/shared/application/stores/app.store'
 import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 
@@ -20,18 +20,20 @@ const sidebarClasses = computed(() => ({
 }))
 
 const visibleNavigationItems = computed(() => {
-  return boundedContextNavigation.filter((item) =>
-      authStore.canAccessContext(item.context)
-  )
+  if(authStore.isPlatformAdmin)return platformNavigation
+  const items=boundedContextNavigation.filter(item=>authStore.canAccessContext(item.context))
+  if(authStore.isOrganizationAdmin)items.push(managementNavigation)
+  return items
 })
 
 const currentRoleLabel = computed(() => {
-  return authStore.roleLabel || t('roles.safeLabAdministrator')
+  return t(`multi.role_${authStore.currentUser?.role}`) || authStore.roleLabel
 })
 
 function isActive(path, context) {
   if (route.meta?.hideSidebarActive) return false
 
+  if(context==='platform') return route.path===path || (path==='/platform/organizations' && route.path.startsWith('/platform/organizations/'))
   if (route.meta?.sidebarContext) {
     return route.meta.sidebarContext === context
   }
@@ -64,13 +66,13 @@ function logout() {
     </RouterLink>
 
     <div class="nav-caption">
-      {{ t('navigation.allModules') }}
+      {{ authStore.isPlatformAdmin ? 'SafeLab Platform' : t('navigation.allModules') }}
     </div>
 
     <nav class="sidebar-nav">
       <RouterLink
           v-for="item in visibleNavigationItems"
-          :key="item.context"
+          :key="item.path"
           class="nav-group-link"
           :class="{ active: isActive(item.path, item.context) }"
           :to="item.path"

@@ -1,4 +1,8 @@
 export const roleDisplayMap = {
+  platformAdmin: 'SafeLab Platform Administrator',
+  organizationAdmin: 'General Manager',
+  pharmaOperationsCoordinator: 'Pharmaceutical Operations Coordinator',
+  pharmaTechnician: 'Pharmaceutical Technician',
   safeLabAdministrator: 'SafeLab Administrator',
   bioclinicalCoordinator: 'Bioclinical Operations Coordinator',
   hospitalPharmacyCoordinator: 'Hospital Pharmacy Coordinator',
@@ -101,4 +105,4 @@ export const registerRoleOptions = [
 
 export const getRoleLabel = (role) => roleDisplayMap[role] || role || 'SafeLab User'
 export const getAllowedContextsByRole = (role) => roleAccessMap[role] || []
-export const isAdministratorRole = (role) => role === 'safeLabAdministrator'
+export const isAdministratorRole = role => ['platformAdmin','organizationAdmin','safeLabAdministrator'].includes(role)

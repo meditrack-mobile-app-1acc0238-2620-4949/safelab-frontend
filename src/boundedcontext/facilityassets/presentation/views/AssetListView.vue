@@ -1,4 +1,5 @@
 <script setup>
+import LocalizedStatusBadge from '@/shared/presentation/components/LocalizedStatusBadge.vue'
 import ContextPageHeading from '@/shared/presentation/components/ContextPageHeading.vue'
 import { computed, reactive, ref } from 'vue'
 import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
@@ -29,7 +30,7 @@ function save() { demo.saveAsset({ ...form }); modalOpen.value = false }
   <section class="page">
     <div class="page-hero compact"><ContextPageHeading :description="$t('legacy.label_3d8c84643f')" /></div>
     <div class="records-quick-actions"><RouterLink class="btn records-view-button" to="/facilityassets/records/assets"><i class="pi pi-list"></i> {{ $t('records.viewAll') }}</RouterLink></div>
-<div class="page-toolbar"><button class="btn success" type="button" @click="openNew"><i class="pi pi-plus"></i> {{ $t('legacy.label_002f1230d6') }}</button></div>
+<div class="page-toolbar"><button v-if="auth.hasPermission('assets.manage')" class="btn success" type="button" @click="openNew"><i class="pi pi-plus"></i> {{ $t('legacy.label_002f1230d6') }}</button></div>
     <div class="kpi-grid">
       <article class="kpi-card"><span class="kpi-icon"><i class="pi pi-box"></i></span><div class="kpi-copy"><span>{{ $t('legacy.label_b82abdb339') }}</span><strong>{{ summary.total }}</strong><small>{{ $t('legacy.label_ee8b977071') }}</small></div></article>
       <article class="kpi-card success"><span class="kpi-icon"><i class="pi pi-check"></i></span><div class="kpi-copy"><span>{{ $t('legacy.label_c584a3644f') }}</span><strong>{{ summary.compliant }}</strong><small>{{ $t('legacy.label_9aa4808dd4') }}</small></div></article>
@@ -37,7 +38,7 @@ function save() { demo.saveAsset({ ...form }); modalOpen.value = false }
       <article class="kpi-card danger"><span class="kpi-icon"><i class="pi pi-times-circle"></i></span><div class="kpi-copy"><span>{{ $t('legacy.label_04b7b26c8c') }}</span><strong>{{ summary.critical }}</strong><small>{{ $t('legacy.label_d500c878e4') }}</small></div></article>
     </div>
     <div class="filter-bar">
-      <div class="field"><label>{{ $t('legacy.label_bce0641417') }}</label><input v-model="search" class="input" placeholder="Asset, location or responsible" /></div>
+      <div class="field"><label>{{ $t('legacy.label_bce0641417') }}</label><input v-model="search" class="input" :placeholder="$t('uiReview.assetSearchHint')" /></div>
       <div class="field"><label>{{ $t('legacy.label_bae7d5be70') }}</label><select v-model="statusFilter" class="select"><option value="all">{{ $t('legacy.label_6405179d24') }}</option><option value="compliant">{{ $t('legacy.label_c584a3644f') }}</option><option value="warning">{{ $t('legacy.label_e9c4556335') }}</option><option value="critical">{{ $t('legacy.label_04b7b26c8c') }}</option></select></div>
       <div class="actions"><button class="btn" @click="search='';statusFilter='all'">{{ $t('legacy.label_412226715c') }}</button></div>
     </div>
@@ -51,15 +52,15 @@ function save() { demo.saveAsset({ ...form }); modalOpen.value = false }
             <td data-label="Storage">{{ asset.storageUnit }}<br><small>{{ asset.lastInspection }}</small></td>
             <td data-label="Location">{{ asset.location }}</td>
             <td data-label="Responsible">{{ asset.responsible }}</td>
-            <td data-label="Status"><span :class="['status-pill', asset.status]">{{ asset.status }}</span></td>
-            <td data-label="Actions"><span class="table-actions"><button class="icon-action" @click="openEdit(asset)"><i class="pi pi-pencil"></i></button><button class="icon-action danger" @click="demo.deleteAsset(asset.id)"><i class="pi pi-trash"></i></button></span></td>
+            <td data-label="Status"><LocalizedStatusBadge :status="asset.status"/></td>
+            <td data-label="Actions"><span class="table-actions"><button v-if="auth.hasPermission('assets.manage')" class="icon-action" @click="openEdit(asset)"><i class="pi pi-pencil"></i></button><button v-if="auth.hasPermission('assets.manage')" class="icon-action danger" @click="demo.deleteAsset(asset.id)"><i class="pi pi-trash"></i></button></span></td>
           </tr>
         </tbody>
       </table>
     </article>
     <div v-if="modalOpen" class="modal-backdrop" @click.self="modalOpen=false">
       <article class="modal-card">
-        <header class="modal-header"><div><p class="eyebrow">{{ $t('legacy.label_334d8e7027') }}</p><h2>{{ form.id ? 'Edit asset' : 'New asset' }}</h2></div><button class="icon-action" @click="modalOpen=false"><i class="pi pi-times"></i></button></header>
+        <header class="modal-header"><div><p class="eyebrow">{{ $t('legacy.label_334d8e7027') }}</p><h2>{{ form.id ? $t('uiReview.editAsset') : $t('uiReview.newAsset') }}</h2></div><button class="icon-action" @click="modalOpen=false"><i class="pi pi-times"></i></button></header>
         <form class="modal-form" @submit.prevent="save">
           <div class="field"><label>{{ $t('legacy.label_8b160a9317') }}</label><input v-model="form.name" required class="input" /></div>
           <div class="field"><label>{{ $t('legacy.label_a3c686e711') }}</label><input v-model="form.category" required class="input" /></div>
