@@ -45,8 +45,8 @@ function closeOnMobile() {
   if (window.innerWidth < 1024) appStore.closeMobileSidebar()
 }
 
-function logout() {
-  authStore.logout()
+async function logout() {
+  await authStore.logout()
   appStore.closeMobileSidebar()
   router.push('/identityaccess/login')
 }

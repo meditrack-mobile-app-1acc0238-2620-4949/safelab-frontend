@@ -1,12 +1,12 @@
 <script setup>
 import LocalizedStatusBadge from '@/shared/presentation/components/LocalizedStatusBadge.vue'
 import ContextPageHeading from '@/shared/presentation/components/ContextPageHeading.vue'
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 import { useSafeLabDemoStore } from '@/shared/application/stores/demo.store'
 
 const auth = useAuthStore(); const demo = useSafeLabDemoStore(); auth.restoreSession()
-const search = ref(''); const statusFilter = ref('all'); const modalOpen = ref(false)
+const search = ref(''); const statusFilter = ref('all'); const modalOpen = ref(false); const apiError=ref('')
 const form = reactive({})
 const user = computed(() => auth.currentUser)
 const assets = computed(() => demo.scopedItems('assets', user.value).filter((asset) => {
@@ -20,16 +20,58 @@ const summary = computed(() => ({
   critical: assets.value.filter((a) => a.status === 'critical').length
 }))
 const facilities = computed(() => demo.scopedFacilities(user.value))
-function resetForm(asset = {}) { Object.assign(form, { id: '', name: '', category: 'Cold Storage', facilityId: facilities.value[0]?.id || 'fac-central', storageUnit: '', location: '', lastInspection: new Date().toISOString().slice(0,10), responsible: user.value?.fullName || 'Responsible user', status: 'compliant', scope: user.value?.segment || 'clinical-laboratory' }, asset) }
+// Solo empleados existentes, activos y de la misma empresa. Nunca se asigna por texto libre.
+const teamMembers = computed(() => demo.organizationUsers(user.value?.organizationId)
+  .filter(person => person.status === 'active' && !['platformAdmin', 'organizationAdmin'].includes(person.role)))
+const assignableMembers = computed(() => teamMembers.value.filter(person => {
+  const allowedFacilities = person.facilityIds || []
+  return !allowedFacilities.length || allowedFacilities.includes(form.facilityId)
+}))
+function inferredResponsibleId(asset) {
+  if (asset.responsibleUserId) return asset.responsibleUserId
+  const matches = teamMembers.value.filter(person => person.fullName === asset.responsible)
+  return matches.length === 1 ? matches[0].id : ''
+}
+function resetForm(asset = {}) {
+  const selected = inferredResponsibleId(asset)
+  Object.assign(form, {
+    id: '', name: '', category: 'Cold Storage',
+    facilityId: facilities.value[0]?.id || 'fac-central', storageUnit: '', location: '',
+    lastInspection: new Date().toISOString().slice(0,10), responsible: '',
+    responsibleUserId: '', status: 'compliant', scope: user.value?.segment || 'clinical-laboratory'
+  }, asset, { responsibleUserId: selected || (!asset.id && !auth.isOrganizationAdmin ? (user.value?.id || '') : '') })
+}
+watch(() => form.facilityId, () => {
+  if (form.responsibleUserId && !assignableMembers.value.some(person => person.id === form.responsibleUserId)) {
+    form.responsibleUserId = ''
+  }
+})
 function openNew() { resetForm(); modalOpen.value = true }
 function openEdit(asset) { resetForm(asset); modalOpen.value = true }
-function save() { demo.saveAsset({ ...form }); modalOpen.value = false }
+async function save() {
+  apiError.value = ''
+  try {
+    const payload = { ...form }
+    if (auth.isOrganizationAdmin) {
+      if (payload.responsibleUserId && !assignableMembers.value.some(person => person.id === payload.responsibleUserId)) {
+        throw new Error('Selecciona un empleado autorizado para esta sede.')
+      }
+    } else {
+      // Sin privilegios de gerente no se puede alterar la asignacion del activo.
+      if (payload.id) { delete payload.responsibleUserId; delete payload.responsible }
+      else { payload.responsibleUserId = user.value?.id || ''; payload.responsible = user.value?.fullName || '' }
+    }
+    await demo.saveAsset(payload)
+    modalOpen.value = false
+  } catch(e) { apiError.value=e.message }
+}
+async function deleteAsset(id) { apiError.value=''; try { await demo.deleteAsset(id) } catch(e) { apiError.value=e.message } }
 </script>
 
 <template>
   <section class="page">
     <div class="page-hero compact"><ContextPageHeading :description="$t('legacy.label_3d8c84643f')" /></div>
-    <div class="records-quick-actions"><RouterLink class="btn records-view-button" to="/facilityassets/records/assets"><i class="pi pi-list"></i> {{ $t('records.viewAll') }}</RouterLink></div>
+    <p v-if="apiError" role="alert" class="notice-strip">{{apiError}}</p><div class="records-quick-actions"><RouterLink class="btn records-view-button" to="/facilityassets/records/assets"><i class="pi pi-list"></i> {{ $t('records.viewAll') }}</RouterLink></div>
 <div class="page-toolbar"><button v-if="auth.hasPermission('assets.manage')" class="btn success" type="button" @click="openNew"><i class="pi pi-plus"></i> {{ $t('legacy.label_002f1230d6') }}</button></div>
     <div class="kpi-grid">
       <article class="kpi-card"><span class="kpi-icon"><i class="pi pi-box"></i></span><div class="kpi-copy"><span>{{ $t('legacy.label_b82abdb339') }}</span><strong>{{ summary.total }}</strong><small>{{ $t('legacy.label_ee8b977071') }}</small></div></article>
@@ -53,7 +95,7 @@ function save() { demo.saveAsset({ ...form }); modalOpen.value = false }
             <td data-label="Location">{{ asset.location }}</td>
             <td data-label="Responsible">{{ asset.responsible }}</td>
             <td data-label="Status"><LocalizedStatusBadge :status="asset.status"/></td>
-            <td data-label="Actions"><span class="table-actions"><button v-if="auth.hasPermission('assets.manage')" class="icon-action" @click="openEdit(asset)"><i class="pi pi-pencil"></i></button><button v-if="auth.hasPermission('assets.manage')" class="icon-action danger" @click="demo.deleteAsset(asset.id)"><i class="pi pi-trash"></i></button></span></td>
+            <td data-label="Actions"><span class="table-actions"><button v-if="auth.hasPermission('assets.manage')" class="icon-action" @click="openEdit(asset)"><i class="pi pi-pencil"></i></button><button v-if="auth.hasPermission('assets.manage')" class="icon-action danger" @click="deleteAsset(asset.id)"><i class="pi pi-trash"></i></button></span></td>
           </tr>
         </tbody>
       </table>
@@ -61,14 +103,20 @@ function save() { demo.saveAsset({ ...form }); modalOpen.value = false }
     <div v-if="modalOpen" class="modal-backdrop" @click.self="modalOpen=false">
       <article class="modal-card">
         <header class="modal-header"><div><p class="eyebrow">{{ $t('legacy.label_334d8e7027') }}</p><h2>{{ form.id ? $t('uiReview.editAsset') : $t('uiReview.newAsset') }}</h2></div><button class="icon-action" @click="modalOpen=false"><i class="pi pi-times"></i></button></header>
-        <form class="modal-form" @submit.prevent="save">
+        <form class="modal-form" @submit.prevent="save"><p v-if="apiError" role="alert">{{apiError}}</p>
           <div class="field"><label>{{ $t('legacy.label_8b160a9317') }}</label><input v-model="form.name" required class="input" /></div>
           <div class="field"><label>{{ $t('legacy.label_a3c686e711') }}</label><input v-model="form.category" required class="input" /></div>
           <div class="field"><label>{{ $t('legacy.label_cd4d0c5e14') }}</label><select v-model="form.facilityId" class="select"><option v-for="facility in facilities" :key="facility.id" :value="facility.id">{{ facility.name }}</option></select></div>
           <div class="field"><label>{{ $t('legacy.label_3467b79a6d') }}</label><input v-model="form.storageUnit" class="input" /></div>
           <div class="field full"><label>{{ $t('legacy.label_d219c68101') }}</label><input v-model="form.location" class="input" /></div>
           <div class="field"><label>{{ $t('legacy.label_d0a0958f60') }}</label><input v-model="form.lastInspection" type="date" class="input" /></div>
-          <div class="field"><label>{{ $t('legacy.label_96cd625f32') }}</label><input v-model="form.responsible" class="input" /></div>
+          <div class="field"><label>{{ $t('legacy.label_96cd625f32') }}</label>
+            <select v-if="auth.isOrganizationAdmin" v-model="form.responsibleUserId" class="select">
+              <option value="">{{ $t('uiReview.responsibleUnassigned') }}</option>
+              <option v-for="person in assignableMembers" :key="person.id" :value="person.id">{{ person.fullName }}</option>
+            </select>
+            <input v-else :value="form.responsible || $t('uiReview.responsibleUnassigned')" class="input" disabled />
+          </div>
           <div class="field"><label>{{ $t('legacy.label_bae7d5be70') }}</label><select v-model="form.status" class="select"><option value="compliant">{{ $t('legacy.label_c584a3644f') }}</option><option value="warning">{{ $t('legacy.label_e9c4556335') }}</option><option value="critical">{{ $t('legacy.label_04b7b26c8c') }}</option></select></div>
           <footer class="modal-footer full"><button type="button" class="btn" @click="modalOpen=false">{{ $t('legacy.label_77dfd2135f') }}</button><button class="btn success" type="submit"><i class="pi pi-check"></i> {{ $t('legacy.label_efc007a393') }}</button></footer>
         </form>

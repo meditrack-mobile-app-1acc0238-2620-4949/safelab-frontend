@@ -2331,6 +2331,7 @@
     "notSent": "Not sent",
     "notDelivered": "Not delivered",
     "retry": "Retry",
-    "actions": "Actions"
+    "actions": "Actions",
+    "responsibleUnassigned": "Unassigned"
   }
 }

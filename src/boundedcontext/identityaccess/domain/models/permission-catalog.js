@@ -51,6 +51,8 @@ export const CONTEXT_PERMISSION = {
 }
 export function effectivePermissions(user, overrides = {}) {
   if (!user) return []
+  // When connected to the API its evaluated permissions (incl. DB assignments) are authoritative.
+  if (Array.isArray(user.effectivePermissions)) return user.effectivePermissions
   if (user.role === 'platformAdmin' || user.role === 'safeLabAdministrator') return [...ALL_PERMISSIONS, 'billing.read']
   if (user.role === 'organizationAdmin') return [...MANAGER_PERMISSIONS, 'billing.read']
   const allowed = new Set(ROLE_GRANTABLE[user.role] || [])

@@ -2331,6 +2331,7 @@
     "notSent": "No enviado",
     "notDelivered": "No entregado",
     "retry": "Reintentar",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "responsibleUnassigned": "Sin asignar"
   }
 }
