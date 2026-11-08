@@ -38,16 +38,18 @@ const roleDefaultFor=(role,p)=>(ROLE_DEFAULTS[role]||[]).includes(p)
 watch(staff,(people)=>{if(!selectedId.value && people.length)loadUser(people[0])},{immediate:true})
 function resetDefault(){draft.value=Object.fromEntries(ALL_PERMISSIONS.map(p=>[p,roleDefaultFor(selected.value.role,p)]));notice.value=''}
 function cancel(){draft.value={...saved.value};scopeFacilities.value=[...(selected.value?.facilityIds||[])];scopeAssets.value=[...(selected.value?.resourceIds||[])];notice.value=''}
-function save(){
+async function save(){
   if(!selected.value)return
-  if(dirty.value && !demo.savePermissionOverrides(selected.value.id,draft.value,auth.currentUser))return
-  if(hasScopeChanges.value)demo.saveResourceAssignments(selected.value.id,scopeFacilities.value,scopeAssets.value,auth.currentUser)
-  saved.value={...draft.value};notice.value=t('multi.saved')
+  try {
+    if(dirty.value && !await demo.savePermissionOverrides(selected.value.id,draft.value,auth.currentUser))return
+    if(hasScopeChanges.value)await demo.saveResourceAssignments(selected.value.id,scopeFacilities.value,scopeAssets.value,auth.currentUser)
+    saved.value={...draft.value};notice.value=t('multi.saved')
+  } catch(error){notice.value=error.message}
 }
 function selectTab(value){if((dirty.value||hasScopeChanges.value)&&!window.confirm(t('multi.discard')))return;cancel();tab.value=value}
 onBeforeRouteLeave(()=>!dirty.value&&!hasScopeChanges.value||window.confirm(t('multi.discard')))
-function createInvitation(){
-  const result=demo.createInvitation({email:invitationEmail.value,role:invitationRole.value,facilityIds:inviteFacilities.value,resourceIds:inviteAssets.value},auth.currentUser)
+async function createInvitation(){
+  const result=await demo.createInvitation({email:invitationEmail.value,role:invitationRole.value,facilityIds:inviteFacilities.value,resourceIds:inviteAssets.value},auth.currentUser)
   if(result.error){notice.value=t(`multi.inviteError_${result.error}`);return}
   notice.value=t('multi.inviteCreated');inviting.value=false;invitationEmail.value='';invitationRole.value='';inviteFacilities.value=[];inviteAssets.value=[]
 }

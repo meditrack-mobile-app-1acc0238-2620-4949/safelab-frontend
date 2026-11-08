@@ -65,9 +65,9 @@ const router = createRouter({
     }
 })
 
-router.beforeEach(to => {
+router.beforeEach(async to => {
     const auth = useAuthStore()
-    auth.restoreSession()
+    await auth.restoreSession()
     const isPublic=to.meta.public===true
     if(!isPublic && !auth.isAuthenticated)return {path:'/identityaccess/login',query:{redirect:to.fullPath}}
     const home=auth.isPlatformAdmin?'/platform/overview':'/dashboardinsights/laboratory-dashboard'
