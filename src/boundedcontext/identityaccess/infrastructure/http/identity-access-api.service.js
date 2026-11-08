@@ -2,11 +2,11 @@ import { apiClient } from '@/shared/infrastructure/http/api-client'
 
 export class IdentityAccessApiService {
   signIn(payload) {
-    return apiClient.post('/auth/sign-in', payload)
+    return apiClient.post('/auth/login', payload)
   }
 
   signOut() {
-    return apiClient.post('/auth/sign-out')
+    return apiClient.post('/auth/logout')
   }
 
   getCurrentUser() {

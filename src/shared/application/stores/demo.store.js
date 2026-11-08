@@ -4,7 +4,7 @@ import { apiClient } from '@/shared/infrastructure/http/api-client'
 import { ROLE_GRANTABLE } from '@/boundedcontext/identityaccess/domain/models/permission-catalog'
 
 const STORAGE_KEY = 'safelab-web-multitenant-v1'
-const USE_REMOTE_API = false // Only local mock state. No deployment or remote backend.
+const USE_REMOTE_API = true // v2.5: Spring Boot es la autoridad para los datos.
 
 const clone = (value) => JSON.parse(JSON.stringify(value))
 const nowIso = () => new Date().toISOString()
@@ -76,10 +76,14 @@ function removeLocalItem(items, id) {
 // A single, understandable scope function is used by summaries, lists and exports.
 // Frontend filtering improves UX; the future backend MUST enforce these rules too.
 function visibleRows(state, key, user) {
+  // Los permisos pueden actualizarse desde otra sesion; el bootstrap contiene el usuario vigente.
+  if (user?.id && user.id === state.sessionUser?.id) user = state.sessionUser
   const rows = Array.isArray(state.data[key]) ? state.data[key] : []
   if (!user || user.role === 'platformAdmin' || user.role === 'safeLabAdministrator') return rows
   const organizationId = user.organizationId
   const tenantRows = rows.filter(row => row.organizationId === organizationId)
+  // The API bootstrap already filters by tenant, facility and assigned resources.
+  if (state.backendConnected) return tenantRows
   if (user.role === 'organizationAdmin') return tenantRows
   const facilities = new Set(user.facilityIds || (user.facilityId ? [user.facilityId] : []))
   const resourceIds = new Set(user.resourceIds || [])
@@ -187,65 +191,71 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
   },
 
   actions: {
-    setSessionScope(user) { this.sessionUser = user ? {id:user.id,role:user.role,organizationId:user.organizationId,facilityId:user.facilityId,facilityIds:user.facilityIds || [],resourceIds:user.resourceIds || []} : null; this.selectedFacilityId='all' },
+    setSessionScope(user) { this.sessionUser = user ? {...user,facilityIds:user.facilityIds || [],resourceIds:user.resourceIds || []} : null; if (!user) this.selectedFacilityId='all' },
     organizationUsers(organizationId) { return this.data.users.filter(u=>u.organizationId===organizationId) },
     subscriptionFor(organizationId) { return this.data.subscriptions.find(s=>s.organizationId===organizationId) },
     reservedSeats(organizationId) {return this.data.invitations.filter(i=>i.organizationId===organizationId && i.status==='pending' && new Date(i.expiresAt)>new Date()).length},
     occupiedSeats(organizationId) {return this.organizationUsers(organizationId).filter(u=>u.role!=='organizationAdmin' && ['active','pending_email_verification'].includes(u.status)).length},
     availableSeats(organizationId) {const s=this.subscriptionFor(organizationId);return s?Math.max(0,s.includedSeats+s.additionalSeats-this.occupiedSeats(organizationId)-this.reservedSeats(organizationId)):0},
-    saveResourceAssignments(userId, facilityIds, resourceIds, actor) {
-      const target=this.data.users.find(u=>u.id===userId)
-      const org=this.data.organizations.find(o=>o.id===actor?.organizationId)
-      if(!target||!org||actor.role!=='organizationAdmin'||target.organizationId!==org.id||target.role==='organizationAdmin')return false
-      target.facilityIds=facilityIds.filter(id=>org.facilityIds.includes(id))
-      const resources=new Set(this.data.assets.filter(a=>a.organizationId===org.id).map(a=>a.id))
-      target.resourceIds=resourceIds.filter(id=>resources.has(id))
-      this.persist()
-      this.addAudit({actor:actor.fullName,action:`Updated assignments for ${target.fullName}`,module:'Identity & Access',organizationId:org.id})
-      if(this.sessionUser?.id===userId)this.setSessionScope(target)
+    async saveResourceAssignments(userId, facilityIds, resourceIds, actor) {
+      if (actor?.role !== 'organizationAdmin') return false
+      await apiClient.patch(`/identityaccess/organizations/${actor.organizationId}/users/${encodeURIComponent(userId)}/assignments`,
+        { facilityIds, resourceIds })
+      await this.syncFromBackend()
       return true
     },
-    savePermissionOverrides(userId, values, actor) {
-      const target=this.data.users.find(u=>u.id===userId)
-      if (!target || !actor || actor.role!=='organizationAdmin' || actor.organizationId!==target.organizationId || target.role==='organizationAdmin') return false
-      // Prevent privilege escalation even when the UI is bypassed.
-      if(Object.entries(values).some(([name,enabled])=>enabled && !(ROLE_GRANTABLE[target.role]||[]).includes(name)))return false
-      this.data.permissionOverrides[userId]={...values}
-      this.addAudit({actor:actor.fullName,action:`Updated permissions for ${target.fullName}`,module:'Identity & Access',severity:'info',organizationId:target.organizationId})
-      this.persist()
+    async savePermissionOverrides(userId, values, actor) {
+      if (actor?.role !== 'organizationAdmin') return false
+      const allowed = ROLE_GRANTABLE[this.data.users.find(u => u.id === userId)?.role] || []
+      const permissions = Object.entries(values).filter(([key, active]) => active && allowed.includes(key)).map(([key]) => key)
+      await apiClient.put(`/identityaccess/organizations/${actor.organizationId}/users/${encodeURIComponent(userId)}/permissions`, { permissions })
+      await this.syncFromBackend()
       return true
     },
-    createInvitation({email,role,facilityIds,resourceIds},actor){
-      if(actor?.role!=='organizationAdmin'||!this.availableSeats(actor.organizationId)) return {error:'noSeats'}
-      if(!email || !role || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return {error:'invalid'}
-      if(this.data.users.some(u=>u.email.toLowerCase()===email.toLowerCase())) return {error:'duplicate'}
-      if(this.data.invitations.some(i=>i.organizationId===actor.organizationId&&i.email===email.toLowerCase()&&i.status==='pending'&&new Date(i.expiresAt)>new Date())) return {error:'duplicate'}
-      const org=this.data.organizations.find(o=>o.id===actor.organizationId)
-      if(!org || !((org.segment==='pharmaceutical'?['pharmaOperationsCoordinator','pharmaTechnician','complianceOfficer','maintenanceOperator']:['bioclinicalCoordinator','labTechnician','complianceOfficer','maintenanceOperator']).includes(role))) return {error:'invalidRole'}
-      const token=Array.from(crypto.getRandomValues(new Uint8Array(12)),v=>v.toString(16).padStart(2,'0')).join('').toUpperCase()
-      const invitation={id:crypto.randomUUID(),token,organizationId:org.id,email:email.toLowerCase(),role,facilityIds:(facilityIds||[]).filter(id=>org.facilityIds.includes(id)),resourceIds:resourceIds||[],status:'pending',createdBy:actor.id,createdAt:nowIso(),expiresAt:new Date(Date.now()+72*3600000).toISOString()}
-      this.data.invitations.push(invitation);this.persist();return {invitation}
+    async createInvitation({email,role,facilityIds,resourceIds}, actor) {
+      if (actor?.role !== 'organizationAdmin') return {error:'invalid'}
+      try {
+        const { data } = await apiClient.post(`/identityaccess/organizations/${actor.organizationId}/invitations`,
+          { email,role,facilityIds,resourceIds })
+        await this.syncFromBackend()
+        return { invitation: data }
+      } catch (error) { this.backendError = error.message; return {error:error.code || 'invalid'} }
     },
-    cancelInvitation(id,actor){const inv=this.data.invitations.find(i=>i.id===id && i.organizationId===actor?.organizationId);if(!inv||actor.role!=='organizationAdmin'||inv.status!=='pending')return false;inv.status='cancelled';this.persist();return true},
+    async cancelInvitation(id, actor) {
+      try {
+        await apiClient.post(`/identityaccess/organizations/${actor.organizationId}/invitations/${encodeURIComponent(id)}/cancel`)
+        await this.syncFromBackend()
+        return true
+      } catch (error) { this.backendError = error.message; return false }
+    },
     persist() {
+      if (USE_REMOTE_API) return // No guardar copias como fuente de verdad en el navegador.
       if (typeof localStorage !== 'undefined') localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizeDataShape(this.data)))
     },
 
     async syncFromBackend() {
-      // Reads the optional local JSON server: npm run server. Never contacts a deployed backend.
-      // After loading, interactions remain client-side simulated.
+      if (!sessionStorage.getItem('safelab-api-token-v25')) return false
+      this.backendLoading = true
       try {
-        const { data } = await apiClient.get('/db', { timeout: 2500 })
-        if (!Array.isArray(data?.sensors) || !Array.isArray(data?.assets)) return false
+        const { data } = await apiClient.get('/integration/bootstrap')
+        if (!Array.isArray(data?.sensors) || !Array.isArray(data?.assets)) throw new Error('Respuesta de API inválida')
         this.data = normalizeDataShape(data)
-        this.backendConnected = false
+        if (data.currentUser?.id) {
+          this.setSessionScope(data.currentUser)
+          // Keep the visible UI permission checks in sync with the current API session.
+          const auth = (await import('@/boundedcontext/identityaccess/application/stores/auth.store')).useAuthStore()
+          if (auth.currentUser?.id === data.currentUser.id) auth.setRemoteUser(data.currentUser)
+        }
+        this.data.invitations.forEach(inv => { inv.token ||= inv.code || '' })
+        this.backendConnected = true
+        this.backendError = null
         this.lastSyncedAt = nowIso()
-        this.persist()
         return true
-      } catch {
-        // The bundled seed still allows the interface to work without npm run server.
+      } catch (error) {
+        this.backendConnected = false
+        this.backendError = error.message
         return false
-      }
+      } finally { this.backendLoading = false }
     },
 
     async refreshState() {
@@ -253,24 +263,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     },
 
     async resetDemo() {
-      if (USE_REMOTE_API) {
-        try {
-          const { data } = await apiClient.post('/demo/reset')
-          this.data = normalizeDataShape(data)
-          this.backendConnected = true
-          this.backendError = null
-          this.lastSyncedAt = nowIso()
-          this.operationalStateInitialized = false
-          this.persist()
-          return
-        } catch (error) {
-          this.backendConnected = false
-          this.backendError = error.message
-        }
-      }
-      this.data = normalizeDataShape()
-      this.operationalStateInitialized = false
-      this.persist()
+      throw new Error('No se permite restaurar PostgreSQL desde el frontend. Utiliza los procedimientos de datos demo del backend.')
     },
 
     setFacility(facilityId) { this.selectedFacilityId = facilityId },
@@ -278,7 +271,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
 
     async initializeOperationalState() {
       this.data = normalizeDataShape(this.data)
-      const synced = !localStorage.getItem(STORAGE_KEY) && await this.syncFromBackend()
+      const synced = await this.syncFromBackend()
       if (synced || this.operationalStateInitialized) return
       this.operationalStateInitialized = true
       this.persist()
@@ -288,9 +281,7 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const payload = { id: nextId('aud'), actor, action, module, severity, status, evidence: evidence || nextId('EVD'), createdAt: nowIso(), organizationId }
       this.data.auditLogs.unshift(payload)
       this.persist()
-      if (USE_REMOTE_API && this.backendConnected) {
-        try { await apiClient.post('/auditLogs', payload); await this.syncFromBackend() } catch {}
-      }
+
       return payload
     },
 
@@ -298,80 +289,42 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
       const payload = { id: nextId('not'), title, message, context, severity, unread: true, organizationId:this.sessionUser?.organizationId, createdAt: nowIso() }
       this.data.notifications.unshift(payload)
       this.persist()
-      if (USE_REMOTE_API && this.backendConnected) {
-        try { await apiClient.post('/notifications', payload); await this.syncFromBackend() } catch {}
-      }
+
       return payload
     },
 
     async markNotificationRead(id) {
-      const notification = patchLocalItem(this.data.notifications, id, { unread: false })
-      this.persist()
-      if (USE_REMOTE_API && notification) {
-        try { await apiClient.post(`/alertsincidents/notifications/${id}/mark-read`); await this.syncFromBackend() } catch {}
-      }
+      await apiClient.post(`/alertsincidents/notifications/${encodeURIComponent(id)}/mark-read`)
+      await this.syncFromBackend()
     },
 
     async markAllNotificationsRead() {
-      this.data.notifications.forEach((item) => { item.unread = false })
-      this.persist()
-      if (USE_REMOTE_API) {
-        await Promise.allSettled(this.data.notifications.map((item) => apiClient.post(`/alertsincidents/notifications/${item.id}/mark-read`)))
-        await this.syncFromBackend()
-      }
+      const ids = this.notifications.filter(item => item.unread).map(item => item.id)
+      for (const id of ids) await apiClient.post(`/alertsincidents/notifications/${encodeURIComponent(id)}/mark-read`)
+      await this.syncFromBackend()
     },
 
     async createAlert(payload) {
-      const sensor = this.data.sensors.find((item) => item.id === payload.sensorId)
-      const alert = {
-        id: nextId('alert'),
-        type: payload.type || sensor?.type || 'System',
-        title: payload.title,
-        message: payload.message,
-        sensorId: payload.sensorId,
-        assetId: payload.assetId || sensor?.assetId,
-        facilityId: payload.facilityId || sensor?.facilityId || 'fac-central',
-        severity: payload.severity || 'warning',
-        status: 'active',
-        createdAt: nowIso(),
-        assignedTo: payload.assignedTo || sensor?.responsible || 'Operations team'
-      }
-      this.data.alerts.unshift(alert)
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.post('/alerts', alert); await this.syncFromBackend() } catch {}
-      }
-      return alert
+      // No existe POST /alerts en v2. La API genera alertas a partir de lecturas fuera de rango.
+      this.backendError = 'La alerta se genera desde /sensormonitoring/sensors/{id}/reading.'
+      throw new Error(this.backendError)
     },
 
     async acknowledgeAlert(id) {
-      const alert = patchLocalItem(this.data.alerts, id, { status: 'acknowledged', acknowledgedAt: nowIso() })
-      this.persist()
-      if (USE_REMOTE_API && alert) {
-        try { await apiClient.post(`/alertsincidents/alerts/${id}/acknowledge`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
-      }
+      await apiClient.post(`/alertsincidents/alerts/${encodeURIComponent(id)}/acknowledge`,
+        { notes: 'Acknowledged from SafeLab Web' })
+      await this.syncFromBackend()
     },
-
     async resolveAlert(id) {
-      const alert = patchLocalItem(this.data.alerts, id, { status: 'resolved', resolvedAt: nowIso() })
-      if (alert) {
-        const sensor = this.data.sensors.find((item) => item.id === alert.sensorId)
-        if (sensor) sensor.status = 'normal'
-      }
-      this.persist()
-      if (USE_REMOTE_API && alert) {
-        try { await apiClient.post(`/alertsincidents/alerts/${id}/resolve`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
-      }
+      await apiClient.post(`/alertsincidents/alerts/${encodeURIComponent(id)}/resolve`,
+        { notes: 'Resolved from SafeLab Web' })
+      await this.syncFromBackend()
     },
-
     async escalateAlert(id) {
-      const alert = patchLocalItem(this.data.alerts, id, { status: 'escalated' })
-      const incident = alert ? this.createIncidentFromAlertLocal(alert) : null
-      this.persist()
-      if (USE_REMOTE_API && alert) {
-        try { await apiClient.post(`/alertsincidents/alerts/${id}/escalate`, { actor: alert.assignedTo }); await this.syncFromBackend() } catch {}
-      }
-      return incident
+      const { data } = await apiClient.post(`/alertsincidents/alerts/${encodeURIComponent(id)}/escalate`,
+        { notes: 'Escalated from SafeLab Web' })
+      await this.syncFromBackend()
+      return data
     },
 
     createIncidentFromAlertLocal(alert) {
@@ -389,12 +342,13 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     },
 
     async createIncidentFromAlert(alert) {
-      const incident = this.createIncidentFromAlertLocal(alert)
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.post('/alertsincidents/incidents', incident); await this.syncFromBackend() } catch {}
-      }
-      return incident
+      const { data } = await apiClient.post('/alertsincidents/incidents', {
+        title: alert.title, description: alert.message || alert.title,
+        facilityId: alert.facilityId, severity: alert.severity,
+        relatedSensorId: alert.sensorId || null
+      })
+      await this.syncFromBackend()
+      return data
     },
 
     async simulateSensorBreach(sensorId, severity = 'critical') {
@@ -411,160 +365,84 @@ export const useSafeLabDemoStore = defineStore('safelab-demo', {
     },
 
     async updateSensor(id, patch) {
-      const sensor = this.data.sensors.find((item) => item.id === id)
-      if (!sensor) return
-      Object.assign(sensor, patch, { lastReading: nowIso() })
-      const numeric = Number(sensor.value)
-      if (['temperature', 'humidity', 'vibration', 'energy'].includes(sensor.type)) {
-        sensor.status = numeric < Number(sensor.min) || numeric > Number(sensor.max) ? 'out-of-range' : 'normal'
+      if (Object.prototype.hasOwnProperty.call(patch, 'value')) {
+        await apiClient.patch(`/sensormonitoring/sensors/${encodeURIComponent(id)}/reading`, { value: Number(patch.value) })
+      } else {
+        await apiClient.patch(`/sensormonitoring/sensors/${encodeURIComponent(id)}`, patch)
       }
-      this.persist()
-      if (USE_REMOTE_API) {
-        try {
-          if (Object.prototype.hasOwnProperty.call(patch, 'value')) {
-            await apiClient.patch(`/sensormonitoring/sensors/${id}/reading`, { value: sensor.value })
-          } else {
-            await apiClient.patch(`/sensors/${id}`, patch)
-          }
-          await this.syncFromBackend()
-        } catch (error) {
-          this.backendError = error.message
-        }
-      }
+      await this.syncFromBackend()
     },
 
     async addSensor(payload) {
-      const sensor = { id: nextId('sen'), code: `SEN-${Math.floor(Math.random() * 900 + 100)}`, status: 'normal', connection: 'online', lastReading: nowIso(), ...payload }
-      this.data.sensors.unshift(sensor)
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.post('/sensormonitoring/sensors', sensor); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
-      }
-      return sensor
+      const body = { name:payload.name, code:payload.code, type:payload.type, facilityId:payload.facilityId,
+        assetId:payload.assetId, unit:payload.unit, min:Number(payload.min), max:Number(payload.max) }
+      const { data } = await apiClient.post('/sensormonitoring/sensors', body)
+      await this.syncFromBackend()
+      return data
     },
 
     async deleteSensor(id) {
-      const { filtered } = removeLocalItem(this.data.sensors, id)
-      this.data.sensors = filtered
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.delete(`/sensors/${id}`); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
-      }
+      await apiClient.delete(`/sensormonitoring/sensors/${encodeURIComponent(id)}`)
+      await this.syncFromBackend()
     },
 
     async saveAsset(asset) {
-      let created = asset
       if (asset.id) {
-        const index = this.data.assets.findIndex((item) => item.id === asset.id)
-        if (index >= 0) this.data.assets[index] = { ...this.data.assets[index], ...asset }
+        const { id, organizationId, createdAt, updatedAt, ...changes } = asset
+        if (!Object.prototype.hasOwnProperty.call(changes, 'responsibleUserId')) delete changes.responsible
+        await apiClient.patch(`/facilityassets/assets/${encodeURIComponent(id)}`, changes)
       } else {
-        created = { ...asset, id: nextId('asset'), lastInspection: asset.lastInspection || new Date().toISOString().slice(0, 10), status: asset.status || 'compliant' }
-        this.data.assets.unshift(created)
+        const body = { name:asset.name, category:asset.category, facilityId:asset.facilityId,
+          storageUnit:asset.storageUnit || '', location:asset.location || '',
+          responsible:asset.responsible || '', responsibleUserId:asset.responsibleUserId || null,
+          lastInspection:asset.lastInspection || null, status:asset.status || 'compliant' }
+        await apiClient.post('/facilityassets/assets', body)
       }
-      this.persist()
-      if (USE_REMOTE_API) {
-        try {
-          if (asset.id) await apiClient.patch(`/facilityassets/assets/${asset.id}`, asset)
-          else await apiClient.post('/facilityassets/assets', created)
-          await this.syncFromBackend()
-        } catch (error) { this.backendError = error.message }
-      }
+      await this.syncFromBackend()
     },
 
     async deleteAsset(id) {
-      const { filtered } = removeLocalItem(this.data.assets, id)
-      this.data.assets = filtered
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.delete(`/facilityassets/assets/${id}`); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
-      }
+      await apiClient.delete(`/facilityassets/assets/${encodeURIComponent(id)}`)
+      await this.syncFromBackend()
     },
 
     async toggleRule(id) {
-      const rule = this.data.complianceRules.find((item) => item.id === id)
+      const rule = this.data.complianceRules.find(item => item.id === id)
       if (!rule) return
-      rule.status = rule.status === 'active' ? 'paused' : 'active'
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.patch(`/complianceRules/${id}`, { status: rule.status }); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
-      }
+      await apiClient.patch(`/environmentalcompliance/rules/${encodeURIComponent(id)}`,
+        {status:rule.status === 'active' ? 'paused' : 'active'})
+      await this.syncFromBackend()
     },
 
     async attachEvidence(incidentId) {
-      const incident = this.data.incidents.find((item) => item.id === incidentId)
-      if (!incident) return
-      incident.evidence = (incident.evidence || 0) + 1
-      incident.updatedAt = nowIso()
-      this.persist()
-      if (USE_REMOTE_API) {
-        try { await apiClient.patch(`/incidents/${incidentId}`, { evidence: incident.evidence, updatedAt: incident.updatedAt }); await this.syncFromBackend() } catch (error) { this.backendError = error.message }
-      }
+      throw new Error('La carga de evidencias requiere un endpoint de archivos; pendiente de implementar.')
     },
 
     async executeCommand(actuatorId, command, actor = 'Current user') {
-      const actuator = this.data.actuators.find((item) => item.id === actuatorId)
-      if (!actuator) return
-      if (actuator.status !== 'online' || actuator.safetyState === 'blocked') {
-        await this.addNotification({ title: 'Command blocked', message: `${actuator.name} rejected ${command}.`, context: 'remoteactuation', severity: 'warning' })
-        return
-      }
       this.commandInProgress = actuatorId
-      actuator.lastCommand = `${command} in progress`
-      actuator.running = command === 'Start' ? true : command === 'Stop' ? false : actuator.running
-      this.persist()
-      if (USE_REMOTE_API) {
-        try {
-          await apiClient.post(`/remoteactuation/actuators/${actuatorId}/commands`, { command, requestedBy: actor })
-          await this.syncFromBackend()
-        } catch (error) {
-          this.backendError = error.message
-        } finally {
-          this.commandInProgress = null
-        }
-        return
-      }
-      const record = { id: nextId('cmd'), command, device: actuator.name, actuatorId, status: 'completed', requestedBy: actor, createdAt: nowIso() }
-      this.data.remoteCommands.unshift(record)
-      actuator.lastCommand = command
-      this.commandInProgress = null
-      this.persist()
-      return record
+      try {
+        const value = ({ START:'Start', STOP:'Stop', RESET:'Reset' })[String(command).toUpperCase()] || command
+        const {data} = await apiClient.post(`/remoteactuation/actuators/${encodeURIComponent(actuatorId)}/commands`,
+          {command:value})
+        await this.syncFromBackend()
+        return data
+      } finally { this.commandInProgress=null }
     },
 
     async updateIncidentStatus(id, status) {
       const normalized = normalizeStatus(status)
-      const incident = this.data.incidents.find((item) => item.id === id)
-      if (!incident) return
-      incident.status = normalized
-      incident.updatedAt = nowIso()
-      if (incident.status === 'closed' || incident.status === 'resolved') {
-        const alert = this.data.alerts.find((item) => item.id === incident.relatedAlertId)
-        if (alert) alert.status = 'resolved'
-      }
-      this.persist()
-      if (USE_REMOTE_API) {
-        try {
-          if (normalized === 'investigating') await apiClient.post(`/alertsincidents/incidents/${id}/start-investigation`)
-          else if (normalized === 'resolved') await apiClient.post(`/alertsincidents/incidents/${id}/mark-resolved`)
-          else if (normalized === 'closed') await apiClient.post(`/alertsincidents/incidents/${id}/close`)
-          else await apiClient.patch(`/incidents/${id}`, { status: normalized, updatedAt: incident.updatedAt })
-          await this.syncFromBackend()
-        } catch (error) { this.backendError = error.message }
-      }
+      const operations = { investigating:'investigate', resolved:'resolve', closed:'close' }
+      if (!operations[normalized]) throw new Error('Estado no admitido para esta operación')
+      await apiClient.post(`/alertsincidents/incidents/${encodeURIComponent(id)}/${operations[normalized]}`,
+        { notes:`Changed to ${normalized} from SafeLab Web` })
+      await this.syncFromBackend()
     },
 
     async generateReport(type = 'Operational', title = null) {
-      const report = { id: nextId('rep'), title: title || `${type} report ${new Date().toLocaleDateString()}`, type, format: 'CSV', status: 'ready', organizationId:this.sessionUser?.organizationId, generatedAt: nowIso() }
-      this.data.reports.unshift(report)
-      this.persist()
-      if (USE_REMOTE_API) {
-        try {
-          const { data } = await apiClient.post('/reportinganalytics/reports/generate', { type, title: report.title, format: report.format })
-          await this.syncFromBackend()
-          return data
-        } catch (error) { this.backendError = error.message }
-      }
-      return report
+      const { data } = await apiClient.post('/reportinganalytics/reports',
+        {type, title:title || `${type} report ${new Date().toLocaleDateString()}`})
+      await this.syncFromBackend()
+      return data
     }
   }
 })

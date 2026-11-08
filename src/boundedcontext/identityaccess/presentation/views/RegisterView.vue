@@ -19,7 +19,7 @@ async function create(){
 </script>
 <template>
 <AuthShell :simple="true" :title="t('webAuth.registerTitle')" :subtitle="t('multi.registerDescription')">
-  <section v-if="submitted" class="registration-success" role="status"><i class="pi pi-check-circle success-icon"></i><h3>{{t('multi.registrationPending')}}</h3><p>{{t(mode==='company'?'multi.companyPending':'multi.employeePending')}}</p><span>{{t('webAuth.yourUsername')}}</span><strong class="assigned-username">{{auth.generatedUsername}}</strong><p>{{t('webAuth.keepUsername')}}</p><RouterLink class="auth-submit" to="/identityaccess/login">{{t('webAuth.signIn')}}</RouterLink></section>
+  <section v-if="submitted" class="registration-success" role="status"><i class="pi pi-check-circle success-icon"></i><h3>{{t('multi.registrationPending')}}</h3><p>{{t(mode==='company'?'multi.companyPending':'multi.employeePending')}}</p><p>{{t('multi.registrationPending')}}</p><RouterLink class="auth-submit" to="/identityaccess/login">{{t('webAuth.signIn')}}</RouterLink></section>
   <template v-else>
     <div class="register-options" role="group" :aria-label="t('multi.registrationType')">
       <button :class="['option',mode==='company'?'selected':'']" type="button" @click="mode='company';errorKey=''" ><i class="pi pi-building"></i><strong>{{t('multi.registerCompany')}}</strong><small>{{t('multi.companyRegistrationHint')}}</small></button>

@@ -1,5 +1,6 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
+import { useAuthStore } from '@/boundedcontext/identityaccess/application/stores/auth.store'
 import { useAppStore } from '@/shared/application/stores/app.store'
 import { useSafeLabDemoStore } from '@/shared/application/stores/demo.store'
 import AppSidebar from '@/shared/presentation/components/AppSidebar.vue'
@@ -12,9 +13,13 @@ const shellClasses = computed(() => ({
   'sidebar-hidden': !appStore.sidebarVisible
 }))
 
+const auth = useAuthStore()
+const refreshOnFocus = () => { if (auth.isAuthenticated) demoStore.syncFromBackend() }
 onMounted(() => {
   demoStore.initializeOperationalState()
+  window.addEventListener('focus', refreshOnFocus)
 })
+onUnmounted(() => window.removeEventListener('focus', refreshOnFocus))
 </script>
 
 <template>
