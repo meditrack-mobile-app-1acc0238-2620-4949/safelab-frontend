@@ -1,3 +1,17 @@
+# SafeLab Web — AV2 v2.5.1 (acceso coherente a empresas)
+
+Corrección de navegación en SafeLab Platform sin alterar contratos REST ni estructuras de base de datos:
+
+- En **Empresas → Ver todos**, la fila completa (clic, Enter o Espacio) y el botón **Detalles** abren `/platform/organizations/:organizationId` con las pestañas General, Usuarios, Dispositivos, Pagos y Operaciones; ya no aparece el modal básico para empresas.
+- Los modales de detalle de las demás colecciones permanecen sin cambios.
+- En el **Resumen de plataforma**, **Estado de las empresas** muestra un máximo de cinco organizaciones; cada empresa abre su detalle completo, mientras que **Ver todos** y el área restante de la tarjeta abren la tabla íntegra de empresas con búsqueda, filtros y paginación.
+- En **Actividad reciente**, **Ver todos** y la tarjeta abren directamente el historial completo; el resumen continúa mostrando hasta cinco eventos recientes.
+- Se mantiene navegación ES/EN y accesibilidad por teclado en las tablas.
+
+Validar con cuenta `platformAdmin` y datos de prueba antes de etiquetar o desplegar; consultar `docs/QA_PLATFORM_NAVIGATION_AV2.md`. No se modifica el backend ni se necesita migración SQL.
+
+---
+
 # SafeLab v2.5.0 RC3 — API local (sincronización y paridad)
 
 Validación pendiente. Conservar tags anteriores. V1–V4 Flyway inmutables.

@@ -52,6 +52,10 @@ const openRecords = (collection, organizationId = '', returnTab = 'overview') =>
   path: `/platform/records/${collection}`,
   query: organizationId ? { organizationId, returnTab } : {}
 })
+// Preserve the full-list return path when opening a company from its records table.
+const backFromOrganization = () => route.query.from === 'records'
+  ? openRecords('organizations')
+  : goto('organizations')
 // Summary cards navigate on their backgrounds and titles, but never hijack
 // buttons inside the card (for example, a company link or Edit sensor).
 function openSummary(event, collection, organizationId = '', returnTab = 'overview') {
@@ -182,7 +186,7 @@ watch(() => route.fullPath, () => {
     <!-- Organization drill-down: all operations stay scoped to this company. -->
     <template v-if="organization">
       <div class="platform-actions">
-        <button class="btn" type="button" @click="goto('organizations')"><i class="pi pi-arrow-left"></i> {{t('multi.platform_organizations')}}</button>
+        <button class="btn" type="button" @click="backFromOrganization"><i class="pi pi-arrow-left"></i> {{t('multi.platform_organizations')}}</button>
         <button class="btn" type="button" @click="exportCurrent"><i class="pi pi-download"></i> CSV</button>
       </div>
       <div class="kpi-grid">
@@ -263,19 +267,20 @@ watch(() => route.fullPath, () => {
     <template v-else-if="page==='overview'">
       <div class="kpi-grid"><PlatformMetricCard v-for="metric in globalMetrics" :key="metric.key" :label="ui(metric.key)" :value="metric.value" :caption="metric.caption" :icon="metric.icon" :tone="metric.tone"/></div>
       <div class="platform-main-grid">
-        <article class="card">
-          <div class="card-header"><div><h2>{{ui('organizationHealth')}}</h2><p>{{ui('organizationHealthHelp')}}</p></div><button class="btn small" @click="goto('organizations')">{{ui('viewAll')}}</button></div>
+        <article class="card platform-summary-card" tabindex="0" @click="openSummary($event,'organizations')" @keydown.enter.self="openRecords('organizations')" @keydown.space.self.prevent="openRecords('organizations')">
+          <div class="card-header"><div><h2>{{ui('organizationHealth')}}</h2><p>{{ui('organizationHealthHelp')}}</p></div><button class="btn small" type="button" @click="openRecords('organizations')">{{ui('viewAll')}}</button></div>
           <div class="platform-company-list">
-            <button v-for="company in companySummary" :key="company.id" class="platform-company-row" type="button" @click="openOrg(company.id)">
+            <button v-for="company in preview(companySummary, 5)" :key="company.id" class="platform-company-row" type="button" @click="openOrg(company.id)">
               <span class="company-icon"><i class="pi pi-building"></i></span>
               <span class="company-info"><strong>{{company.name}}</strong><small>{{company.city}} · {{company.seatsUsed}}/{{company.seatCapacity}} {{ui('seats')}}</small></span>
               <span class="company-status"><PlatformStatusBadge :status="company.subscription?.status || company.status"/><small>{{company.openAlerts}} {{ui('openAlerts').toLowerCase()}}</small></span>
               <i class="pi pi-chevron-right"></i>
             </button>
           </div>
+          <p v-if="!companySummary.length" class="text-muted">{{ui('noResults')}}</p>
         </article>
-        <article class="card">
-          <div class="card-header"><div><h2>{{ui('recentEvents')}}</h2><p>{{ui('recentEventsHelp')}}</p></div><button class="btn small" @click="goto('activity')">{{ui('viewAll')}}</button></div>
+        <article class="card platform-summary-card" tabindex="0" @click="openSummary($event,'activity')" @keydown.enter.self="openRecords('activity')" @keydown.space.self.prevent="openRecords('activity')">
+          <div class="card-header"><div><h2>{{ui('recentEvents')}}</h2><p>{{ui('recentEventsHelp')}}</p></div><button class="btn small" type="button" @click="openRecords('activity')">{{ui('viewAll')}}</button></div>
           <div class="platform-timeline">
             <div v-for="event in recentAudits" :key="event.id" class="timeline-row">
               <span class="timeline-dot"></span><div><strong>{{event.action}}</strong><small>{{orgName(event.organizationId)}} · {{dateTime(event.createdAt)}}</small></div><PlatformStatusBadge :status="event.status"/>

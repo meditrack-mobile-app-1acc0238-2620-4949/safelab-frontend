@@ -123,6 +123,14 @@ const back = () => {
   router.push(`/platform/${section}`)
 }
 const organizationDetail = id => router.push(`/platform/organizations/${id}`)
+// Organizations have their own comprehensive console. Other collections retain
+// the existing record-detail modal so this change affects only company rows.
+function openRecord(row) {
+  if (dataset.value === 'organizations') {
+    return router.push({ path: `/platform/organizations/${row.id}`, query: { from: 'records' } })
+  }
+  selected.value = row
+}
 function exportRows() {
   const safe = filtered.value.map(row => Object.fromEntries(columns.value.map(key => [fieldLabel(key),display(row,key)])))
   downloadCsv(`safelab-platform-${dataset.value}`, safe)
@@ -146,16 +154,16 @@ function exportRows() {
           <button class="btn" type="button" :disabled="!filtered.length" @click="exportRows"><i class="pi pi-download"></i> CSV</button>
         </div>
         <div class="records-scroll"><table class="records-table"><thead><tr><th v-for="field in columns" :key="field">{{fieldLabel(field)}}</th><th>{{ui('details')}}</th></tr></thead>
-          <tbody><tr v-for="row in visible" :key="row.id || row.number || row.code" class="records-row" tabindex="0" @click="selected=row" @keydown.enter.prevent="selected=row" @keydown.space.prevent="selected=row">
+          <tbody><tr v-for="row in visible" :key="row.id || row.number || row.code" class="records-row" tabindex="0" :aria-label="dataset === 'organizations' ? `${ui('viewOrganization')}: ${row.name}` : `${ui('details')}: ${row.fullName || row.name || row.number || row.code || row.id}`" @click="openRecord(row)" @keydown.enter.prevent="openRecord(row)" @keydown.space.prevent="openRecord(row)">
             <td v-for="field in columns" :key="field"><PlatformStatusBadge v-if="isBadge(field)" :status="row[field] || ''" :context="dataset==='alerts'?'alerts':''"/><span v-else>{{display(row,field)}}</span></td>
-            <td><button class="btn small" type="button" @click.stop="selected=row">{{ui('details')}} <i class="pi pi-arrow-right"></i></button></td>
+            <td><button class="btn small" type="button" @click.stop="openRecord(row)">{{ui('details')}} <i class="pi pi-arrow-right"></i></button></td>
           </tr><tr v-if="!visible.length"><td class="records-empty" :colspan="columns.length+1">{{ui('noResults')}}</td></tr></tbody>
         </table></div>
         <footer class="records-footer"><span>{{ui('page')}} {{page}} / {{pages}}</span><div class="actions"><button class="btn small" type="button" :disabled="page===1" @click="page--">{{ui('previous')}}</button><button class="btn small" type="button" :disabled="page===pages" @click="page++">{{ui('next')}}</button></div></footer>
       </article>
     </template>
     <article v-else class="card"><p>{{ui('notFound')}}</p><button class="btn" @click="back">{{ui('back')}}</button></article>
-    <div v-if="selected" class="modal-backdrop" @click.self="selected=null">
+    <div v-if="selected && dataset !== 'organizations'" class="modal-backdrop" @click.self="selected=null">
       <article class="card records-modal" role="dialog" aria-modal="true" :aria-label="ui('details')">
         <div class="card-header"><div><p class="eyebrow">{{ui('recordDetails')}}</p><h2>{{selected.fullName || selected.name || selected.number || selected.code || selected.id}}</h2></div><button class="btn" type="button" @click="selected=null"><i class="pi pi-times"></i> {{ui('close')}}</button></div>
         <div class="pair-grid"><div v-for="field in detailFields" :key="field" class="pair-box"><span>{{fieldLabel(field)}}</span><PlatformStatusBadge v-if="isBadge(field)" :status="selected[field] || ''" :context="dataset==='alerts'?'alerts':''"/><strong v-else>{{display(selected,field)}}</strong></div></div>
